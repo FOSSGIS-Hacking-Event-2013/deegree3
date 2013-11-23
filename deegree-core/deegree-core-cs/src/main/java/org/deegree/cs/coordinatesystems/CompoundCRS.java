@@ -120,9 +120,7 @@ public class CompoundCRS extends CRS implements ICompoundCRS {
     @Override
     public IAxis[] getAxis() {
         IAxis[] result = new IAxis[axis.length];
-        for ( int i = 0; i < axis.length; ++i ) {
-            result[i] = axis[i];
-        }
+        System.arraycopy(axis, 0, result, 0, axis.length);
         return result;
     }
 

@@ -81,7 +81,7 @@ public abstract class AbstractCRSStore implements CRSStore {
 
     private static Logger LOG = LoggerFactory.getLogger( AbstractCRSStore.class );
 
-    private Map<CRSCodeType, CRSResource> cachedIdentifiables = new HashMap<CRSCodeType, CRSResource>();
+    private final Map<CRSCodeType, CRSResource> cachedIdentifiables = new HashMap<CRSCodeType, CRSResource>();
 
     private Map<CRSCodeType, CRSResource> cachedCRSXY = new HashMap<CRSCodeType, CRSResource>();
 
@@ -165,7 +165,7 @@ public abstract class AbstractCRSStore implements CRSStore {
     private ICRS createXYCoordinateSystem( ICRS result ) {
         switch ( result.getType() ) {
         case GEOGRAPHIC:
-            return new GeographicCRS( ( (GeographicCRS) result ).getGeodeticDatum(),
+            return new GeographicCRS( result.getGeodeticDatum(),
                                       forceXYAxisOrder( result.getAxis() ), new CRSIdentifiable( result ) );
         case COMPOUND:
             CompoundCRS comp = (CompoundCRS) result;

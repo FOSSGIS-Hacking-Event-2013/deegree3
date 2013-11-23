@@ -578,9 +578,9 @@ public class PROJ4CRSStore extends AbstractCRSStore {
                             throws CRSConfigurationException {
         if ( datumName != null && !"".equals( datumName.trim() ) ) {
             datumName = datumName.trim();
-            String[] datumIDs = null;
-            CRSCodeType[] datumCodes = null;
-            String[] datumNames = null;
+            String[] datumIDs;
+            CRSCodeType[] datumCodes;
+            String[] datumNames;
             String[] datumDescriptions = null;
             String[] datumVersions = null;
             String[] datumAOU = null;
@@ -911,148 +911,154 @@ public class PROJ4CRSStore extends AbstractCRSStore {
 
         if ( projName != null && !"".equals( projName ) ) {
             projName = projName.trim();
-            if ( "aea".equals( projName ) ) {// "Albers Equal Area"
-            } else if ( "aeqd".equals( projName ) ) {// "Azimuthal Equidistant"
-            } else if ( "airy".equals( projName ) ) {// "Airy"
-            } else if ( "aitoff".equals( projName ) ) {// "Aitoff"
-            } else if ( "alsk".equals( projName ) ) {// "Mod. Stereographics of Alaska"
-            } else if ( "apian".equals( projName ) ) {// "Apian Globular I"
-            } else if ( "august".equals( projName ) ) {// "August Epicycloidal"
-            } else if ( "bacon".equals( projName ) ) {// "Bacon Globular"
-            } else if ( "bipc".equals( projName ) ) {// "Bipolar conic of western hemisphere"
-            } else if ( "boggs".equals( projName ) ) {// "Boggs Eumorphic"
-            } else if ( "bonne".equals( projName ) ) {// "Bonne (Werner lat_1=90)"
-            } else if ( "cass".equals( projName ) ) {// "Cassini"
-            } else if ( "cc".equals( projName ) ) {// "Central Cylindrical"
-            } else if ( "cea".equals( projName ) ) {// "Equal Area Cylindrical"
-            } else if ( "chamb".equals( projName ) ) {// "Chamberlin Trimetric"
-            } else if ( "collg".equals( projName ) ) {// "Collignon"
-            } else if ( "crast".equals( projName ) ) {// "Craster Parabolic (Putnins P4)"
-            } else if ( "denoy".equals( projName ) ) {// "Denoyer Semi-Elliptical"
-            } else if ( "eck1".equals( projName ) ) {// "Eckert I"
-            } else if ( "eck2".equals( projName ) ) {// "Eckert II"
-            } else if ( "eck3".equals( projName ) ) {// "Eckert III"
-            } else if ( "eck4".equals( projName ) ) {// "Eckert IV"
-            } else if ( "eck5".equals( projName ) ) {// "Eckert V"
-            } else if ( "eck6".equals( projName ) ) {// "Eckert VI"
-            } else if ( "eqc".equals( projName ) ) {// "Equidistant Cylindrical (Plate Caree)"
-            } else if ( "eqdc".equals( projName ) ) {// "Equidistant Conic"
-            } else if ( "euler".equals( projName ) ) {// "Euler"
-            } else if ( "fahey".equals( projName ) ) {// "Fahey"
-            } else if ( "fouc".equals( projName ) ) {// "Foucaut"
-            } else if ( "fouc_s".equals( projName ) ) {// "Foucaut Sinusoidal"
-            } else if ( "gall".equals( projName ) ) {// "Gall (Gall Stereographic)"
-            } else if ( "gins8".equals( projName ) ) {// "Ginsburg VIII (TsNIIGAiK)"
-            } else if ( "gn_sinu".equals( projName ) ) {// "General Sinusoidal Series"
-            } else if ( "gnom".equals( projName ) ) {// "Gnomonic"
-            } else if ( "goode".equals( projName ) ) {// "Goode Homolosine"
-            } else if ( "gs48".equals( projName ) ) {// "Mod. Stererographics of 48 U.S."
-            } else if ( "gs50".equals( projName ) ) {// "Mod. Stererographics of 50 U.S."
-            } else if ( "hammer".equals( projName ) ) {// "Hammer & Eckert-Greifendorff"
-            } else if ( "hatano".equals( projName ) ) {// "Hatano Asymmetrical Equal Area"
-            } else if ( "imw_p".equals( projName ) ) {// "Internation Map of the World Polyconic"
-            } else if ( "kav5".equals( projName ) ) {// "Kavraisky V"
-            } else if ( "kav7".equals( projName ) ) {// "Kavraisky VII"
-            } else if ( "labrd".equals( projName ) ) {// "Laborde"
-            } else if ( "laea".equals( projName ) ) {// "Lambert Azimuthal Equal Area"
-                result = new LambertAzimuthalEqualArea( falseNorthing, falseEasting, naturalOrigin, units, scale );
-            } else if ( "lagrng".equals( projName ) ) {// "Lagrange"
-            } else if ( "larr".equals( projName ) ) {// "Larrivee"
-            } else if ( "lask".equals( projName ) ) {// "Laskowski"
-            } else if ( "latlong".equals( projName ) ) {// "Lat/Long"
-            } else if ( "lcc".equals( projName ) ) {// "Lambert Conformal Conic"
-                result = new LambertConformalConic( firstParallelLatitude, secondParallelLatitude, falseNorthing,
-                                                    falseEasting, naturalOrigin, units, scale );
-            } else if ( "leac".equals( projName ) ) {// "Lambert Equal Area Conic"
-            } else if ( "lee_os".equals( projName ) ) {// "Lee Oblated Stereographic"
-            } else if ( "loxim".equals( projName ) ) {// "Loximuthal"
-            } else if ( "lsat".equals( projName ) ) {// "Space oblique for LANDSAT"
-            } else if ( "mbt_s".equals( projName ) ) {// "McBryde-Thomas Flat-Polar Sine"
-            } else if ( "mbt_fps".equals( projName ) ) {// "McBryde-Thomas Flat-Pole Sine (No. 2)"
-            } else if ( "mbtfpp".equals( projName ) ) {// "McBride-Thomas Flat-Polar Parabolic"
-            } else if ( "mbtfpq".equals( projName ) ) {// "McBryde-Thomas Flat-Polar Quartic"
-            } else if ( "mbtfps".equals( projName ) ) {// "McBryde-Thomas Flat-Polar Sinusoidal"
-            } else if ( "merc".equals( projName ) ) {// "Mercator"
-            } else if ( "mil_os".equals( projName ) ) {// "Miller Oblated Stereographic"
-            } else if ( "mill".equals( projName ) ) {// "Miller Cylindrical"
-            } else if ( "mpoly".equals( projName ) ) {// "Modified Polyconic"
-            } else if ( "moll".equals( projName ) ) {// "Mollweide"
-            } else if ( "murd1".equals( projName ) ) {// "Murdoch I"
-            } else if ( "murd2".equals( projName ) ) {// "Murdoch II"
-            } else if ( "murd3".equals( projName ) ) {// "Murdoch III"
-            } else if ( "nell".equals( projName ) ) {// "Nell"
-            } else if ( "nell_h".equals( projName ) ) {// "Nell-Hammer"
-            } else if ( "nicol".equals( projName ) ) {// "Nicolosi Globular"
-            } else if ( "nsper".equals( projName ) ) {// "Near-sided perspective"
-            } else if ( "nzmg".equals( projName ) ) {// "New Zealand Map Grid"
-            } else if ( "ob_tran".equals( projName ) ) {// "General Oblique Transformation"
-            } else if ( "ocea".equals( projName ) ) {// "Oblique Cylindrical Equal Area"
-            } else if ( "oea".equals( projName ) ) {// "Oblated Equal Area"
-            } else if ( "omerc".equals( projName ) ) {// "Oblique Mercator"
-            } else if ( "ortel".equals( projName ) ) {// "Ortelius Oval"
-            } else if ( "ortho".equals( projName ) ) {// "Orthographic"
-            } else if ( "pconic".equals( projName ) ) {// "Perspective Conic"
-            } else if ( "poly".equals( projName ) ) {// "Polyconic (American)"
-            } else if ( "putp1".equals( projName ) ) {// "Putnins P1"
-            } else if ( "putp2".equals( projName ) ) {// "Putnins P2"
-            } else if ( "putp3".equals( projName ) ) {// "Putnins P3"
-            } else if ( "putp3p".equals( projName ) ) {// "Putnins P3'"
-            } else if ( "putp4p".equals( projName ) ) {// "Putnins P4'"
-            } else if ( "putp5".equals( projName ) ) {// "Putnins P5"
-            } else if ( "putp5p".equals( projName ) ) {// "Putnins P5'"
-            } else if ( "putp6".equals( projName ) ) {// "Putnins P6"
-            } else if ( "putp6p".equals( projName ) ) {// "Putnins P6'"
-            } else if ( "qua_aut".equals( projName ) ) {// "Quartic Authalic"
-            } else if ( "robin".equals( projName ) ) {// "Robinson"
-            } else if ( "rpoly".equals( projName ) ) {// "Rectangular Polyconic"
-            } else if ( "sinu".equals( projName ) ) {// "Sinusoidal (Sanson-Flamsteed)"
-            } else if ( "somerc".equals( projName ) ) {// "Swiss. Obl. Mercator"
-            } else if ( "stere".equals( projName ) ) {// "Oblique Stereographic Alternative"
-                result = new StereographicAzimuthal( trueScaleLatitude, falseNorthing, falseEasting, naturalOrigin,
-                                                     units, scale );
-            } else if ( "sterea".equals( projName ) ) {
-                result = new StereographicAlternative( falseNorthing, falseEasting, naturalOrigin, units, scale );
-            } else if ( "tcc".equals( projName ) ) {// "Transverse Central Cylindrical"
-            } else if ( "tcea".equals( projName ) ) {// "Transverse Cylindrical Equal Area"
-            } else if ( "tissot".equals( projName ) ) {// "Tissot Conic"
-            } else if ( "tmerc".equals( projName ) || "utm".equals( projName ) ) {// "Transverse
-                // Mercator"
-                s = params.remove( "south" );
-                boolean north = ( s == null || "".equals( s.trim() ) );
-                s = params.remove( "zone" );
-                if ( s != null && !"".equals( s.trim() ) ) {
-                    int zone = Integer.parseInt( s );
-                    result = new TransverseMercator( zone, north, units );
-                } else {
-                    result = new TransverseMercator( north, falseNorthing, falseEasting, naturalOrigin, units, scale );
-                }
-            } else if ( "tpeqd".equals( projName ) ) {// "Two Point Equidistant"
-            } else if ( "tpers".equals( projName ) ) {// "Tilted perspective"
-            } else if ( "ups".equals( projName ) ) {// "Universal Polar Stereographic"
-            } else if ( "urm5".equals( projName ) ) {// "Urmaev V"
-            } else if ( "urmfps".equals( projName ) ) {// "Urmaev Flat-Polar Sinusoidal"
-            } else if ( "utm".equals( projName ) ) {// "Universal Transverse Mercator (UTM)"
-            } else if ( "vandg".equals( projName ) ) {// "van der Grinten (I)"
-            } else if ( "vandg2".equals( projName ) ) {// "van der Grinten II"
-            } else if ( "vandg3".equals( projName ) ) {// "van der Grinten III"
-            } else if ( "vandg4".equals( projName ) ) {// "van der Grinten IV"
-            } else if ( "vitk1".equals( projName ) ) {// "Vitkovsky I"
-            } else if ( "wag1".equals( projName ) ) {// "Wagner I (Kavraisky VI)"
-            } else if ( "wag2".equals( projName ) ) {// "Wagner II"
-            } else if ( "wag3".equals( projName ) ) {// "Wagner III"
-            } else if ( "wag4".equals( projName ) ) {// "Wagner IV"
-            } else if ( "wag5".equals( projName ) ) {// "Wagner V"
-            } else if ( "wag6".equals( projName ) ) {// "Wagner VI"
-            } else if ( "wag7".equals( projName ) ) {// "Wagner VII"
-            } else if ( "weren".equals( projName ) ) {// "Werenskiold I"
-            } else if ( "wink1".equals( projName ) ) {// "Winkel I"
-            } else if ( "wink2".equals( projName ) ) {// "Winkel II"
-            } else if ( "wintri".equals( projName ) ) {// "Winkel Tripel"
+            result = getProjection(projName, params, result, firstParallelLatitude, secondParallelLatitude, trueScaleLatitude, falseNorthing, falseEasting, scale, naturalOrigin, units);
+        }
+        return result;
+    }
+
+    private Projection getProjection(String projName, Map<String, String> params, Projection result, double firstParallelLatitude, double secondParallelLatitude, double trueScaleLatitude, double falseNorthing, double falseEasting, double scale, Point2d naturalOrigin, Unit units) {
+        String s;
+        if ( "aea".equals( projName ) ) {// "Albers Equal Area"
+        } else if ( "aeqd".equals( projName ) ) {// "Azimuthal Equidistant"
+        } else if ( "airy".equals( projName ) ) {// "Airy"
+        } else if ( "aitoff".equals( projName ) ) {// "Aitoff"
+        } else if ( "alsk".equals( projName ) ) {// "Mod. Stereographics of Alaska"
+        } else if ( "apian".equals( projName ) ) {// "Apian Globular I"
+        } else if ( "august".equals( projName ) ) {// "August Epicycloidal"
+        } else if ( "bacon".equals( projName ) ) {// "Bacon Globular"
+        } else if ( "bipc".equals( projName ) ) {// "Bipolar conic of western hemisphere"
+        } else if ( "boggs".equals( projName ) ) {// "Boggs Eumorphic"
+        } else if ( "bonne".equals( projName ) ) {// "Bonne (Werner lat_1=90)"
+        } else if ( "cass".equals( projName ) ) {// "Cassini"
+        } else if ( "cc".equals( projName ) ) {// "Central Cylindrical"
+        } else if ( "cea".equals( projName ) ) {// "Equal Area Cylindrical"
+        } else if ( "chamb".equals( projName ) ) {// "Chamberlin Trimetric"
+        } else if ( "collg".equals( projName ) ) {// "Collignon"
+        } else if ( "crast".equals( projName ) ) {// "Craster Parabolic (Putnins P4)"
+        } else if ( "denoy".equals( projName ) ) {// "Denoyer Semi-Elliptical"
+        } else if ( "eck1".equals( projName ) ) {// "Eckert I"
+        } else if ( "eck2".equals( projName ) ) {// "Eckert II"
+        } else if ( "eck3".equals( projName ) ) {// "Eckert III"
+        } else if ( "eck4".equals( projName ) ) {// "Eckert IV"
+        } else if ( "eck5".equals( projName ) ) {// "Eckert V"
+        } else if ( "eck6".equals( projName ) ) {// "Eckert VI"
+        } else if ( "eqc".equals( projName ) ) {// "Equidistant Cylindrical (Plate Caree)"
+        } else if ( "eqdc".equals( projName ) ) {// "Equidistant Conic"
+        } else if ( "euler".equals( projName ) ) {// "Euler"
+        } else if ( "fahey".equals( projName ) ) {// "Fahey"
+        } else if ( "fouc".equals( projName ) ) {// "Foucaut"
+        } else if ( "fouc_s".equals( projName ) ) {// "Foucaut Sinusoidal"
+        } else if ( "gall".equals( projName ) ) {// "Gall (Gall Stereographic)"
+        } else if ( "gins8".equals( projName ) ) {// "Ginsburg VIII (TsNIIGAiK)"
+        } else if ( "gn_sinu".equals( projName ) ) {// "General Sinusoidal Series"
+        } else if ( "gnom".equals( projName ) ) {// "Gnomonic"
+        } else if ( "goode".equals( projName ) ) {// "Goode Homolosine"
+        } else if ( "gs48".equals( projName ) ) {// "Mod. Stererographics of 48 U.S."
+        } else if ( "gs50".equals( projName ) ) {// "Mod. Stererographics of 50 U.S."
+        } else if ( "hammer".equals( projName ) ) {// "Hammer & Eckert-Greifendorff"
+        } else if ( "hatano".equals( projName ) ) {// "Hatano Asymmetrical Equal Area"
+        } else if ( "imw_p".equals( projName ) ) {// "Internation Map of the World Polyconic"
+        } else if ( "kav5".equals( projName ) ) {// "Kavraisky V"
+        } else if ( "kav7".equals( projName ) ) {// "Kavraisky VII"
+        } else if ( "labrd".equals( projName ) ) {// "Laborde"
+        } else if ( "laea".equals( projName ) ) {// "Lambert Azimuthal Equal Area"
+            result = new LambertAzimuthalEqualArea( falseNorthing, falseEasting, naturalOrigin, units, scale );
+        } else if ( "lagrng".equals( projName ) ) {// "Lagrange"
+        } else if ( "larr".equals( projName ) ) {// "Larrivee"
+        } else if ( "lask".equals( projName ) ) {// "Laskowski"
+        } else if ( "latlong".equals( projName ) ) {// "Lat/Long"
+        } else if ( "lcc".equals( projName ) ) {// "Lambert Conformal Conic"
+            result = new LambertConformalConic( firstParallelLatitude, secondParallelLatitude, falseNorthing,
+                                                falseEasting, naturalOrigin, units, scale );
+        } else if ( "leac".equals( projName ) ) {// "Lambert Equal Area Conic"
+        } else if ( "lee_os".equals( projName ) ) {// "Lee Oblated Stereographic"
+        } else if ( "loxim".equals( projName ) ) {// "Loximuthal"
+        } else if ( "lsat".equals( projName ) ) {// "Space oblique for LANDSAT"
+        } else if ( "mbt_s".equals( projName ) ) {// "McBryde-Thomas Flat-Polar Sine"
+        } else if ( "mbt_fps".equals( projName ) ) {// "McBryde-Thomas Flat-Pole Sine (No. 2)"
+        } else if ( "mbtfpp".equals( projName ) ) {// "McBride-Thomas Flat-Polar Parabolic"
+        } else if ( "mbtfpq".equals( projName ) ) {// "McBryde-Thomas Flat-Polar Quartic"
+        } else if ( "mbtfps".equals( projName ) ) {// "McBryde-Thomas Flat-Polar Sinusoidal"
+        } else if ( "merc".equals( projName ) ) {// "Mercator"
+        } else if ( "mil_os".equals( projName ) ) {// "Miller Oblated Stereographic"
+        } else if ( "mill".equals( projName ) ) {// "Miller Cylindrical"
+        } else if ( "mpoly".equals( projName ) ) {// "Modified Polyconic"
+        } else if ( "moll".equals( projName ) ) {// "Mollweide"
+        } else if ( "murd1".equals( projName ) ) {// "Murdoch I"
+        } else if ( "murd2".equals( projName ) ) {// "Murdoch II"
+        } else if ( "murd3".equals( projName ) ) {// "Murdoch III"
+        } else if ( "nell".equals( projName ) ) {// "Nell"
+        } else if ( "nell_h".equals( projName ) ) {// "Nell-Hammer"
+        } else if ( "nicol".equals( projName ) ) {// "Nicolosi Globular"
+        } else if ( "nsper".equals( projName ) ) {// "Near-sided perspective"
+        } else if ( "nzmg".equals( projName ) ) {// "New Zealand Map Grid"
+        } else if ( "ob_tran".equals( projName ) ) {// "General Oblique Transformation"
+        } else if ( "ocea".equals( projName ) ) {// "Oblique Cylindrical Equal Area"
+        } else if ( "oea".equals( projName ) ) {// "Oblated Equal Area"
+        } else if ( "omerc".equals( projName ) ) {// "Oblique Mercator"
+        } else if ( "ortel".equals( projName ) ) {// "Ortelius Oval"
+        } else if ( "ortho".equals( projName ) ) {// "Orthographic"
+        } else if ( "pconic".equals( projName ) ) {// "Perspective Conic"
+        } else if ( "poly".equals( projName ) ) {// "Polyconic (American)"
+        } else if ( "putp1".equals( projName ) ) {// "Putnins P1"
+        } else if ( "putp2".equals( projName ) ) {// "Putnins P2"
+        } else if ( "putp3".equals( projName ) ) {// "Putnins P3"
+        } else if ( "putp3p".equals( projName ) ) {// "Putnins P3'"
+        } else if ( "putp4p".equals( projName ) ) {// "Putnins P4'"
+        } else if ( "putp5".equals( projName ) ) {// "Putnins P5"
+        } else if ( "putp5p".equals( projName ) ) {// "Putnins P5'"
+        } else if ( "putp6".equals( projName ) ) {// "Putnins P6"
+        } else if ( "putp6p".equals( projName ) ) {// "Putnins P6'"
+        } else if ( "qua_aut".equals( projName ) ) {// "Quartic Authalic"
+        } else if ( "robin".equals( projName ) ) {// "Robinson"
+        } else if ( "rpoly".equals( projName ) ) {// "Rectangular Polyconic"
+        } else if ( "sinu".equals( projName ) ) {// "Sinusoidal (Sanson-Flamsteed)"
+        } else if ( "somerc".equals( projName ) ) {// "Swiss. Obl. Mercator"
+        } else if ( "stere".equals( projName ) ) {// "Oblique Stereographic Alternative"
+            result = new StereographicAzimuthal( trueScaleLatitude, falseNorthing, falseEasting, naturalOrigin,
+                                                 units, scale );
+        } else if ( "sterea".equals( projName ) ) {
+            result = new StereographicAlternative( falseNorthing, falseEasting, naturalOrigin, units, scale );
+        } else if ( "tcc".equals( projName ) ) {// "Transverse Central Cylindrical"
+        } else if ( "tcea".equals( projName ) ) {// "Transverse Cylindrical Equal Area"
+        } else if ( "tissot".equals( projName ) ) {// "Tissot Conic"
+        } else if ( "tmerc".equals( projName ) || "utm".equals( projName ) ) {// "Transverse
+            // Mercator"
+            s = params.remove( "south" );
+            boolean north = ( s == null || "".equals( s.trim() ) );
+            s = params.remove( "zone" );
+            if ( s != null && !"".equals( s.trim() ) ) {
+                int zone = Integer.parseInt( s );
+                result = new TransverseMercator( zone, north, units );
+            } else {
+                result = new TransverseMercator( north, falseNorthing, falseEasting, naturalOrigin, units, scale );
             }
-            if ( result == null ) {
-                throw new CRSConfigurationException( Messages.getMessage( "CRS_CONFIG_PROJ4_UNKNOWN_PROJECTION",
-                                                                          projName ) );
-            }
+        } else if ( "tpeqd".equals( projName ) ) {// "Two Point Equidistant"
+        } else if ( "tpers".equals( projName ) ) {// "Tilted perspective"
+        } else if ( "ups".equals( projName ) ) {// "Universal Polar Stereographic"
+        } else if ( "urm5".equals( projName ) ) {// "Urmaev V"
+        } else if ( "urmfps".equals( projName ) ) {// "Urmaev Flat-Polar Sinusoidal"
+        } else if ( "utm".equals( projName ) ) {// "Universal Transverse Mercator (UTM)"
+        } else if ( "vandg".equals( projName ) ) {// "van der Grinten (I)"
+        } else if ( "vandg2".equals( projName ) ) {// "van der Grinten II"
+        } else if ( "vandg3".equals( projName ) ) {// "van der Grinten III"
+        } else if ( "vandg4".equals( projName ) ) {// "van der Grinten IV"
+        } else if ( "vitk1".equals( projName ) ) {// "Vitkovsky I"
+        } else if ( "wag1".equals( projName ) ) {// "Wagner I (Kavraisky VI)"
+        } else if ( "wag2".equals( projName ) ) {// "Wagner II"
+        } else if ( "wag3".equals( projName ) ) {// "Wagner III"
+        } else if ( "wag4".equals( projName ) ) {// "Wagner IV"
+        } else if ( "wag5".equals( projName ) ) {// "Wagner V"
+        } else if ( "wag6".equals( projName ) ) {// "Wagner VI"
+        } else if ( "wag7".equals( projName ) ) {// "Wagner VII"
+        } else if ( "weren".equals( projName ) ) {// "Werenskiold I"
+        } else if ( "wink1".equals( projName ) ) {// "Winkel I"
+        } else if ( "wink2".equals( projName ) ) {// "Winkel II"
+        } else if ( "wintri".equals( projName ) ) {// "Winkel Tripel"
+        }
+        if ( result == null ) {
+            throw new CRSConfigurationException( Messages.getMessage("CRS_CONFIG_PROJ4_UNKNOWN_PROJECTION",
+                    projName) );
         }
         return result;
     }
@@ -1096,227 +1102,97 @@ public class PROJ4CRSStore extends AbstractCRSStore {
     private Ellipsoid getPredefinedEllipsoid( String ellipsoidName )
                             throws CRSConfigurationException {
         if ( ellipsoidName != null && !"".equals( ellipsoidName.trim() ) ) {
+            EllipsoidInformation ellipsoid;
             ellipsoidName = ellipsoidName.trim();
-            double semiMajorAxis;
-            double semiMinorAxis = Double.NaN;
-            double inverseFlattening = 1;
-            String id = ellipsoidName;
-            String name = "";
             if ( "APL4.9".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6378137.0;
-                inverseFlattening = 298.25;
-                name = "Appl. Physics. 1965";
-                // no epsg
+                ellipsoid =  new EllipsoidInformation( 6378137.0, Double.NaN, 298.25, "Appl. Physics. 1965", "" );
             } else if ( "CPM".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6375738.7;
-                inverseFlattening = 334.29;
-                name = "Comm. des Poids et Mesures 1799";
-                // no epsg
+                ellipsoid = new EllipsoidInformation( 6375738.7, Double.NaN, 334.29, "Comm. des Poids et Mesures 1799", "" );
             } else if ( "GRS67".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6378160.0;
-                inverseFlattening = 298.2471674270;
-                name = "GRS 67(IUGG 1967)";
-                id = "7036";
+                ellipsoid = new EllipsoidInformation( 6378160.0, Double.NaN, 298.2471674270, "GRS 67(IUGG 1967)", "7036" );
             } else if ( "GRS80".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6378137.0;
-                inverseFlattening = 298.257222101;
-                name = "GRS 1980(IUGG, 1980)";
-                id = "7019";
+                ellipsoid = new EllipsoidInformation( 6378137.0, Double.NaN, 298.257222101, "GRS 1980(IUGG, 1980)", "7019" );
             } else if ( "IAU76".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6378140.0;
-                inverseFlattening = 298.257;
-                name = "IAU 1976";
-                // probably clarke
-                // no epsg
+                ellipsoid = new EllipsoidInformation( 6378140.0, Double.NaN, 298.257, "IAU 1976", "" );
             } else if ( "MERIT".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6378137.0;
-                inverseFlattening = 298.257;
-                name = "MERIT 1983";
-                // no epsg
+                ellipsoid = new EllipsoidInformation( 6378137.0, Double.NaN, 298.257, "MERIT 1983", "" );
             } else if ( "NWL9D".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6378145.0;
-                inverseFlattening = 298.25;
-                name = "Naval Weapons Lab., 1965";
-                // no epsg
+                ellipsoid = new EllipsoidInformation( 6378145.0, Double.NaN, 298.25, "Naval Weapons Lab., 1965", "" );
             } else if ( "SEasia".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6378155.0;
-                semiMinorAxis = 6356773.3205;
-                name = "Southeast Asia";
-                // no epsg
+                ellipsoid = new EllipsoidInformation( 6378155.0, 6356773.3205, 1, "Southeast Asia", "" );
             } else if ( "SGS85".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6378136.0;
-                inverseFlattening = 298.257;
-                name = "Soviet Geodetic System 85";
-                // no epsg
+                ellipsoid  = new EllipsoidInformation( 6378136.0, Double.NaN, 298.257, "Soviet Geodetic System 85", "" );
             } else if ( "WGS60".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6378165.0;
-                inverseFlattening = 298.3;
-                name = "WGS 60";
-                // no epsg
+                ellipsoid = new EllipsoidInformation( 6378165.0, Double.NaN, 298.3, "WGS 60", "");
             } else if ( "WGS66".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6378145.0;
-                inverseFlattening = 298.25;
-                name = "WGS 66";
-                // no epsg
+                ellipsoid = new EllipsoidInformation( 6378145.0, Double.NaN, 298.25, "WGS 66", "" );
             } else if ( "WGS72".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6378135.0;
-                inverseFlattening = 298.26;
-                name = "WGS 72";
-                id = "7043";
+                ellipsoid = new EllipsoidInformation( 6378135.0, Double.NaN, 298.26, "WGS 72", "7043" );
             } else if ( "WGS84".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6378137.0;
-                inverseFlattening = 298.257223563;
-                name = "WGS 84";
-                id = "7030";
+                ellipsoid = new EllipsoidInformation( 6378137.0, Double.NaN, 298.257223563, "WGS 84", "7030" );
             } else if ( "airy".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6377563.396;
-                semiMinorAxis = 6356256.910;
-                name = "Airy 1830";
-                id = "7001";
+                ellipsoid = new EllipsoidInformation( 6377563.396, 6356256.910, 1, "Airy 1830", "7001" );
             } else if ( "andrae".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6377104.43;
-                inverseFlattening = 300.0;
-                name = "Andrae 1876 (Den., Iclnd.)";
-                // no epsg
+                ellipsoid = new EllipsoidInformation( 6377104.43, Double.NaN, 300.0, "Andrae 1876 (Den., Iclnd.)", "" );
             } else if ( "aust_SA".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6378160.0;
-                inverseFlattening = 298.25;
-                name = "Australian Natl & S. Amer. 1969";
-                id = "7050";
+                ellipsoid = new EllipsoidInformation( 6378160.0, Double.NaN, 298.25, "Australian Natl & S. Amer. 1969", "7050" );
             } else if ( "bess_nam".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6377483.865;
-                inverseFlattening = 299.1528128;
-                name = "Bessel 1841 (Namibia)";
-                id = "7046";
+                ellipsoid = new EllipsoidInformation( 6377483.865, Double.NaN, 299.1528128, "Bessel 1841 (Namibia)", "7046" );
             } else if ( "bessel".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6377397.155;
-                inverseFlattening = 299.1528128;
-                name = "Bessel 1841";
-                id = "7004";
+                ellipsoid = new EllipsoidInformation( 6377397.155, Double.NaN, 299.1528128, "Bessel 1841", "7004" );
             } else if ( "clrk66".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6378206.4;
-                semiMinorAxis = 6356583.8;
-                name = "Clarke 1866";
-                id = "7008";
+                ellipsoid = new EllipsoidInformation( 6378206.4, 6356583.8, 1, "Clarke 1866", "7008" );
             } else if ( "clrk80".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6378249.145;
-                inverseFlattening = 293.4663;
-                name = "Clarke 1880 mod.";
-                id = "7034";
+                ellipsoid = new EllipsoidInformation( 6378249.145, Double.NaN, 293.4663, "Clarke 1880 mod.", "7034" );
             } else if ( "delmbr".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6376428.;
-                inverseFlattening = 311.5;
-                name = "Delambre 1810 (Belgium)";
-                // epsg closed
+                ellipsoid = new EllipsoidInformation( 6376428., Double.NaN, 311.5, "Delambre 1810 (Belgium)", "" );
             } else if ( "engelis".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6378136.05;
-                inverseFlattening = 298.2566;
-                name = "Engelis 1985";
-                // espg closed
+                ellipsoid = new EllipsoidInformation( 6378136.05, Double.NaN, 298.2566, "Engelis 1985", "" );
             } else if ( "evrst30".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6377276.345;
-                inverseFlattening = 300.8017;
-                name = "Everest 1830";
-                id = "7042";
+                ellipsoid = new EllipsoidInformation( 6377276.345, Double.NaN, 300.8017, "Everest 1830", "7042" );
             } else if ( "evrst48".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6377304.063;
-                inverseFlattening = 300.8017;
-                name = "Everest 1948";
-                id = "7018";
+                ellipsoid = new EllipsoidInformation( 6377304.063, Double.NaN, 300.8017, "Everest 1948", "7018" );
             } else if ( "evrst56".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6377301.243;
-                inverseFlattening = 300.8017;
-                name = "Everest 1956";
-                id = "7044";
+                ellipsoid = new EllipsoidInformation( 6377301.243, Double.NaN, 300.8017, "Everest 1956", "7044" );
             } else if ( "evrst69".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6377295.664;
-                inverseFlattening = 300.8017;
-                name = "Everest 1969";
-                id = "7056";
+                ellipsoid = new EllipsoidInformation( 6377295.664, Double.NaN, 300.8017, "Everest 1969", "7056" );
             } else if ( "evrstSS".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6377298.556;
-                inverseFlattening = 300.8017;
-                name = "Everest (Sabah & Sarawak)";
-                id = "7016";
+                ellipsoid = new EllipsoidInformation( 6377298.556, Double.NaN, 300.8017, "Everest (Sabah & Sarawak)", "7016" );
             } else if ( "fschr60".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6378166.;
-                inverseFlattening = 298.3;
-                name = "Fischer (Mercury Datum) 1960";
-                // epsg closed
+                ellipsoid = new EllipsoidInformation( 6378166., Double.NaN, 298.3, "Fischer (Mercury Datum) 1960", "" );
             } else if ( "fschr60m".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6378155.;
-                inverseFlattening = 298.3;
-                name = "Modified Fischer 1960";
-                // epsg closed
+                ellipsoid = new EllipsoidInformation( 6378155., Double.NaN, 298.3, "Modified Fischer 1960", "" );
             } else if ( "fschr68".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6378150.;
-                inverseFlattening = 298.3;
-                name = "Fischer 1968";
-                // epsg closed
+                ellipsoid = new EllipsoidInformation( 6378150., Double.NaN, 298.3, "Fischer 1968", "" );
             } else if ( "helmert".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6378200.;
-                inverseFlattening = 298.3;
-                name = "Helmert 1906";
-                id = "7020";
+                ellipsoid = new EllipsoidInformation( 6378200., Double.NaN, 298.3, "Helmert 1906", "7020" );
             } else if ( "hough".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6378270.0;
-                inverseFlattening = 297.;
-                name = "Hough";
-                id = "7053";
+                ellipsoid = new EllipsoidInformation( 6378270.0, Double.NaN, 297., "Hough", "7053" );
             } else if ( "intl".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6378388.0;
-                inverseFlattening = 297.;
-                name = "International 1909 (Hayford)";
-                id = "7022";
+                ellipsoid = new EllipsoidInformation( 6378388.0, Double.NaN, 297., "International 1909 (Hayford)", "7022" );
             } else if ( "kaula".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6378163.;
-                inverseFlattening = 298.24;
-                name = "Kaula 1961";
-                // no epsg
+                ellipsoid = new EllipsoidInformation( 6378163., Double.NaN, 298.24, "Kaula 1961", "" );
             } else if ( "krass".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6378245.0;
-                inverseFlattening = 298.3;
-                name = "Krassowsky, 1942";
-                id = "7024";
+                ellipsoid = new EllipsoidInformation( 6378245.0, Double.NaN, 298.3, "Krassowsky, 1942", "7024" );
             } else if ( "lerch".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6378139.;
-                inverseFlattening = 298.257;
-                name = "Lerch 1979";
-                // no epsg
+                ellipsoid  = new EllipsoidInformation( 6378139., Double.NaN, 298.257, "Lerch 1979", "" );
             } else if ( "mod_airy".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6377340.189;
-                semiMinorAxis = 6356034.446;
-                name = "Modified Airy";
-                id = "7002";
+                ellipsoid = new EllipsoidInformation( 6377340.189, 6356034.446, 1, "Modified Airy", "7002" );
             } else if ( "mprts".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6397300.;
-                inverseFlattening = 191.;
-                name = "Maupertius 1738";
-                // no epsg
+                ellipsoid = new EllipsoidInformation( 6397300., Double.NaN, 191., "Maupertius 1738", "" );
             } else if ( "new_intl".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6378157.5;
-                semiMinorAxis = 6356772.2;
-                name = "New International 1967";
-                id = "7036";
+                ellipsoid  = new EllipsoidInformation( 6378157.5, 6356772.2, 1, "New International 1967", "7036" );
             } else if ( "plessis".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6376523.;
-                semiMinorAxis = 6355863.;
-                name = "Plessis 1817 (France)";
-                id = "7027";
+                ellipsoid = new EllipsoidInformation( 6376523., 6355863., 1, "Plessis 1817 (France)", "7027" );
             } else if ( "sphere".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6370997.0;
-                semiMinorAxis = 6370997.0;
-                name = "Normal Sphere (r=6370997)";
+                ellipsoid = new EllipsoidInformation( 6370997.0, 6370997.0, 1, "Normal Sphere (r=6370997)", "" );
             } else if ( "walbeck".equalsIgnoreCase( ellipsoidName ) ) {
-                semiMajorAxis = 6376896.0;
-                semiMinorAxis = 6355834.8467;
-                name = "Walbeck";
-                // epsg closed
+                ellipsoid = new EllipsoidInformation( 6376896.0, 6355834.8467, 1, "Walbeck", "" );
             } else {
                 throw new CRSConfigurationException( Messages.getMessage( "CRS_CONFIG_PROJ4_UNKNOWN_ELLIPSOID",
                                                                           ellipsoidName ) );
             }
-            // String[] ids = new String[] { id };
+            String id = ellipsoid.getId();
             CRSCodeType[] ids = new EPSGCode[] { new EPSGCode( Integer.parseInt( id ) ) };
             if ( !ellipsoidName.equals( id ) ) {
                 ids = new CRSCodeType[] { CRSCodeType.valueOf( EPSG_PRE + id ), CRSCodeType.valueOf( OGC_URN + id ),
@@ -1324,11 +1200,11 @@ public class PROJ4CRSStore extends AbstractCRSStore {
                                          CRSCodeType.valueOf( OPENGIS_URN + id ) };
             }
             Ellipsoid ellips;
-            if ( Double.isNaN( semiMinorAxis ) ) {
-                ellips = new Ellipsoid( semiMajorAxis, Unit.METRE, inverseFlattening, ids, new String[] { name }, null,
+            if ( Double.isNaN( ellipsoid.getSemiMinorAxis() ) ) {
+                ellips = new Ellipsoid( ellipsoid.getSemiMajorAxis(), Unit.METRE, ellipsoid.getInverseFlattening(), ids, new String[] { ellipsoid.getName() }, null,
                                         null, null );
             } else {// semiMinorAxis was given.
-                ellips = new Ellipsoid( Unit.METRE, semiMajorAxis, semiMinorAxis, ids, new String[] { name }, null,
+                ellips = new Ellipsoid( Unit.METRE, ellipsoid.getSemiMajorAxis(), ellipsoid.getSemiMinorAxis(), ids, new String[] { ellipsoid.getName() }, null,
                                         null, null );
             }
             return ellips;
@@ -1512,7 +1388,7 @@ public class PROJ4CRSStore extends AbstractCRSStore {
     /**
      * Set the resolver to the given resolver.
      * 
-     * @param newResolver
+     * @param newResolver new resolver to set
      */
     public void setResolver( ProjFileResource newResolver ) {
         this.resolver = newResolver;
@@ -1532,4 +1408,41 @@ public class PROJ4CRSStore extends AbstractCRSStore {
                                                  "The retrieval of an Transformation by id is currently not supported by the proj 4 provider." );
     }
 
+    private class EllipsoidInformation {
+        private double semiMajorAxis;
+        private double semiMinorAxis;
+        private double inverseFlattening;
+        private String id;
+        private String name;
+
+
+        public double getSemiMajorAxis() {
+            return semiMajorAxis;
+        }
+
+        public double getSemiMinorAxis() {
+            return semiMinorAxis;
+        }
+
+        public double getInverseFlattening() {
+            return inverseFlattening;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public EllipsoidInformation (double semiMajorAxis, double semiMinorAxis, double inverseFlattening, String name, String id) {
+            this.semiMajorAxis = semiMajorAxis;
+            this.semiMajorAxis = semiMinorAxis;
+            this.inverseFlattening = inverseFlattening;
+            this.name = name;
+            this.id = id;
+        }
+
+    }
 }

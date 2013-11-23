@@ -93,7 +93,7 @@ import org.slf4j.LoggerFactory;
 @LoggingNotes(debug = "the proj4 format provider")
 public class PROJ4CRSStore extends AbstractCRSStore {
 
-    private static Logger LOG = LoggerFactory.getLogger( PROJ4CRSStore.class );
+    private static final Logger LOG = LoggerFactory.getLogger( PROJ4CRSStore.class );
 
     private static int ellipsCount = 0;
 
@@ -111,15 +111,15 @@ public class PROJ4CRSStore extends AbstractCRSStore {
 
     private static final String OGC_URN = "URN:OGC:DEF:CRS:EPSG::";
 
-    private Map<CRSCodeType, CRS> coordinateSystems = new HashMap<CRSCodeType, CRS>( 10000 );
+    private final Map<CRSCodeType, CRS> coordinateSystems = new HashMap<CRSCodeType, CRS>( 10000 );
 
     private String version = null;
 
     private String[] versions = null;
 
-    private String areaOfUse = "Unknown";
+    private final String areaOfUse = "Unknown";
 
-    private String[] areasOfUse = new String[] { "Unknown" };
+    private final String[] areasOfUse = new String[] { "Unknown" };
 
     private ProjFileResource resolver;
 
@@ -310,7 +310,6 @@ public class PROJ4CRSStore extends AbstractCRSStore {
     private PrimeMeridian createPrimeMeridian( Map<String, String> params )
                             throws CRSConfigurationException {
         String tmpValue = params.remove( "pm" );
-        PrimeMeridian result = PrimeMeridian.GREENWICH;
         String id = "pm_" + primeMeridianCount++;
         String[] names = null;
         String[] meridianVersions = null;
@@ -319,79 +318,59 @@ public class PROJ4CRSStore extends AbstractCRSStore {
         double longitude = Double.NaN;
         if ( tmpValue != null && !"".equals( tmpValue.trim() ) && !"greenwich".equals( tmpValue.trim() ) ) {
             if ( "athens".equals( tmpValue ) ) {
-                longitude = parseAngleFormat( "23d42'58.815\"E", false );
-                id = "8912";
-                names = new String[] { "Athens" };
-                meridianVersions = new String[] { "1995-06-02" };
-                descs = new String[] { "Used in Greece for older mapping based on Hatt projection." };
-            } else if ( "bern".equals( tmpValue ) ) {
-                longitude = parseAngleFormat( "7d26'22.5\"E", false );
-                id = "8907";
-                names = new String[] { "Bern" };
-                meridianVersions = new String[] { "1995-06-02" };
-                descs = new String[] { "1895 value. Newer value of 7 deg 26 min 22.335 sec E determined in 1938." };
-            } else if ( "bogota".equals( tmpValue ) ) {
-                longitude = parseAngleFormat( "74d04'51.3\"W", false );
-                id = "8904";
-                names = new String[] { "Bogota" };
-                meridianVersions = new String[] { "1995-06-02" };
-                descs = new String[] { "Instituto Geografico 'Augustin Cadazzi' (IGAC); Bogota" };
-            } else if ( "brussels".equals( tmpValue ) ) {
-                longitude = parseAngleFormat( "4d22'4.71\"E", false );
-                id = "8910";
-                names = new String[] { "Brussel" };
-                meridianVersions = new String[] { "1995-06-02" };
-            } else if ( "ferro".equals( tmpValue ) ) {
-                longitude = parseAngleFormat( "17d40'W", false );
-                id = "8909";
-                names = new String[] { "Ferro" };
-                meridianVersions = new String[] { "1995-06-02" };
-                descs = new String[] { "Used in Austria and former Czechoslovakia. " };
-            } else if ( "jakarta".equals( tmpValue ) ) {
-                longitude = parseAngleFormat( "106d48'27.79\"E", false );
-                id = "8908";
-                names = new String[] { "Jakarta" };
-                meridianVersions = new String[] { "1995-06-02" };
-            } else if ( "lisbon".equals( tmpValue ) ) {
-                longitude = parseAngleFormat( "9d07'54.862\"W", false );
-                id = "8902";
-                names = new String[] { "lisbon" };
-                meridianVersions = new String[] { "1995-06-02" };
-                descs = new String[] { "Information Source: Instituto Geografico e Cadastral; Lisbon " };
-            } else if ( "madrid".equals( tmpValue ) ) {
-                longitude = parseAngleFormat( "3d41'16.58\"W", false );
-                id = "8905";
-                names = new String[] { "Madrid" };
-                meridianVersions = new String[] { "1995-06-02" };
-                descs = new String[] { "Value adopted by IGN (Paris) in 1936. Equivalent to 2 deg 20min 14.025sec. Preferred by EPSG to earlier value of 2deg 20min 13.95sec (2.596898 grads) used by RGS London." };
-            } else if ( "oslo".equals( tmpValue ) ) {
-                longitude = parseAngleFormat( "10d43'22.5\"E", false );
-                id = "8913";
-                names = new String[] { "Oslo" };
-                meridianVersions = new String[] { "1995-06-02" };
-                descs = new String[] { "ormerly known as Kristiania or Christiania." };
-            } else if ( "paris".equals( tmpValue ) ) {
-                longitude = parseAngleFormat( "2d20'14.025\"E", false );
-                id = "8903";
-                names = new String[] { "Paris" };
-                meridianVersions = new String[] { "1995-06-02" };
-                descs = new String[] { "Value adopted by IGN (Paris) in 1936. Equivalent to 2 deg 20min 14.025sec. Preferred by EPSG to earlier value of 2deg 20min 13.95sec (2.596898 grads) used by RGS London." };
-            } else if ( "rome".equals( tmpValue ) ) {
-                longitude = parseAngleFormat( "12d27'8.4\"E", false );
-                id = "8906";
-                names = new String[] { "Rome" };
-                meridianVersions = new String[] { "1995-06-02" };
-            } else if ( "stockholm".equals( tmpValue ) ) {
-                longitude = parseAngleFormat( "18d3'29.8\"E", false );
-                id = "8911";
-                names = new String[] { "Stockholm" };
-                meridianVersions = new String[] { "1995-06-02" };
-            } else {
+                return calculatePrimeMeridian( "8912", new String[] { "Athens" }, new String[] { "1995-06-02" },
+                        new String[] { "Used in Greece for older mapping based on Hatt projection." }, null,
+                        parseAngleFormat( "23d42'58.815\"E", false ) );
+            } if ( "bern".equals( tmpValue ) ) {
+                return calculatePrimeMeridian( "8907", new String[] { "Bern" }, new String[] { "1995-06-02" },
+                        new String[] { "1895 value. Newer value of 7 deg 26 min 22.335 sec E determined in 1938." }, null,
+                        parseAngleFormat( "7d26'22.5\"E", false ) );
+            } if ( "bogota".equals( tmpValue ) ) {
+                return calculatePrimeMeridian( "8904", new String[] { "Bogota" }, new String[] { "1995-06-02" },
+                        new String[] { "Instituto Geografico 'Augustin Cadazzi' (IGAC); Bogota" }, null,
+                        parseAngleFormat( "74d04'51.3\"W", false ) );
+            } if ( "brussels".equals( tmpValue ) ) {
+                return calculatePrimeMeridian( "8910", new String[] { "Brussel" }, new String[] { "1995-06-02" },
+                        null, null, parseAngleFormat( "4d22'4.71\"E", false ) );
+            } if ( "ferro".equals( tmpValue ) ) {
+                calculatePrimeMeridian( "8909", new String[] { "Ferro" }, new String[] { "1995-06-02" },
+                        new String[] { "Used in Austria and former Czechoslovakia. " }, null,
+                        parseAngleFormat( "17d40'W", false ) );
+            } if ( "jakarta".equals( tmpValue ) ) {
+                calculatePrimeMeridian( "8908", new String[] { "Jakarta" }, new String[] { "1995-06-02" },
+                        null, null, parseAngleFormat("106d48'27.79\"E", false) );
+            } if ( "lisbon".equals( tmpValue ) ) {
+                calculatePrimeMeridian( "8902",  new String[] { "lisbon" },  new String[] { "1995-06-02" },
+                        new String[] { "Information Source: Instituto Geografico e Cadastral; Lisbon " }, null,
+                        parseAngleFormat( "9d07'54.862\"W", false ) );
+            } if ( "madrid".equals( tmpValue ) ) {
+                calculatePrimeMeridian( "8905", new String[] { "Madrid" }, new String[] { "1995-06-02" },
+                        new String[] { "Value adopted by IGN (Paris) in 1936. Equivalent to 2 deg 20min 14.025sec. Preferred by EPSG to earlier value of 2deg 20min 13.95sec (2.596898 grads) used by RGS London." },
+                        null, parseAngleFormat( "3d41'16.58\"W", false ) );
+            } if ( "oslo".equals( tmpValue ) ) {
+                calculatePrimeMeridian( "8913", new String[] { "Oslo" }, new String[] { "1995-06-02" },
+                        new String[] { "ormerly known as Kristiania or Christiania." }, null,
+                        parseAngleFormat( "10d43'22.5\"E", false ) );
+            } if ( "paris".equals( tmpValue ) ) {
+                calculatePrimeMeridian( "8903", new String[] { "Paris" }, new String[] { "1995-06-02" },
+                        new String[] { "Value adopted by IGN (Paris) in 1936. Equivalent to 2 deg 20min 14.025sec. Preferred by EPSG to earlier value of 2deg 20min 13.95sec (2.596898 grads) used by RGS London." },
+                        null, parseAngleFormat("2d20'14.025\"E", false) );
+            } if ( "rome".equals( tmpValue ) ) {
+                calculatePrimeMeridian( "8906", new String[] { "Rome" }, new String[] { "1995-06-02" },
+                        null, null, parseAngleFormat("12d27'8.4\"E", false) );
+            } if ( "stockholm".equals( tmpValue ) ) {
+                calculatePrimeMeridian( "8911", new String[] { "Stockholm" },  new String[] { "1995-06-02" },
+                        null, null, parseAngleFormat( "18d3'29.8\"E", false ) );
+            } {
                 throw new CRSConfigurationException( Messages.getMessage( "CRS_CONFIG_PROJ4_UNKNOWN_PM",
                                                                           params.get( EPSG_PRE + "identifier" ),
                                                                           tmpValue ) );
             }
         }
+        return calculatePrimeMeridian(id, names, meridianVersions, descs, aous, longitude);
+    }
+
+    private PrimeMeridian calculatePrimeMeridian(String id, String[] names, String[] meridianVersions, String[] descs, String[] areasOfUse, double longitude) {
         if ( !Double.isNaN( longitude ) ) {
             String[] ids = new String[] { id };
             if ( !id.startsWith( "pm_" ) ) {
@@ -402,9 +381,9 @@ public class PROJ4CRSStore extends AbstractCRSStore {
             for ( int i = 0; i < ids.length; i++ ) {
                 codes[i] = CRSCodeType.valueOf( ids[i] );
             }
-            result = new PrimeMeridian( Unit.RADIAN, longitude, codes, names, meridianVersions, descs, aous );
+            return new PrimeMeridian( Unit.RADIAN, longitude, codes, names, meridianVersions, descs, areasOfUse );
         }
-        return result;
+        return PrimeMeridian.GREENWICH;
     }
 
     /**
@@ -851,72 +830,53 @@ public class PROJ4CRSStore extends AbstractCRSStore {
      */
     private Projection createProjection( String projName, Map<String, String> params )
                             throws CRSConfigurationException {
-        Projection result = null;
         // in degrees
-        double projectionLatitude = 0;
-        double projectionLongitude = 0;
-        double firstParallelLatitude = Double.NaN;
-        double secondParallelLatitude = Double.NaN;
-        double trueScaleLatitude = Double.NaN;
+        double projectionLatitude = extractProjectionParameterAsAngle(params, "lat_0", 0);
+        double projectionLongitude = extractProjectionParameterAsAngle(params, "lon_0", 0);
+        double firstParallelLatitude = extractProjectionParameterAsAngle(params, "lat_1", Double.NaN);
+        double secondParallelLatitude = extractProjectionParameterAsAngle(params, "lat_2", Double.NaN);
+        double trueScaleLatitude = extractProjectionParameterAsAngle(params, "lat_ts", Double.NaN);
 
         // meter
-        double falseNorthing = 0;
-        double falseEasting = 0;
-        double scale = 1;
+        double falseNorthing = extractProjectionParameterAsDouble(params, "y_0", 0 );
+        double falseEasting = extractProjectionParameterAsDouble(params, "x_0", 0 );
+        double scale = extractProjectionParameterAsDoubleWithTwoPossibleNames(params, "k_0", "k", 1);
 
-        String s = params.remove( "lat_0" );
-        if ( s != null && !"".equals( s.trim() ) ) {
-            projectionLatitude = parseAngleFormat( s, false );
-        }
-
-        s = params.remove( "lon_0" );
-        if ( s != null && !"".equals( s.trim() ) ) {
-            projectionLongitude = parseAngleFormat( s, false );
-        }
         Point2d naturalOrigin = new Point2d( projectionLongitude, projectionLatitude );
-
-        s = params.remove( "lat_1" );
-        if ( s != null && !"".equals( s.trim() ) ) {
-            firstParallelLatitude = parseAngleFormat( s, false );
-        }
-
-        s = params.remove( "lat_2" );
-        if ( s != null && !"".equals( s.trim() ) ) {
-            secondParallelLatitude = parseAngleFormat( s, false );
-        }
-
-        s = params.remove( "lat_ts" );
-        if ( s != null && !"".equals( s.trim() ) ) {
-            trueScaleLatitude = parseAngleFormat( s, false );
-        }
-
-        s = params.remove( "x_0" );
-        if ( s != null && !"".equals( s.trim() ) ) {
-            falseEasting = Double.parseDouble( s );
-        }
-        s = params.remove( "y_0" );
-        if ( s != null && !"".equals( s.trim() ) ) {
-            falseNorthing = Double.parseDouble( s );
-        }
-
-        s = params.remove( "k_0" );
-        if ( s == null ) {
-            s = params.remove( "k" );
-        }
-        if ( s != null && !"".equals( s.trim() ) ) {
-            scale = Double.parseDouble( s );
-        }
-
         Unit units = createUnit( params );
-
         if ( projName != null && !"".equals( projName ) ) {
             projName = projName.trim();
-            result = getProjection(projName, params, result, firstParallelLatitude, secondParallelLatitude, trueScaleLatitude, falseNorthing, falseEasting, scale, naturalOrigin, units);
+            return getProjection(projName, params, firstParallelLatitude, secondParallelLatitude, trueScaleLatitude, falseNorthing, falseEasting, scale, naturalOrigin, units);
         }
-        return result;
+        return null;
     }
 
-    private Projection getProjection(String projName, Map<String, String> params, Projection result, double firstParallelLatitude, double secondParallelLatitude, double trueScaleLatitude, double falseNorthing, double falseEasting, double scale, Point2d naturalOrigin, Unit units) {
+    private double extractProjectionParameterAsDoubleWithTwoPossibleNames( Map<String, String> params, String paramName, String alternativeName, double defaultValue ) {
+        String name = params.remove( paramName );
+        if ( name == null ) {
+            name = params.remove(alternativeName);
+        }
+        return extractProjectionParameterAsDouble(params, name, defaultValue );
+    }
+
+    private double extractProjectionParameterAsAngle( Map<String, String> params, String paramName, double defaultValue ) {
+        String name = params.remove( paramName );
+        if ( name != null && !"".equals( name.trim() ) ) {
+            return parseAngleFormat( name, false );
+        }
+        return defaultValue;
+    }
+
+    private double extractProjectionParameterAsDouble( Map<String, String> params, String paramName, double defaultValue ) {
+        String name = params.remove( paramName );
+        if ( name != null && !"".equals( name.trim() ) ) {
+            return Double.parseDouble(name);
+        }
+        return defaultValue;
+    }
+
+    private Projection getProjection(String projName, Map<String, String> params, double firstParallelLatitude, double secondParallelLatitude, double trueScaleLatitude, double falseNorthing, double falseEasting, double scale, Point2d naturalOrigin, Unit units) {
+        Projection result = null;
         String s;
         if ( "aea".equals( projName ) ) {// "Albers Equal Area"
         } else if ( "aeqd".equals( projName ) ) {// "Azimuthal Equidistant"
@@ -1102,114 +1062,115 @@ public class PROJ4CRSStore extends AbstractCRSStore {
     private Ellipsoid getPredefinedEllipsoid( String ellipsoidName )
                             throws CRSConfigurationException {
         if ( ellipsoidName != null && !"".equals( ellipsoidName.trim() ) ) {
-            EllipsoidInformation ellipsoid;
             ellipsoidName = ellipsoidName.trim();
             if ( "APL4.9".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid =  new EllipsoidInformation( 6378137.0, Double.NaN, 298.25, "Appl. Physics. 1965", "" );
-            } else if ( "CPM".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6375738.7, Double.NaN, 334.29, "Comm. des Poids et Mesures 1799", "" );
-            } else if ( "GRS67".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6378160.0, Double.NaN, 298.2471674270, "GRS 67(IUGG 1967)", "7036" );
-            } else if ( "GRS80".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6378137.0, Double.NaN, 298.257222101, "GRS 1980(IUGG, 1980)", "7019" );
-            } else if ( "IAU76".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6378140.0, Double.NaN, 298.257, "IAU 1976", "" );
-            } else if ( "MERIT".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6378137.0, Double.NaN, 298.257, "MERIT 1983", "" );
-            } else if ( "NWL9D".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6378145.0, Double.NaN, 298.25, "Naval Weapons Lab., 1965", "" );
-            } else if ( "SEasia".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6378155.0, 6356773.3205, 1, "Southeast Asia", "" );
-            } else if ( "SGS85".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid  = new EllipsoidInformation( 6378136.0, Double.NaN, 298.257, "Soviet Geodetic System 85", "" );
-            } else if ( "WGS60".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6378165.0, Double.NaN, 298.3, "WGS 60", "");
-            } else if ( "WGS66".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6378145.0, Double.NaN, 298.25, "WGS 66", "" );
-            } else if ( "WGS72".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6378135.0, Double.NaN, 298.26, "WGS 72", "7043" );
-            } else if ( "WGS84".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6378137.0, Double.NaN, 298.257223563, "WGS 84", "7030" );
-            } else if ( "airy".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6377563.396, 6356256.910, 1, "Airy 1830", "7001" );
-            } else if ( "andrae".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6377104.43, Double.NaN, 300.0, "Andrae 1876 (Den., Iclnd.)", "" );
-            } else if ( "aust_SA".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6378160.0, Double.NaN, 298.25, "Australian Natl & S. Amer. 1969", "7050" );
-            } else if ( "bess_nam".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6377483.865, Double.NaN, 299.1528128, "Bessel 1841 (Namibia)", "7046" );
-            } else if ( "bessel".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6377397.155, Double.NaN, 299.1528128, "Bessel 1841", "7004" );
-            } else if ( "clrk66".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6378206.4, 6356583.8, 1, "Clarke 1866", "7008" );
-            } else if ( "clrk80".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6378249.145, Double.NaN, 293.4663, "Clarke 1880 mod.", "7034" );
-            } else if ( "delmbr".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6376428., Double.NaN, 311.5, "Delambre 1810 (Belgium)", "" );
-            } else if ( "engelis".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6378136.05, Double.NaN, 298.2566, "Engelis 1985", "" );
-            } else if ( "evrst30".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6377276.345, Double.NaN, 300.8017, "Everest 1830", "7042" );
-            } else if ( "evrst48".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6377304.063, Double.NaN, 300.8017, "Everest 1948", "7018" );
-            } else if ( "evrst56".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6377301.243, Double.NaN, 300.8017, "Everest 1956", "7044" );
-            } else if ( "evrst69".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6377295.664, Double.NaN, 300.8017, "Everest 1969", "7056" );
-            } else if ( "evrstSS".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6377298.556, Double.NaN, 300.8017, "Everest (Sabah & Sarawak)", "7016" );
-            } else if ( "fschr60".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6378166., Double.NaN, 298.3, "Fischer (Mercury Datum) 1960", "" );
-            } else if ( "fschr60m".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6378155., Double.NaN, 298.3, "Modified Fischer 1960", "" );
-            } else if ( "fschr68".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6378150., Double.NaN, 298.3, "Fischer 1968", "" );
-            } else if ( "helmert".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6378200., Double.NaN, 298.3, "Helmert 1906", "7020" );
-            } else if ( "hough".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6378270.0, Double.NaN, 297., "Hough", "7053" );
-            } else if ( "intl".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6378388.0, Double.NaN, 297., "International 1909 (Hayford)", "7022" );
-            } else if ( "kaula".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6378163., Double.NaN, 298.24, "Kaula 1961", "" );
-            } else if ( "krass".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6378245.0, Double.NaN, 298.3, "Krassowsky, 1942", "7024" );
-            } else if ( "lerch".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid  = new EllipsoidInformation( 6378139., Double.NaN, 298.257, "Lerch 1979", "" );
-            } else if ( "mod_airy".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6377340.189, 6356034.446, 1, "Modified Airy", "7002" );
-            } else if ( "mprts".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6397300., Double.NaN, 191., "Maupertius 1738", "" );
-            } else if ( "new_intl".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid  = new EllipsoidInformation( 6378157.5, 6356772.2, 1, "New International 1967", "7036" );
-            } else if ( "plessis".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6376523., 6355863., 1, "Plessis 1817 (France)", "7027" );
-            } else if ( "sphere".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6370997.0, 6370997.0, 1, "Normal Sphere (r=6370997)", "" );
-            } else if ( "walbeck".equalsIgnoreCase( ellipsoidName ) ) {
-                ellipsoid = new EllipsoidInformation( 6376896.0, 6355834.8467, 1, "Walbeck", "" );
-            } else {
+                return getEllipsoid( ellipsoidName, 6378137.0, Double.NaN, 298.25, "Appl. Physics. 1965", "" );
+            } if ( "CPM".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6375738.7, Double.NaN, 334.29, "Comm. des Poids et Mesures 1799", "" );
+            } if ( "GRS67".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6378160.0, Double.NaN, 298.2471674270, "GRS 67(IUGG 1967)", "7036" );
+            } if ( "GRS80".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6378137.0, Double.NaN, 298.257222101, "GRS 1980(IUGG, 1980)", "7019" );
+            } if ( "IAU76".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6378140.0, Double.NaN, 298.257, "IAU 1976", "" );
+            } if ( "MERIT".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6378137.0, Double.NaN, 298.257, "MERIT 1983", "" );
+            } if ( "NWL9D".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6378145.0, Double.NaN, 298.25, "Naval Weapons Lab., 1965", "" );
+            } if ( "SEasia".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6378155.0, 6356773.3205, 1, "Southeast Asia", "" );
+            } if ( "SGS85".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6378136.0, Double.NaN, 298.257, "Soviet Geodetic System 85", "" );
+            } if ( "WGS60".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6378165.0, Double.NaN, 298.3, "WGS 60", "");
+            } if ( "WGS66".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6378145.0, Double.NaN, 298.25, "WGS 66", "" );
+            } if ( "WGS72".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6378135.0, Double.NaN, 298.26, "WGS 72", "7043" );
+            } if ( "WGS84".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6378137.0, Double.NaN, 298.257223563, "WGS 84", "7030" );
+            } if ( "airy".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6377563.396, 6356256.910, 1, "Airy 1830", "7001" );
+            } if ( "andrae".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6377104.43, Double.NaN, 300.0, "Andrae 1876 (Den., Iclnd.)", "" );
+            } if ( "aust_SA".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6378160.0, Double.NaN, 298.25, "Australian Natl & S. Amer. 1969", "7050" );
+            } if ( "bess_nam".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6377483.865, Double.NaN, 299.1528128, "Bessel 1841 (Namibia)", "7046" );
+            } if ( "bessel".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6377397.155, Double.NaN, 299.1528128, "Bessel 1841", "7004" );
+            } if ( "clrk66".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6378206.4, 6356583.8, 1, "Clarke 1866", "7008" );
+            } if ( "clrk80".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6378249.145, Double.NaN, 293.4663, "Clarke 1880 mod.", "7034" );
+            } if ( "delmbr".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6376428., Double.NaN, 311.5, "Delambre 1810 (Belgium)", "" );
+            } if ( "engelis".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6378136.05, Double.NaN, 298.2566, "Engelis 1985", "" );
+            } if ( "evrst30".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6377276.345, Double.NaN, 300.8017, "Everest 1830", "7042" );
+            } if ( "evrst48".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6377304.063, Double.NaN, 300.8017, "Everest 1948", "7018" );
+            } if ( "evrst56".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6377301.243, Double.NaN, 300.8017, "Everest 1956", "7044" );
+            } if ( "evrst69".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6377295.664, Double.NaN, 300.8017, "Everest 1969", "7056" );
+            } if ( "evrstSS".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6377298.556, Double.NaN, 300.8017, "Everest (Sabah & Sarawak)", "7016" );
+            } if ( "fschr60".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6378166., Double.NaN, 298.3, "Fischer (Mercury Datum) 1960", "" );
+            } if ( "fschr60m".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6378155., Double.NaN, 298.3, "Modified Fischer 1960", "" );
+            } if ( "fschr68".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6378150., Double.NaN, 298.3, "Fischer 1968", "" );
+            } if ( "helmert".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6378200., Double.NaN, 298.3, "Helmert 1906", "7020" );
+            } if ( "hough".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6378270.0, Double.NaN, 297., "Hough", "7053" );
+            } if ( "intl".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6378388.0, Double.NaN, 297., "International 1909 (Hayford)", "7022" );
+            } if ( "kaula".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6378163., Double.NaN, 298.24, "Kaula 1961", "" );
+            } if ( "krass".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6378245.0, Double.NaN, 298.3, "Krassowsky, 1942", "7024" );
+            } if ( "lerch".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6378139., Double.NaN, 298.257, "Lerch 1979", "" );
+            } if ( "mod_airy".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6377340.189, 6356034.446, 1, "Modified Airy", "7002" );
+            } if ( "mprts".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6397300., Double.NaN, 191., "Maupertius 1738", "" );
+            } if ( "new_intl".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6378157.5, 6356772.2, 1, "New International 1967", "7036" );
+            } if ( "plessis".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6376523., 6355863., 1, "Plessis 1817 (France)", "7027" );
+            } if ( "sphere".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6370997.0, 6370997.0, 1, "Normal Sphere (r=6370997)", "" );
+            } if ( "walbeck".equalsIgnoreCase( ellipsoidName ) ) {
+                return getEllipsoid( ellipsoidName, 6376896.0, 6355834.8467, 1, "Walbeck", "" );
+            } {
                 throw new CRSConfigurationException( Messages.getMessage( "CRS_CONFIG_PROJ4_UNKNOWN_ELLIPSOID",
                                                                           ellipsoidName ) );
             }
-            String id = ellipsoid.getId();
-            CRSCodeType[] ids = new EPSGCode[] { new EPSGCode( Integer.parseInt( id ) ) };
-            if ( !ellipsoidName.equals( id ) ) {
-                ids = new CRSCodeType[] { CRSCodeType.valueOf( EPSG_PRE + id ), CRSCodeType.valueOf( OGC_URN + id ),
-                                         CRSCodeType.valueOf( OPENGIS_URL + id ),
-                                         CRSCodeType.valueOf( OPENGIS_URN + id ) };
-            }
-            Ellipsoid ellips;
-            if ( Double.isNaN( ellipsoid.getSemiMinorAxis() ) ) {
-                ellips = new Ellipsoid( ellipsoid.getSemiMajorAxis(), Unit.METRE, ellipsoid.getInverseFlattening(), ids, new String[] { ellipsoid.getName() }, null,
-                                        null, null );
-            } else {// semiMinorAxis was given.
-                ellips = new Ellipsoid( Unit.METRE, ellipsoid.getSemiMajorAxis(), ellipsoid.getSemiMinorAxis(), ids, new String[] { ellipsoid.getName() }, null,
-                                        null, null );
-            }
-            return ellips;
         }
         return null;
+    }
+
+    private Ellipsoid getEllipsoid( String ellipsoidName, double semiMajorAxis, double semiMinorAxis, double inverseFlattening, String name, String id ) {
+        CRSCodeType[] ids = new EPSGCode[] { new EPSGCode( Integer.parseInt( id ) ) };
+        if ( !ellipsoidName.equals( id ) ) {
+            ids = new CRSCodeType[] { CRSCodeType.valueOf( EPSG_PRE + id ), CRSCodeType.valueOf( OGC_URN + id ),
+                                     CRSCodeType.valueOf( OPENGIS_URL + id ),
+                                     CRSCodeType.valueOf( OPENGIS_URN + id ) };
+        }
+        Ellipsoid ellips;
+        if ( Double.isNaN( semiMinorAxis ) ) {
+            ellips = new Ellipsoid( semiMajorAxis, Unit.METRE, inverseFlattening, ids, new String[] { name }, null,
+                                    null, null );
+        } else {// semiMinorAxis was given.
+            ellips = new Ellipsoid( Unit.METRE, semiMajorAxis, semiMinorAxis, ids, new String[] { name }, null,
+                                    null, null );
+        }
+        return ellips;
     }
 
     /**
@@ -1268,7 +1229,7 @@ public class PROJ4CRSStore extends AbstractCRSStore {
                 if ( s < 0 || s >= 60 ) {
                     throw new NumberFormatException( "Seconds must be between 0 and 59" );
                 }
-            } else if ( i != 0 ) {
+            } else {
                 m = Double.valueOf(mmss);
             }
             if ( toDegrees ) {
@@ -1397,7 +1358,7 @@ public class PROJ4CRSStore extends AbstractCRSStore {
     /**
      * @return the resolver for a type.
      */
-    protected ProjFileResource getResolver() {
+    ProjFileResource getResolver() {
         return resolver;
     }
 
@@ -1406,43 +1367,5 @@ public class PROJ4CRSStore extends AbstractCRSStore {
                             throws CRSConfigurationException {
         throw new UnsupportedOperationException(
                                                  "The retrieval of an Transformation by id is currently not supported by the proj 4 provider." );
-    }
-
-    private class EllipsoidInformation {
-        private double semiMajorAxis;
-        private double semiMinorAxis;
-        private double inverseFlattening;
-        private String id;
-        private String name;
-
-
-        public double getSemiMajorAxis() {
-            return semiMajorAxis;
-        }
-
-        public double getSemiMinorAxis() {
-            return semiMinorAxis;
-        }
-
-        public double getInverseFlattening() {
-            return inverseFlattening;
-        }
-
-        public String getId() {
-            return id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public EllipsoidInformation (double semiMajorAxis, double semiMinorAxis, double inverseFlattening, String name, String id) {
-            this.semiMajorAxis = semiMajorAxis;
-            this.semiMajorAxis = semiMinorAxis;
-            this.inverseFlattening = inverseFlattening;
-            this.name = name;
-            this.id = id;
-        }
-
     }
 }

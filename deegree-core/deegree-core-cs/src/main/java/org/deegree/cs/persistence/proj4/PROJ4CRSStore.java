@@ -452,66 +452,6 @@ public class PROJ4CRSStore extends AbstractCRSStore {
                     }
                 }
             }
-
-            /**
-             * These parameters (R_A, R_V, R_a, R_g, R_h, R_lat_a, R_lat_g) were not used in the epsg file, maybe they
-             * are of future value?. <code>
-             *     private final static double SIXTH = .1666666666666666667; // 1/6
-             *     private final static double RA4 = .04722222222222222222; // 17/360
-             *     private final static double RA6 = .02215608465608465608; // 67/3024
-             *     private final static double RV4 = .06944444444444444444; // 5/72
-             *     private final static double RV6 = .04243827160493827160; // 55/1296
-             * </code>
-             */
-            // String tmpValue = params.get( "R_A" );
-            // if ( tmpValue != null && Boolean.getBoolean( tmpValue ) ) {
-            // semiMajorAxis *= 1. - eccentricitySquared
-            // * ( SIXTH + eccentricitySquared * ( RA4 + eccentricitySquared * RA6 ) );
-            // } else {
-            // tmpValue = params.get( "R_V" );
-            // if ( tmpValue != null && Boolean.getBoolean( tmpValue ) ) {
-            // semiMajorAxis *= 1. - eccentricitySquared
-            // * ( SIXTH + eccentricitySquared * ( RV4 + eccentricitySquared * RV6 ) );
-            // } else {
-            // tmpValue = params.get( "R_a" );
-            // if ( tmpValue != null && Boolean.getBoolean( tmpValue ) ) {
-            // semiMajorAxis = .5 * ( semiMajorAxis + semiMinorAxis );
-            // } else {
-            // tmpValue = params.get( "R_g" );
-            // if ( tmpValue != null && Boolean.getBoolean( tmpValue ) ) {
-            // semiMajorAxis = Math.sqrt( semiMajorAxis * semiMinorAxis );
-            // } else {
-            // tmpValue = params.get( "R_h" );
-            // if ( tmpValue != null && Boolean.getBoolean( tmpValue ) ) {
-            // semiMajorAxis = 2. * semiMajorAxis * semiMinorAxis / ( semiMajorAxis + semiMinorAxis
-            // );
-            // eccentricitySquared = 0.;
-            // } else {
-            // tmpValue = params.get( "R_lat_a" );
-            // if ( tmpValue != null ) {
-            // double tmp = Math.sin( parseAngle( tmpValue ) );
-            // if ( Math.abs( tmp ) > HALFPI )
-            // throw new CRSConfigurationException( "-11" );
-            // tmp = 1. - eccentricitySquared * tmp * tmp;
-            // semiMajorAxis *= .5 * ( 1. - eccentricitySquared + tmp ) / ( tmp * Math.sqrt( tmp )
-            // );
-            // eccentricitySquared = 0.;
-            // } else {
-            // tmpValue = params.get( "R_lat_g" );
-            // if ( tmpValue != null ) {
-            // double tmp = Math.sin( parseAngle( tmpValue ) );
-            // if ( Math.abs( tmp ) > HALFPI )
-            // throw new CRSConfigurationException( "-11" );
-            // tmp = 1. - eccentricitySquared * tmp * tmp;
-            // semiMajorAxis *= Math.sqrt( 1. - eccentricitySquared ) / tmp;
-            // eccentricitySquared = 0.;
-            // }
-            // }
-            // }
-            // }
-            // }
-            // }
-            // }
             if ( Double.isNaN( semiMajorAxis ) ) {
                 throw new CRSConfigurationException(
                                                      Messages.getMessage(
@@ -1323,13 +1263,6 @@ public class PROJ4CRSStore extends AbstractCRSStore {
         }
         return createProjectedCRS( crsType, crsDefinition );
     }
-
-    // @Override
-    // public Transformation parseTransformation( Map<String, String> transformationDefinition )
-    // throws CRSConfigurationException {
-    // throw new UnsupportedOperationException(
-    // "Parsing of transformation parameters is not applicable for proj4 configuration files yet." );
-    // }
 
     public Transformation getDirectTransformation( ICRS sourceCRS, ICRS targetCRS )
                             throws CRSConfigurationException {

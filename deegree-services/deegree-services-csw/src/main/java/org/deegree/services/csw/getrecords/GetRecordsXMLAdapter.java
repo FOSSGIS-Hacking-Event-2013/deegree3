@@ -84,11 +84,7 @@ public class GetRecordsXMLAdapter extends AbstractGetRecordsXMLAdapter {
             }
             // optional
             if ( new QName( CSW_202_NS, "DistributedSearch" ).equals( omElement.getQName() ) ) {
-                if ( omElement.getText().equals( "true" ) ) {
-                    distributedSearch = true;
-                } else {
-                    distributedSearch = false;
-                }
+                distributedSearch = omElement.getText().equals("true");
                 hopCount = getNodeAsInt( omElement, new XPath( "@hopCount", nsContext ), 2 );
             }
             // optional

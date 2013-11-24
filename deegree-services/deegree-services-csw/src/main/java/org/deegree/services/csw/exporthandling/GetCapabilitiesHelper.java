@@ -379,11 +379,11 @@ public class GetCapabilitiesHelper {
                 break;
             }
             case START_ELEMENT: {
-                if ( inStream.getNamespaceURI() == "" || inStream.getPrefix() == DEFAULT_NS_PREFIX
+                if ( inStream.getNamespaceURI().equals( "" ) || inStream.getPrefix().equals( DEFAULT_NS_PREFIX )
                      || inStream.getPrefix() == null ) {
                     writer.writeStartElement( inStream.getLocalName() );
                 } else {
-                    if ( writer.getNamespaceContext().getPrefix( inStream.getPrefix() ) == "" ) {
+                    if ( writer.getNamespaceContext().getPrefix( inStream.getPrefix() ).equals( "" ) ) {
                         // TODO handle special cases for prefix binding, see
                         // http://download.oracle.com/docs/cd/E17409_01/javase/6/docs/api/javax/xml/namespace/NamespaceContext.html#getNamespaceURI(java.lang.String)
                         writer.setPrefix( inStream.getPrefix(), inStream.getNamespaceURI() );

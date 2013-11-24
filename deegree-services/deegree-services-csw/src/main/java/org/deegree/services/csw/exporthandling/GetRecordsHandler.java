@@ -78,7 +78,6 @@ import org.deegree.metadata.ebrim.RegistryObject;
 import org.deegree.metadata.persistence.MetadataQuery;
 import org.deegree.metadata.persistence.MetadataResultSet;
 import org.deegree.metadata.persistence.MetadataStore;
-import org.deegree.protocol.csw.CSWConstants;
 import org.deegree.protocol.csw.CSWConstants.OutputSchema;
 import org.deegree.protocol.csw.CSWConstants.ResultType;
 import org.deegree.protocol.csw.CSWConstants.ReturnableElement;
@@ -157,7 +156,7 @@ public class GetRecordsHandler {
 
     private XMLStreamWriter getXmlorJsonStreamWriter( String outputFormat, HttpResponseBuffer response )
                             throws XMLStreamException, IOException {
-        XMLStreamWriter xmlWriter = null;
+        XMLStreamWriter xmlWriter;
         if ( "application/json".equals( outputFormat ) ) {
             JsonXMLOutputFactory factory = new JsonXMLOutputFactory();
             factory.setProperty( PROP_PRETTY_PRINT, true );
@@ -176,7 +175,6 @@ public class GetRecordsHandler {
      * 
      * @param xmlWriter
      * @param getRec
-     * @param response
      * @param version
      * @throws XMLStreamException
      * @throws SQLException
@@ -196,7 +194,7 @@ public class GetRecordsHandler {
      * 
      * Exporthandling for the version 2.0.2
      * 
-     * @param xmlWriter
+     * @param writer
      * @param getRec
      * @throws XMLStreamException
      * @throws SQLException
@@ -255,9 +253,9 @@ public class GetRecordsHandler {
             asDC = true;
         }
 
-        ReturnableElement elementSetName = null;
-        String[] returnElements = null;
-        MetadataQuery query = null;
+        ReturnableElement elementSetName;
+        String[] returnElements;
+        MetadataQuery query;
 
         if ( getRec.getQuery() != null ) {
             int maxRecords = maxMatches > 0 ? maxMatches : getRec.getMaxRecords();
@@ -284,11 +282,10 @@ public class GetRecordsHandler {
 
         String elementSetValue = elementSetName != null ? elementSetName.name() : "custom";
 
-        int returnedRecords = 0;
+        int returnedRecords;
         int counter = 0;
 
-        boolean isResultTypeHits = getRec.getResultType().name().equals( CSWConstants.ResultType.hits.name() ) ? true
-                                                                                                              : false;
+        boolean isResultTypeHits = getRec.getResultType().name().equals( ResultType.hits.name() );
 
         MetadataResultSet<?> rs = null;
 
@@ -296,8 +293,8 @@ public class GetRecordsHandler {
         try {
             if ( maxMatches <= 0 ) {
                 LOG.debug( "Max matches not configured, performing 2 queries: count + data" );
-                int countRows = 0;
-                int nextRecord = 0;
+                int countRows;
+                int nextRecord;
 
                 try {
                     countRows = store.getRecordCount( query );

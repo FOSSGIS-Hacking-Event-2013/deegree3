@@ -184,7 +184,7 @@ public class CommonCSWProfile implements ServiceProfile {
 
     @Override
     public boolean supportsOperation( CSWRequestType type ) {
-        return CSWRequestType.GetRepositoryItem.equals( type ) ? false : true;
+        return !CSWRequestType.GetRepositoryItem.equals( type );
     }
 
     @Override
@@ -203,9 +203,6 @@ public class CommonCSWProfile implements ServiceProfile {
     @Override
     public boolean returnAsDC( URI outputSchema )
                             throws MetadataStoreException {
-        if ( outputSchema != null && outputSchema.equals( OutputSchema.determineOutputSchema( OutputSchema.ISO_19115 ) ) ) {
-            return false;
-        }
-        return true;
+        return !( outputSchema != null && outputSchema.equals( OutputSchema.determineOutputSchema( OutputSchema.ISO_19115 ) ) );
     }
 }

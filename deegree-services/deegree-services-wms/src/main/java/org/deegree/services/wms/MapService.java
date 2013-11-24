@@ -43,7 +43,6 @@ import static org.slf4j.LoggerFactory.getLogger;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -54,7 +53,6 @@ import java.util.ListIterator;
 
 import org.deegree.commons.annotations.LoggingNotes;
 import org.deegree.commons.ows.exception.OWSException;
-import org.deegree.commons.utils.Pair;
 import org.deegree.feature.Feature;
 import org.deegree.feature.FeatureCollection;
 import org.deegree.feature.Features;
@@ -72,7 +70,6 @@ import org.deegree.rendering.r2d.context.MapOptionsMaps;
 import org.deegree.rendering.r2d.context.RenderContext;
 import org.deegree.services.jaxb.wms.ServiceConfigurationType;
 import org.deegree.style.StyleRef;
-import org.deegree.style.se.unevaluated.Style;
 import org.deegree.style.utils.ImageUtils;
 import org.deegree.theme.Theme;
 import org.deegree.theme.Themes;
@@ -96,11 +93,11 @@ public class MapService {
     /**
      * 
      */
-    public StyleRegistry registry;
+    private final StyleRegistry registry;
 
-    MapOptionsMaps layerOptions = new MapOptionsMaps();
+    private final MapOptionsMaps layerOptions = new MapOptionsMaps();
 
-    MapOptions defaultLayerOptions;
+    private final MapOptions defaultLayerOptions;
 
     /**
      * The current update sequence.
@@ -113,14 +110,13 @@ public class MapService {
 
     HashMap<String, Theme> themeMap;
 
-    private GetLegendHandler getLegendHandler;
+    private final GetLegendHandler getLegendHandler;
 
     /**
      * @param conf
-     * @param adapter
-     * @throws MalformedURLException
+     * @param workspace
      */
-    public MapService( ServiceConfigurationType conf, Workspace workspace ) throws MalformedURLException {
+    public MapService( ServiceConfigurationType conf, Workspace workspace ) {
         this.registry = new StyleRegistry();
 
         MapServiceBuilder builder = new MapServiceBuilder( conf );
@@ -164,10 +160,11 @@ public class MapService {
      * @return an empty image conforming to the request parameters
      */
     public static BufferedImage prepareImage( Object req ) {
-        String format = null;
-        int width = 0, height = 0;
+        String format;
+        int width;
+        int height;
         Color bgcolor = null;
-        boolean transparent = false;
+        boolean transparent;
         if ( req instanceof GetLegendGraphic ) {
             GetLegendGraphic glg = (GetLegendGraphic) req;
             format = glg.getFormat();
@@ -239,10 +236,8 @@ public class MapService {
             mapOptions.add( options.get( l.getMetadata().getName() ) );
         }
 
-        LayerQuery query = new LayerQuery( gm.getBoundingBox(), gm.getWidth(), gm.getHeight(), style, f,
-                                           gm.getParameterMap(), gm.getDimensions(), gm.getPixelSize(), options,
-                                           gm.getQueryBox() );
-        return query;
+        return new LayerQuery( gm.getBoundingBox(), gm.getWidth(), gm.getHeight(), style, f, gm.getParameterMap(),
+                               gm.getDimensions(), gm.getPixelSize(), options, gm.getQueryBox() );
     }
 
     public FeatureCollection getFeatures( org.deegree.protocol.wms.ops.GetFeatureInfo gfi, List<String> headers )
@@ -291,7 +286,7 @@ public class MapService {
         List<OperatorFilter> filters = gfi.getFilters();
         Iterator<OperatorFilter> filterItr = filters == null ? null : filters.iterator();
         while ( layerItr.hasNext() ) {
-            LayerRef lr = layerItr.next();
+            layerItr.next();
             StyleRef sr = styleItr.next();
             OperatorFilter f = filterItr == null ? null : filterItr.next();
 
@@ -311,6 +306,7 @@ public class MapService {
 
     /**
      * @param fis
+     *            schema
      * @return an application schema object
      */
     public List<FeatureType> getSchema( GetFeatureInfoSchema fis ) {
@@ -328,13 +324,13 @@ public class MapService {
         return registry;
     }
 
-    /**
-     * @param style
-     * @return the optimal legend size
-     */
-    public Pair<Integer, Integer> getLegendSize( Style style ) {
-        return getLegendHandler.getLegendSize( style );
-    }
+    // /**
+    // * @param style
+    // * @return the optimal legend size
+    // */
+    // public Pair<Integer, Integer> getLegendSize( Style style ) {
+    // return getLegendHandler.getLegendSize( style );
+    // }
 
     public BufferedImage getLegend( GetLegendGraphic req ) {
         return getLegendHandler.getLegend( req );
@@ -347,18 +343,18 @@ public class MapService {
         return layerOptions;
     }
 
-    /**
-     * @return the default feature info radius
-     */
-    public int getGlobalFeatureInfoRadius() {
-        return defaultLayerOptions.getFeatureInfoRadius();
-    }
-
-    /**
-     * @return the global max features setting
-     */
-    public int getGlobalMaxFeatures() {
-        return defaultLayerOptions.getMaxFeatures();
-    }
+    // /**
+    // * @return the default feature info radius
+    // */
+    // public int getGlobalFeatureInfoRadius() {
+    // return defaultLayerOptions.getFeatureInfoRadius();
+    // }
+    //
+    // /**
+    // * @return the global max features setting
+    // */
+    // public int getGlobalMaxFeatures() {
+    // return defaultLayerOptions.getMaxFeatures();
+    // }
 
 }

@@ -35,10 +35,7 @@
  ----------------------------------------------------------------------------*/
 package org.deegree.services.controller;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import org.deegree.commons.tom.ows.Version;
 import org.deegree.services.OWS;
@@ -132,9 +129,7 @@ public abstract class ImplementationMetadata<T extends Enum<T>> {
      */
     public Set<String> getHandledNamespaces() {
         if ( handledNamespacesSet.size() == 0 && this.handledNamespaces != null ) {
-            for ( String ns : this.handledNamespaces ) {
-                this.handledNamespacesSet.add( ns );
-            }
+            Collections.addAll( this.handledNamespacesSet, this.handledNamespaces );
         }
         return handledNamespacesSet;
     }
@@ -146,9 +141,7 @@ public abstract class ImplementationMetadata<T extends Enum<T>> {
      */
     public Set<Version> getImplementedVersions() {
         if ( implementedVersionsSet.size() == 0 && this.supportedVersions != null ) {
-            for ( Version version : this.supportedVersions ) {
-                this.implementedVersionsSet.add( version );
-            }
+            Collections.addAll( this.implementedVersionsSet, this.supportedVersions );
         }
         return implementedVersionsSet;
     }
@@ -160,9 +153,7 @@ public abstract class ImplementationMetadata<T extends Enum<T>> {
      */
     public Set<Version> getSupportedConfigVersions() {
         if ( supportedConfigVersionsSet.size() == 0 && this.supportedConfigVersions != null ) {
-            for ( Version version : this.supportedConfigVersions ) {
-                this.supportedConfigVersionsSet.add( version );
-            }
+            Collections.addAll( this.supportedConfigVersionsSet, this.supportedConfigVersions );
         }
         return supportedConfigVersionsSet;
     }
@@ -171,6 +162,7 @@ public abstract class ImplementationMetadata<T extends Enum<T>> {
      * find an enum type by a given name ignoring case, or if the citetest mode is enabled map perfectly.
      * 
      * @param requestName
+     *            request name to get type for
      * @return the Enum type or <code>null</code> if the request was not found.
      */
     public T getRequestTypeByName( String requestName ) {

@@ -91,7 +91,7 @@ public class GetRecordsKVPAdapter extends AbstractCSWKVPAdapter {
     public static GetRecords parse( Map<String, String> normalizedKVPParams, String defaultOutputFormat,
                                     String defaultOutputSchema ) {
         Version version = Version.parseVersion( KVPUtils.getRequired( normalizedKVPParams, "VERSION" ) );
-        GetRecords result = null;
+        GetRecords result;
         if ( VERSION_202.equals( version ) ) {
             result = parse202( VERSION_202, normalizedKVPParams, defaultOutputFormat, defaultOutputSchema );
 
@@ -123,10 +123,8 @@ public class GetRecordsKVPAdapter extends AbstractCSWKVPAdapter {
         }
 
         NamespaceBindings nsContext = new NamespaceBindings();
-        if ( nsBindings != null ) {
-            for ( String key : nsBindings.keySet() ) {
-                nsContext.addNamespace( key, nsBindings.get( key ) );
-            }
+        for ( String key : nsBindings.keySet() ) {
+            nsContext.addNamespace( key, nsBindings.get( key ) );
         }
 
         // typeName (mandatory)

@@ -228,17 +228,16 @@ class WmsCapabilities111MetadataWriter {
 
                 maybeWriteElement( writer, "ContactPosition", contact.getPositionName() );
                 Address address = contact.getContactInfo().getAddress();
-                Address addr = address;
-                if ( addr != null ) {
+                if ( address != null ) {
                     writer.writeStartElement( "ContactAddress" );
                     writeElement( writer, "AddressType", "postal" );
-                    for ( String s : addr.getDeliveryPoint() ) {
+                    for ( String s : address.getDeliveryPoint() ) {
                         maybeWriteElement( writer, "Address", s );
                     }
-                    writeElement( writer, "City", addr.getCity() );
-                    writeElement( writer, "StateOrProvince", addr.getAdministrativeArea() );
-                    writeElement( writer, "PostCode", addr.getPostalCode() );
-                    writeElement( writer, "Country", addr.getCountry() );
+                    writeElement( writer, "City", address.getCity() );
+                    writeElement( writer, "StateOrProvince", address.getAdministrativeArea() );
+                    writeElement( writer, "PostCode", address.getPostalCode() );
+                    writeElement( writer, "Country", address.getCountry() );
                     writer.writeEndElement();
                 }
 

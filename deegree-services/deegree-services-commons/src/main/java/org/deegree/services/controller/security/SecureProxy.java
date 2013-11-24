@@ -357,7 +357,7 @@ public class SecureProxy extends HttpServlet {
             case START_ELEMENT: {
                 String elementName = reader.getLocalName();
                 if ( openElements == 0 ) {
-                    wasSuccessful = elementName.indexOf( "Exception" ) == -1;
+                    wasSuccessful = !elementName.contains( "Exception" );
                 }
                 if ( reader.getNamespaceURI() == null || reader.getPrefix() == null ) {
                     writer.writeStartElement( elementName );
@@ -383,7 +383,7 @@ public class SecureProxy extends HttpServlet {
 
                     if ( localName.equals( "schemaLocation" ) ) {
                         String link = value.replace( ":80", "" ); // again, normalization would be nice
-                        if ( link.indexOf( proxiedUrl ) != -1 ) {
+                        if ( link.contains( proxiedUrl ) ) {
                             link = link.replace( proxiedUrl, serverUrl );
                         }
                         if ( nsURI == null ) {

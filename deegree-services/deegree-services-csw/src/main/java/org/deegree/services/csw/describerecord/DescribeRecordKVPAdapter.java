@@ -88,10 +88,8 @@ public class DescribeRecordKVPAdapter extends AbstractCSWKVPAdapter {
         }
 
         NamespaceBindings nsContext = new NamespaceBindings();
-        if ( nsBindings != null ) {
-            for ( String key : nsBindings.keySet() ) {
-                nsContext.addNamespace( key, nsBindings.get( key ) );
-            }
+        for ( String key : nsBindings.keySet() ) {
+            nsContext.addNamespace( key, nsBindings.get( key ) );
         }
 
         // typeName (optional)

@@ -38,7 +38,6 @@ package org.deegree.services.csw;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
 import org.deegree.commons.utils.kvp.InvalidParameterValueException;
@@ -94,7 +93,7 @@ public abstract class AbstractCSWKVPAdapter {
      */
     protected static QName qualifyName( String name, Map<String, String> nsBindings ) {
         QName typeName;
-        String prefix = "";
+        String prefix;
         int idx = name.indexOf( ':' );
         if ( idx != -1 ) {
             prefix = name.substring( 0, idx );
@@ -145,14 +144,14 @@ public abstract class AbstractCSWKVPAdapter {
         if ( nsString != null ) {
             nsContext = new HashMap<String, String>();
             String nsDecls[] = nsString.split( "," );
-            for ( int i = 0; i < nsDecls.length; i++ ) {
-                String nsDecl = nsDecls[i];
+            for ( String nsDecl1 : nsDecls ) {
+                String nsDecl = nsDecl1;
                 if ( nsDecl.startsWith( "xmlns(" ) && nsDecl.endsWith( ")" ) ) {
                     // 6 is the length of "xmlns("
                     nsDecl = nsDecl.substring( 6, nsDecl.length() - 1 );
                     int assignIdx = nsDecl.indexOf( '=' );
                     String prefix = "";
-                    String nsURIString = null;
+                    String nsURIString;
                     if ( assignIdx != -1 ) {
                         prefix = nsDecl.substring( 0, assignIdx );
                         nsURIString = nsDecl.substring( assignIdx + 1 );

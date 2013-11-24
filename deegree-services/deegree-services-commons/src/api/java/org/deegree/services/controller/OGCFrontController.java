@@ -49,7 +49,6 @@ import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -329,7 +328,7 @@ public class OGCFrontController extends HttpServlet {
                 if ( queryString == null ) {
                     OWSException ex = new OWSException( "The request did not contain any parameters.",
                                                         "MissingParameterValue" );
-                    OWS ows = null;
+                    OWS ows;
                     try {
                         ows = determineOWSByPathQuirk( request );
                     } catch ( OWSException e ) {
@@ -344,7 +343,7 @@ public class OGCFrontController extends HttpServlet {
                 boolean isXML = queryString.startsWith( "<" );
                 List<FileItem> multiParts = checkAndRetrieveMultiparts( request );
                 if ( isXML ) {
-                    XMLStreamReader xmlStream = null;
+                    XMLStreamReader xmlStream;
                     String dummySystemId = "HTTP Get request from " + request.getRemoteAddr() + ":"
                                            + request.getRemotePort();
                     if ( multiParts != null && multiParts.size() > 0 ) {
@@ -366,7 +365,7 @@ public class OGCFrontController extends HttpServlet {
                     Map<String, String> normalizedKVPParams = KVPUtils.getNormalizedKVPMap( request.getQueryString(),
                                                                                             DEFAULT_ENCODING );
                     LOG.debug( "parameter map: " + normalizedKVPParams );
-                    dispatchKVPRequest( normalizedKVPParams, request, responseBuffer, multiParts, entryTime );
+                    dispatchKVPRequest( normalizedKVPParams, request, responseBuffer, multiParts );
                 }
             } catch ( XMLProcessingException e ) {
                 // the message might be more meaningful
@@ -449,7 +448,7 @@ public class OGCFrontController extends HttpServlet {
                 if ( isKVP ) {
                     String queryString = readPostBodyAsString( is );
                     LOG.debug( "Treating POST input stream as KVP parameters. Raw input: '" + queryString + "'." );
-                    Map<String, String> normalizedKVPParams = null;
+                    Map<String, String> normalizedKVPParams;
                     String encoding = request.getCharacterEncoding();
                     if ( encoding == null ) {
                         LOG.debug( "Request has no further encoding information. Defaulting to '" + DEFAULT_ENCODING
@@ -459,7 +458,7 @@ public class OGCFrontController extends HttpServlet {
                         LOG.debug( "Client encoding information :" + encoding );
                         normalizedKVPParams = KVPUtils.getNormalizedKVPMap( queryString, encoding );
                     }
-                    dispatchKVPRequest( normalizedKVPParams, request, responseBuffer, multiParts, entryTime );
+                    dispatchKVPRequest( normalizedKVPParams, request, responseBuffer, multiParts );
                 } else {
                     // if( handle multiparts, get first body from multipart (?)
                     // body->requestDoc
@@ -523,7 +522,7 @@ public class OGCFrontController extends HttpServlet {
     }
 
     private HttpResponseBuffer createHttpResponseBuffer( HttpServletRequest request, HttpServletResponse response )
-                            throws FileNotFoundException, IOException {
+                            throws IOException {
         OwsGlobalConfigLoader loader = workspace.getNewWorkspace().getInitializable( OwsGlobalConfigLoader.class );
         if ( loader.getRequestLogger() != null ) {
             response = createLoggingResponseWrapper( request, response );
@@ -532,7 +531,7 @@ public class OGCFrontController extends HttpServlet {
     }
 
     private HttpServletResponse createLoggingResponseWrapper( HttpServletRequest request, HttpServletResponse response )
-                            throws IOException, FileNotFoundException {
+                            throws IOException {
         OwsGlobalConfigLoader loader = workspace.getNewWorkspace().getInitializable( OwsGlobalConfigLoader.class );
 
         Boolean conf = mainConfig.getRequestLogging().isOnlySuccessful();
@@ -573,8 +572,7 @@ public class OGCFrontController extends HttpServlet {
             }
             if ( ows == null ) {
                 String msg = "No service with identifier '" + serviceId + "' available.";
-                OWSException e = new OWSException( msg, OWSException.NO_APPLICABLE_CODE );
-                throw e;
+                throw new OWSException( msg, OWSException.NO_APPLICABLE_CODE );
             }
         }
         return ows;
@@ -590,9 +588,9 @@ public class OGCFrontController extends HttpServlet {
             // nice hack to work around the most stupid WFS 1.1.0 CITE tests
             // I'm sure there are a bazillion clients around that send out broken URLs, then validate the exception
             // responses, see the error of their ways and then send a proper request...
-            if ( pathInfo.indexOf( "#" ) != -1 ) {
+            if ( pathInfo.contains( "#" ) ) {
                 serviceId = pathInfo.substring( 1, pathInfo.indexOf( "#" ) );
-            } else if ( pathInfo.indexOf( "=" ) != -1 ) {
+            } else if ( pathInfo.contains( "=" ) ) {
                 serviceId = pathInfo.substring( 1, pathInfo.indexOf( "=" ) );
             } else {
                 serviceId = pathInfo.substring( 1 );
@@ -604,9 +602,8 @@ public class OGCFrontController extends HttpServlet {
             }
             if ( ows == null ) {
                 String msg = "No service with identifier '" + serviceId + "' available.";
-                OWSException e = new OWSException( msg, OWSException.NO_APPLICABLE_CODE );
                 // sendException( null, e, response, null );
-                throw e;
+                throw new OWSException( msg, OWSException.NO_APPLICABLE_CODE );
             }
         }
         return ows;
@@ -689,10 +686,10 @@ public class OGCFrontController extends HttpServlet {
      * @throws IOException
      */
     private void dispatchKVPRequest( Map<String, String> normalizedKVPParams, HttpServletRequest requestWrapper,
-                                     HttpResponseBuffer response, List<FileItem> multiParts, long entryTime )
+                                     HttpResponseBuffer response, List<FileItem> multiParts )
                             throws ServletException, IOException {
 
-        OWS ows = null;
+        OWS ows;
         try {
             ows = determineOWSByPath( requestWrapper );
         } catch ( OWSException e ) {
@@ -839,7 +836,7 @@ public class OGCFrontController extends HttpServlet {
                                      HttpResponseBuffer response, List<FileItem> multiParts )
                             throws ServletException, IOException {
 
-        OWS ows = null;
+        OWS ows;
         try {
             ows = determineOWSByPath( requestWrapper );
         } catch ( OWSException e ) {
@@ -922,7 +919,7 @@ public class OGCFrontController extends HttpServlet {
                                       HttpResponseBuffer response, List<FileItem> multiParts )
                             throws ServletException, IOException {
 
-        OWS ows = null;
+        OWS ows;
         try {
             ows = determineOWSByPath( requestWrapper );
         } catch ( OWSException e ) {
@@ -934,7 +931,7 @@ public class OGCFrontController extends HttpServlet {
         LOG.debug( "Handling SOAP request." );
         XMLAdapter requestDoc = new XMLAdapter( xmlStream );
         OMElement root = requestDoc.getRootElement();
-        SOAPFactory factory = null;
+        SOAPFactory factory;
         String ns = root.getNamespace().getNamespaceURI();
         if ( "http://schemas.xmlsoap.org/soap/envelope/".equals( ns ) ) {
             factory = new SOAP11Factory();
@@ -1092,7 +1089,7 @@ public class OGCFrontController extends HttpServlet {
     }
 
     private Collection<ModuleInfo> extractModulesInfo( ServletContext servletContext )
-                            throws IOException, URISyntaxException {
+                            throws IOException {
 
         if ( servletContext.getServerInfo() != null && servletContext.getServerInfo().contains( "WebLogic" ) ) {
             LOG.debug( "Running on weblogic. Not extracting module info from classpath, but from WEB-INF/lib." );
@@ -1429,7 +1426,7 @@ public class OGCFrontController extends HttpServlet {
      */
     public static URL resolveFileLocation( String location, ServletContext context )
                             throws MalformedURLException {
-        URL serviceConfigurationURL = null;
+        URL serviceConfigurationURL;
 
         LOG.debug( "Resolving configuration file location: '" + location + "'..." );
         try {
@@ -1504,7 +1501,7 @@ public class OGCFrontController extends HttpServlet {
             ( (AbstractOWS) ows ).sendException( null, serializer, e, res );
         } else {
             // use the most common serializer (OWS 1.1.0)
-            XMLExceptionSerializer serializer = null;
+            XMLExceptionSerializer serializer;
             if ( requestVersion == null ) {
                 serializer = new OWS110ExceptionReportSerializer( parseVersion( "1.1.0" ) );
             } else {

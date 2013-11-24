@@ -56,7 +56,6 @@ import org.deegree.geometry.Envelope;
 import org.deegree.geometry.GeometryTransformer;
 import org.deegree.geometry.primitive.Point;
 import org.deegree.geometry.standard.primitive.DefaultPoint;
-import org.deegree.services.wms.controller.WMSController130;
 import org.slf4j.Logger;
 
 /**
@@ -108,11 +107,9 @@ class WmsCapabilities130SpatialMetadataWriter {
                     // continue;
                     // }
                     Envelope envelope;
-                    ICRS srs = crs;
                     try {
-                        Envelope src = layerEnv;
-                        GeometryTransformer transformer = new GeometryTransformer( srs );
-                        if ( src.getCoordinateSystem() == null ) {
+                        GeometryTransformer transformer = new GeometryTransformer(crs);
+                        if ( layerEnv.getCoordinateSystem() == null ) {
                             envelope = transformer.transform( layerEnv, latlon );
                         } else {
                             envelope = transformer.transform( layerEnv );
@@ -139,7 +136,7 @@ class WmsCapabilities130SpatialMetadataWriter {
 
                     // check for srs with northing as first axis
                     // try {
-                    srs = WMSController130.getCRS( crs.getAlias() );
+                    // ICRS srs = WMSController130.getCRS( crs.getAlias() );
                     // } catch ( UnknownCRSException e ) {
                     // // may fail if CRS is determined eg. from .prj
                     // LOG.warn( "Cannot find: {}", e.getLocalizedMessage() );

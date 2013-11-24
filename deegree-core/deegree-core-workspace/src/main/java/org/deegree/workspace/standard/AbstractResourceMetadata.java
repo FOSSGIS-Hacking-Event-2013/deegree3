@@ -104,10 +104,8 @@ public abstract class AbstractResourceMetadata<T extends Resource> implements Re
 
     @Override
     public boolean equals( Object obj ) {
-        if ( !( obj instanceof ResourceMetadata ) ) {
-            return false;
-        }
-        return location.getIdentifier().equals( ( (ResourceMetadata) obj ).getLocation().getIdentifier() );
+        return obj instanceof ResourceMetadata
+               && location.getIdentifier().equals( ( (ResourceMetadata) obj ).getLocation().getIdentifier() );
     }
 
     @Override

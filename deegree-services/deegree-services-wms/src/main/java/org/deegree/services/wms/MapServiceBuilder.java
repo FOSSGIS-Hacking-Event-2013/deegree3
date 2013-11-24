@@ -116,8 +116,8 @@ class MapServiceBuilder {
         try {
             return Enum.valueOf( enumType, val.toUpperCase() );
         } catch ( IllegalArgumentException e ) {
-            LOG.warn( "'{}' is not a valid value for '{}'. Using default value '{}' instead.",
-                      new Object[] { val, enumType.getSimpleName(), defaultValue } );
+            LOG.warn( "'{}' is not a valid value for '{}'. Using default value '{}' instead.", val,
+                      enumType.getSimpleName(), defaultValue );
             return defaultValue;
         }
     }

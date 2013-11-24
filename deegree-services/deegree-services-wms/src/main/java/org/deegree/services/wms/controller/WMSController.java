@@ -56,7 +56,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -169,11 +168,11 @@ public class WMSController extends AbstractOWS {
     /**
      * @return the underlying map service
      */
-    public MapService getMapService() {
+    private MapService getMapService() {
         return service;
     }
 
-    private void handleMetadata( String metadataURLTemplate, String storeid ) {
+    private void handleMetadata( String metadataURLTemplate ) {
         this.metadataURLTemplate = metadataURLTemplate;
     }
 
@@ -257,16 +256,15 @@ public class WMSController extends AbstractOWS {
                 }
             }
 
-            Iterator<Version> iter = controllers.keySet().iterator();
-            while ( iter.hasNext() ) {
-                highestVersion = iter.next();
+            for ( Version version : controllers.keySet() ) {
+                highestVersion = version;
             }
 
             ServiceConfigurationType sc = conf.getServiceConfiguration();
             service = new MapService( sc, workspace );
 
             // after the service knows what layers are available:
-            handleMetadata( conf.getMetadataURLTemplate(), conf.getMetadataStoreId() );
+            handleMetadata( conf.getMetadataURLTemplate() );
 
             String configId = getMetadata().getIdentifier().getId();
             metadataProvider = workspace.getResource( OWSMetadataProviderProvider.class, configId + "_metadata" );
@@ -320,49 +318,40 @@ public class WMSController extends AbstractOWS {
     private void handleRequest( WMSRequestType req, HttpResponseBuffer response, Map<String, String> map,
                                 Version version )
                             throws IOException, OWSException {
-        try {
-            switch ( req ) {
-            case GetCapabilities:
-            case capabilities:
-                break;
-            default:
-                if ( controllers.get( version ) == null ) {
-                    throw new OWSException( get( "WMS.VERSION_UNSUPPORTED", version ),
-                                            OWSException.INVALID_PARAMETER_VALUE );
-                }
+        switch ( req ) {
+        case GetCapabilities:
+        case capabilities:
+            break;
+        default:
+            if ( controllers.get( version ) == null ) {
+                throw new OWSException( get( "WMS.VERSION_UNSUPPORTED", version ), OWSException.INVALID_PARAMETER_VALUE );
             }
+        }
 
-            switch ( req ) {
-            case DescribeLayer:
-                throw new OWSException( get( "WMS.OPERATION_NOT_SUPPORTED_IMPLEMENTATION", req.name() ),
-                                        OPERATION_NOT_SUPPORTED );
-            case capabilities:
-            case GetCapabilities:
-                getCapabilities( map, response );
-                break;
-            case GetFeatureInfo:
-                getFeatureInfo( map, response, version );
-                break;
-            case GetMap:
-            case map:
-                getMap( map, response, version );
-                break;
-            case GetFeatureInfoSchema:
-                getFeatureInfoSchema( map, response );
-                break;
-            case GetLegendGraphic:
-                getLegendGraphic( map, response );
-                break;
-            case DTD:
-                getDtd( response );
-                break;
-            }
-        } catch ( MissingDimensionValue e ) {
-            LOG.trace( "Stack trace:", e );
-            throw new OWSException( get( "WMS.DIMENSION_VALUE_MISSING", e.name ), "MissingDimensionValue" );
-        } catch ( InvalidDimensionValue e ) {
-            LOG.trace( "Stack trace:", e );
-            throw new OWSException( get( "WMS.DIMENSION_VALUE_INVALID", e.value, e.name ), "InvalidDimensionValue" );
+        switch ( req ) {
+        case DescribeLayer:
+            throw new OWSException( get( "WMS.OPERATION_NOT_SUPPORTED_IMPLEMENTATION", req.name() ),
+                                    OPERATION_NOT_SUPPORTED );
+        case capabilities:
+        case GetCapabilities:
+            getCapabilities( map, response );
+            break;
+        case GetFeatureInfo:
+            getFeatureInfo( map, response, version );
+            break;
+        case GetMap:
+        case map:
+            getMap( map, response, version );
+            break;
+        case GetFeatureInfoSchema:
+            getFeatureInfoSchema( map, response );
+            break;
+        case GetLegendGraphic:
+            getLegendGraphic( map, response );
+            break;
+        case DTD:
+            getDtd( response );
+            break;
         }
     }
 
@@ -401,7 +390,7 @@ public class WMSController extends AbstractOWS {
     }
 
     private void getFeatureInfo( Map<String, String> map, HttpResponseBuffer response, Version version )
-                            throws OWSException, IOException, MissingDimensionValue, InvalidDimensionValue {
+                            throws OWSException, IOException {
 
         Pair<FeatureCollection, LinkedList<String>> pair;
         String format;
@@ -488,7 +477,7 @@ public class WMSController extends AbstractOWS {
     }
 
     protected void getMap( Map<String, String> map, HttpResponseBuffer response, Version version )
-                            throws OWSException, IOException, MissingDimensionValue, InvalidDimensionValue {
+                            throws OWSException, IOException {
         org.deegree.protocol.wms.ops.GetMap gm2 = new org.deegree.protocol.wms.ops.GetMap( map, version,
                                                                                            service.getExtensions() );
 
@@ -639,12 +628,11 @@ public class WMSController extends AbstractOWS {
 
         WMSControllerBase controller = requestVersion == null ? null : controllers.get( requestVersion );
         if ( controller == null ) {
-            Iterator<WMSControllerBase> iterator = controllers.values().iterator();
-            while ( iterator.hasNext() ) {
-                controller = iterator.next();
+            for ( WMSControllerBase wmsControllerBase : controllers.values() ) {
+                controller = wmsControllerBase;
             }
         }
-        return controller.exceptionSerializer;
+        return controller != null ? controller.exceptionSerializer : null;
     }
 
     public List<OMElement> getExtendedCapabilities( String version ) {

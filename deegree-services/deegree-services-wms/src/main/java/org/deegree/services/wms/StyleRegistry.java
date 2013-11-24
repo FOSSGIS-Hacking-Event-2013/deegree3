@@ -53,7 +53,6 @@ import org.deegree.commons.annotations.LoggingNotes;
 import org.deegree.commons.utils.Pair;
 import org.deegree.style.se.parser.SymbologyParser;
 import org.deegree.style.se.unevaluated.Style;
-import org.deegree.workspace.Workspace;
 import org.slf4j.Logger;
 
 /**
@@ -215,12 +214,12 @@ public class StyleRegistry extends TimerTask {
             }
             return sty;
         } catch ( FileNotFoundException e ) {
-            LOG.info( "Style file '{}' for layer '{}' could not be found: '{}'",
-                      new Object[] { file, layerName, e.getLocalizedMessage() } );
+            LOG.info( "Style file '{}' for layer '{}' could not be found: '{}'", file, layerName,
+                      e.getLocalizedMessage() );
         } catch ( XMLStreamException e ) {
             LOG.trace( "Stack trace:", e );
-            LOG.info( "Style file '{}' for layer '{}' could not be loaded: '{}'",
-                      new Object[] { file, layerName, e.getLocalizedMessage() } );
+            LOG.info( "Style file '{}' for layer '{}' could not be loaded: '{}'", file, layerName,
+                      e.getLocalizedMessage() );
         } finally {
             closeQuietly( in );
         }

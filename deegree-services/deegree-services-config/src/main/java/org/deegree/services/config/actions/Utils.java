@@ -58,12 +58,12 @@ public class Utils {
             return new Pair<DeegreeWorkspace, String>( getServiceWorkspace(), null );
         }
 
-        if ( path.indexOf( ".." ) != -1 ) {
+        if ( path.contains( ".." ) ) {
             throw new SecurityException( "Do not use .. in paths." );
         }
 
         path = path.substring( 1 );
-        if ( path.indexOf( "/" ) != -1 ) {
+        if ( path.contains( "/" ) ) {
             String wsName = path.substring( 0, path.indexOf( "/" ) );
             if ( DeegreeWorkspace.isWorkspace( wsName ) ) {
                 DeegreeWorkspace ws = DeegreeWorkspace.getInstance( wsName );
@@ -77,5 +77,4 @@ public class Utils {
 
         return new Pair<DeegreeWorkspace, String>( getServiceWorkspace(), path.isEmpty() ? null : path );
     }
-
 }

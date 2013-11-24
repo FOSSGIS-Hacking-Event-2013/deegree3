@@ -40,7 +40,6 @@ import static org.deegree.services.config.actions.Utils.getWorkspaceAndPath;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
@@ -61,7 +60,7 @@ import org.deegree.workspace.WorkspaceUtils;
 public class Restart {
 
     public static void restart( String path, HttpServletResponse resp )
-                            throws IOException, ServletException {
+                            throws IOException {
         Pair<DeegreeWorkspace, String> p = getWorkspaceAndPath( path );
 
         resp.setContentType( "text/plain" );

@@ -112,8 +112,7 @@ public class DeegreeAuthentication implements CredentialsProvider {
      * @param e
      * @throws IOException
      */
-    private void doAuthenticationException( HttpServletResponse response, SecurityException e )
-                            throws IOException {
+    private void doAuthenticationException( HttpServletResponse response, SecurityException e ) {
 
         LOG.debug( "SecurityException: " );
         response.reset();

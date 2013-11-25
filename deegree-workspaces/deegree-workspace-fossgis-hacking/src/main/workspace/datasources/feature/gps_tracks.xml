@@ -4,16 +4,16 @@
   <StorageCRS>EPSG:4326</StorageCRS>
 
   <!-- [0...1] Local name of the feature type (defaults to base name of shape file) -->
-  <FeatureTypeName>track_points</FeatureTypeName>
+  <FeatureTypeName>gps_tracks</FeatureTypeName>
 
   <!-- [0...1] Namespace of the feature type (defaults to NULL namespace) -->
-  <FeatureTypeNamespace>http://www.deegree.org/app</FeatureTypeNamespace>
+  <FeatureTypeNamespace>http://www.deegree.org/gps</FeatureTypeNamespace>
 
   <!-- [0...1] Prefix of the feature type (defaults to auto-generated prefix) -->
-  <FeatureTypePrefix>app</FeatureTypePrefix>
+  <FeatureTypePrefix>gps</FeatureTypePrefix>
 
   <!-- [1] Name of the shape file -->
-  <File>../../data/track_points</File>
+  <File>../../data/tracks</File>
 
   <!-- [0...1] Encoding of the text fields -->
   <Encoding>ISO-8859-1</Encoding>
@@ -23,14 +23,21 @@
   
   <!-- [0...1] Mapping is optional. If not set all columns will be automapped -->
   <Mapping>
-    <SimpleProperty name="id" mapping="track_fid"/>
-    <SimpleProperty name="elevation" mapping="ele"/>
     <SimpleProperty name="name" mapping="name"/>
-    <SimpleProperty name="time" mapping="time"/>
+    <SimpleProperty name="cmt" mapping="cmt"/>
+    <SimpleProperty name="desc" mapping="desc"/>
+    <SimpleProperty name="src" mapping="src"/>
+    <SimpleProperty name="link2_href" mapping="link2_href"/>
+    <SimpleProperty name="link2_text" mapping="link2_text"/>
+    <SimpleProperty name="link2_type" mapping="link2_type"/>
+    <SimpleProperty name="number" mapping="number"/>
+    <SimpleProperty name="type" mapping="type"/>
+    <SimpleProperty name="gpxx_Track" mapping="gpxx_Track"/>
+    <SimpleProperty name="ql_key" mapping="ql_key"/>
+    
     <!-- name only must be given -->
     <GeometryProperty name="mygeom"/>
     
   </Mapping>
-
 
 </ShapeFeatureStore>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deegreeWMS xmlns="http://www.deegree.org/services/wms" configVersion="3.2.0">
+  <ServiceConfiguration>
+    <ThemeId>gps</ThemeId>
+  </ServiceConfiguration>
+</deegreeWMS>

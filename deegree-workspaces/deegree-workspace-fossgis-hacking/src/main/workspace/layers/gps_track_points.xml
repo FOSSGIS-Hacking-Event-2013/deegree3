@@ -1,0 +1,12 @@
+<FeatureLayers xmlns="http://www.deegree.org/layers/feature" xmlns:app="http://www.deegree.org/app" xmlns:d="http://www.deegree.org/metadata/description" xmlns:l="http://www.deegree.org/layers/base" xmlns:s="http://www.deegree.org/metadata/spatial" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.deegree.org/layers/feature http://schemas.deegree.org/layers/feature/3.2.0/feature.xsd" configVersion="3.2.0">
+    <FeatureStoreId>gps_track_points</FeatureStoreId>
+    <FeatureLayer>
+      <FeatureType xmlns:gps="http://www.deegree.org/gps">gps:gps_track_points</FeatureType>
+        <l:Name>gps_track_points</l:Name>
+        <d:Title>GPS Track Points</d:Title>
+        <s:CRS>EPSG:4326 EPSG:25832 EPSG:25833 EPSG:325832 EPSG:325833 EPSG:31466 EPSG:31467 EPSG:31468</s:CRS>
+        <l:StyleRef>
+            <l:StyleStoreId>gps_track_points</l:StyleStoreId>
+        </l:StyleRef>
+    </FeatureLayer>
+</FeatureLayers>

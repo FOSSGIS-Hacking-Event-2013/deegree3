@@ -1,0 +1,19 @@
+<Themes xmlns="http://www.deegree.org/themes/standard" xmlns:d="http://www.deegree.org/metadata/description" xmlns:s="http://www.deegree.org/metadata/spatial" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" configVersion="3.2.0" xsi:schemaLocation="http://www.deegree.org/themes/standard http://schemas.deegree.org/themes/3.2.0/themes.xsd">
+  <LayerStoreId>gps_track_points</LayerStoreId>
+  <LayerStoreId>gps_tracks</LayerStoreId>
+  <Theme>
+    <Identifier>root</Identifier>
+    <d:Title>Root theme</d:Title>
+    <s:CRS>EPSG:4326 EPSG:25832 EPSG:25833 EPSG:325832 EPSG:325833 EPSG:31466 EPSG:31467 EPSG:31468</s:CRS>
+    <Theme>
+      <Identifier>gps_tracks</Identifier>
+      <d:Title>GPS Tracks</d:Title>
+      <Layer>gps_tracks</Layer>
+    </Theme>
+    <Theme>
+      <Identifier>gps_track_points</Identifier>
+      <d:Title>GPS Track Points</d:Title>
+      <Layer>gps_track_points</Layer>
+    </Theme>
+  </Theme>
+</Themes>

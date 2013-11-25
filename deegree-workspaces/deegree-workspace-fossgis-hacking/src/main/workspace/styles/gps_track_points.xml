@@ -1,0 +1,116 @@
+<FeatureTypeStyle xmlns="http://www.opengis.net/se" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:app="http://www.deegree.org/app" xmlns:gps="http://www.deegree.org/gps" xmlns:ogc="http://www.opengis.net/ogc" xmlns:deegreeogc="http://www.deegree.org/ogc" xmlns:sed="http://www.deegree.org/se" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/se http://schemas.opengis.net/se/1.1.0/FeatureStyle.xsd http://www.deegree.org/se http://schemas.deegree.org/se/1.1.0/Symbolizer-deegree.xsd">
+    <Name>gps_track_points</Name>
+    <FeatureTypeName>gps:gps_track_points</FeatureTypeName>
+    <Rule>
+        <Name>gps_track_points_meter</Name>
+        <Description>
+            <Title>GPS Track Points (Meter)</Title>
+        </Description>
+        <ogc:Filter>
+            <ogc:PropertyIsEqualTo>
+                <ogc:PropertyName>track_fid</ogc:PropertyName>
+                <ogc:Literal>13</ogc:Literal>
+            </ogc:PropertyIsEqualTo>
+        </ogc:Filter>
+        <MaxScaleDenominator>2500</MaxScaleDenominator>  
+        <TextSymbolizer>
+            <Label>
+                <ogc:PropertyName>elevation_round_meter</ogc:PropertyName>
+            </Label>
+            <Font>
+                <SvgParameter name="font-family">Arial</SvgParameter>
+                <SvgParameter name="font-family">Sans-Serif</SvgParameter>
+                <SvgParameter name="font-weight">bold</SvgParameter>
+                <SvgParameter name="font-size">12</SvgParameter>
+            </Font>
+            <LabelPlacement>
+                <PointPlacement>
+                    <Displacement>
+                        <DisplacementX>30</DisplacementX>
+                        <DisplacementY>15</DisplacementY>
+                    </Displacement>
+                </PointPlacement>
+            </LabelPlacement>
+            <Halo>
+                <Radius>2</Radius>
+                <Fill>
+                    <SvgParameter name="fill">#ffffff</SvgParameter>
+                </Fill>
+            </Halo>
+            <Fill>
+                <SvgParameter name="fill-opacity">1.0</SvgParameter>
+                <SvgParameter name="fill">#000000</SvgParameter>
+            </Fill>
+        </TextSymbolizer>
+    </Rule>
+    <!--Rule>
+        <Name>gps_track_points_time</Name>
+        <Description>
+            <Title>GPS Track Points (Datum)</Title>
+        </Description>
+        <ogc:Filter>
+            <ogc:PropertyIsEqualTo>
+                <ogc:PropertyName>track_fid</ogc:PropertyName>
+                <ogc:Literal>13</ogc:Literal>
+            </ogc:PropertyIsEqualTo>
+        </ogc:Filter>
+        <MaxScaleDenominator>5000</MaxScaleDenominator>  
+        <TextSymbolizer>
+            <Label>
+                <ogc:PropertyName>time</ogc:PropertyName>
+            </Label>
+            <Font>
+                <SvgParameter name="font-family">Arial</SvgParameter>
+                <SvgParameter name="font-family">Sans-Serif</SvgParameter>
+                <SvgParameter name="font-weight">bold</SvgParameter>
+                <SvgParameter name="font-size">12</SvgParameter>
+            </Font>
+            <LabelPlacement>
+                <PointPlacement>
+                    <Displacement>
+                        <DisplacementX>-5</DisplacementX>
+                        <DisplacementY>-15</DisplacementY>
+                    </Displacement>
+                </PointPlacement>
+            </LabelPlacement>
+            <Halo>
+                <Radius>2</Radius>
+                <Fill>
+                    <SvgParameter name="fill">#ffffff</SvgParameter>
+                </Fill>
+            </Halo>
+            <Fill>
+                <SvgParameter name="fill-opacity">1.0</SvgParameter>
+                <SvgParameter name="fill">#000000</SvgParameter>
+            </Fill>
+        </TextSymbolizer>
+    </Rule-->
+    <Rule>
+        <Name>gps_track_points_square</Name>
+        <Description>
+            <Title>GPS Track Points</Title>
+        </Description>
+        <ogc:Filter>
+            <ogc:PropertyIsEqualTo>
+                <ogc:PropertyName>track_fid</ogc:PropertyName>
+                <ogc:Literal>13</ogc:Literal>
+            </ogc:PropertyIsEqualTo>
+        </ogc:Filter>
+        <MaxScaleDenominator>5000</MaxScaleDenominator>  
+        <PointSymbolizer>
+            <Graphic>
+                <Mark>
+                    <WellKnownName>square</WellKnownName>
+                    <Fill>
+                        <SvgParameter name="fill">#FF0000</SvgParameter>
+                    </Fill>
+                    <Stroke>
+                        <SvgParameter name="stroke">#000000</SvgParameter>
+                        <SvgParameter name="stroke-width">1</SvgParameter>
+                    </Stroke>
+                </Mark>
+                <Size>8</Size>
+            </Graphic>
+        </PointSymbolizer>
+    </Rule>
+</FeatureTypeStyle>

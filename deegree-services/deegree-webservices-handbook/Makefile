@@ -184,7 +184,7 @@ gh-pages:
 	git checkout feature/fossgis-hacking-handbook $(GH_PAGES_SOURCES)
 	git reset HEAD
 	make html
-	mv -fv build/html/* ./
+	mv -fv deegree-services/deegree-webservices-handbook/build/html/* ./
 	rm -rf $(GH_PAGES_SOURCES) build
 	git add -A
 	git commit -m "Generated gh-pages for feature/fossgis-hacking-handbook" && git push origin gh-pages ; git checkout feature/fossgis-hacking-handbook

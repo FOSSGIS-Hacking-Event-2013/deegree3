@@ -179,7 +179,8 @@ pseudoxml:
 
 gh-pages:
 	git checkout gh-pages
-	rm -rf build _sources _static _images
+#	rm -rf build _sources _static _images
+	rm -rf build/*
 	git checkout feature/fossgis-hacking-handbook $(GH_PAGES_SOURCES)
 	git reset HEAD
 	make html

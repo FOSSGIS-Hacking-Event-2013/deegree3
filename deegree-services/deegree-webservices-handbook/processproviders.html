@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>15. Process providers &mdash; deegree webservices ${project.version} documentation</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.2.0/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.2.0/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '${project.version}',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="deegree webservices ${project.version} documentation" href="index.html" />
+    <link rel="next" title="16. Coordinate reference systems" href="crs.html" />
+    <link rel="prev" title="14. Server connections" href="serverconnections.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          deegree webservices</a>
+        <span class="navbar-text navbar-version pull-left"><b>${project.version}</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">2. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lightly.html">3. Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basics.html">4. Configuration basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webservices.html">5. Web services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="featurestores.html">6. Feature stores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tilestores.html">7. Tile stores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coveragestores.html">8. Coverage stores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metadatastores.html">9. Metadata stores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layers.html">10. Map layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="themes.html">11. Map themes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="renderstyles.html">12. Map styles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filterencoding.html">13. Filter Encoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="serverconnections.html">14. Server connections</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">15. Process providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="crs.html">16. Coordinate reference systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="restapi.html">17. deegree REST interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javamodules.html">18. Java modules and libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gdal.html">19. GDAL components</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">15. Process providers</a><ul>
+<li><a class="reference internal" href="#java-process-provider">15.1. Java process provider</a><ul>
+<li><a class="reference internal" href="#minimal-configuration-example">15.1.1. Minimal configuration example</a></li>
+<li><a class="reference internal" href="#more-complex-configuration-example">15.1.2. More complex configuration example</a></li>
+<li><a class="reference internal" href="#configuration-options">15.1.3. Configuration options</a></li>
+<li><a class="reference internal" href="#general-options">15.1.4. General options</a></li>
+<li><a class="reference internal" href="#the-processlet-api">15.1.5. The Processlet API</a><ul>
+<li><a class="reference internal" href="#processlet-compilation">15.1.5.1. Processlet compilation</a></li>
+<li><a class="reference internal" href="#testing-processlets-using-raw-wps-requests">15.1.5.2. Testing Processlets using raw WPS requests</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#input-and-output-parameters">15.1.6. Input and output parameters</a><ul>
+<li><a class="reference internal" href="#basics-of-defining-input-and-output-parameters">15.1.6.1. Basics of defining input and output parameters</a></li>
+<li><a class="reference internal" href="#basics-of-accessing-input-and-output-parameters">15.1.6.2. Basics of accessing input and output parameters</a></li>
+<li><a class="reference internal" href="#literal-parameters">15.1.6.3. Literal parameters</a></li>
+<li><a class="reference internal" href="#boundingbox-parameters">15.1.6.4. BoundingBox parameters</a></li>
+<li><a class="reference internal" href="#complex-parameters">15.1.6.5. Complex parameters</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#asynchronous-execution-and-status-information">15.1.7. Asynchronous execution and status information</a><ul>
+<li><a class="reference internal" href="#providing-status-information-in-the-processlet-code">15.1.7.1. Providing status information in the Processlet code</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="serverconnections.html" title="Previous Chapter: 14. Server connections"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 14. Server conne...</span>
+    </a>
+  </li>
+  <li>
+    <a href="crs.html" title="Next Chapter: 16. Coordinate reference systems"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">16. Coordinate r... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/processproviders.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      
+  <div class="section" id="process-providers">
+<span id="anchor-configuration-processproviders"></span><h1>15. Process providers<a class="headerlink" href="#process-providers" title="Permalink to this headline">¶</a></h1>
+<p>Process provider resources define geospatial processes that can be accessed via the <a class="reference internal" href="webservices.html#anchor-configuration-wps"><em>Web Processing Service (WPS)</em></a>.</p>
+<p>The remainder of this chapter describes some relevant terms and the process provider configuration files in detail. You can access this configuration level by clicking on the <strong>processes</strong> link in the administration console. The corresponding resource files are located in the <strong>processes/</strong> subdirectory of the active deegree workspace directory.</p>
+<div class="figure" style="width: 80%">
+<a class="reference external image-reference" href="_images/workspace-overview-process.png"><img alt="_images/workspace-overview-process.png" src="_images/workspace-overview-process.png" style="width: 80%;" /></a>
+<p class="caption">Process providers plug geospatial processes into the WPS</p>
+</div>
+<div class="section" id="java-process-provider">
+<h2>15.1. Java process provider<a class="headerlink" href="#java-process-provider" title="Permalink to this headline">¶</a></h2>
+<p>The Java process provider is a well-defined container for processes written in the Java programming language. In order to set up a working Java process provider resource, two things are required:</p>
+<ul class="simple">
+<li>A Java process provider configuration file</li>
+<li>A <em>Processlet</em>: Java class with the actual process code</li>
+</ul>
+<p>The first item is an XML resource configuration file like any other deegree resource configuration. The second is special to this kind of resource. It provides the byte code with the process logic and has to be accessible by deegree&#8217;s classloader. There are several options to make custom Java code available to deegree webservices (see <a class="reference internal" href="javamodules.html#anchor-adding-jars"><em>Java code and the classpath</em></a> for details), but the most common options are:</p>
+<ul class="simple">
+<li>Putting class files into the <tt class="docutils literal"><span class="pre">classes/</span></tt> directory of the workspace</li>
+<li>Putting JAR files into the <tt class="docutils literal"><span class="pre">modules/</span></tt> directory of the workspace</li>
+</ul>
+<div class="section" id="minimal-configuration-example">
+<h3>15.1.1. Minimal configuration example<a class="headerlink" href="#minimal-configuration-example" title="Permalink to this headline">¶</a></h3>
+<p>A very minimal valid configuration example looks like this:</p>
+<div class="topic">
+<p class="topic-title first">Java process provider: Minimal example (resource configuration)</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;ProcessDefinition</span> <span class="na">configVersion=</span><span class="s">&quot;3.0.0&quot;</span> <span class="na">processVersion=</span><span class="s">&quot;1.0.0&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.deegree.org/processes/java&quot;</span>
+  <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span> <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.deegree.org/processes/java http://schemas.deegree.org/processes/java/3.0.0/java.xsd&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;Identifier&gt;</span>Process42<span class="nt">&lt;/Identifier&gt;</span>
+  <span class="nt">&lt;JavaClass&gt;</span>Processlet42<span class="nt">&lt;/JavaClass&gt;</span>
+  <span class="nt">&lt;Title&gt;</span>Calculates the answer to life, the universe and everything<span class="nt">&lt;/Title&gt;</span>
+  <span class="nt">&lt;OutputParameters&gt;</span>
+    <span class="nt">&lt;LiteralOutput&gt;</span>
+      <span class="nt">&lt;Identifier&gt;</span>Answer<span class="nt">&lt;/Identifier&gt;</span>
+      <span class="nt">&lt;Title&gt;</span>The universal answer<span class="nt">&lt;/Title&gt;</span>
+    <span class="nt">&lt;/LiteralOutput&gt;</span>
+  <span class="nt">&lt;/OutputParameters&gt;</span>
+<span class="nt">&lt;/ProcessDefinition&gt;</span>
+</pre></div>
+</div>
+</div>
+<p>This example defines a bogus process with the following properties:</p>
+<ul class="simple">
+<li>Identifier: <tt class="docutils literal"><span class="pre">Process42</span></tt></li>
+<li>Bound to Java code from class <tt class="docutils literal"><span class="pre">Processlet42</span></tt></li>
+<li>Title <strong>Calculates the answer to life, the universe and everything</strong> (returned in WPS responses)</li>
+<li>No input parameters</li>
+<li>Single output parameter with identifier <tt class="docutils literal"><span class="pre">Answer</span></tt> and title <strong>The universal answer</strong></li>
+</ul>
+<p>In order to make this configuration work, a matching Processlet class is required:</p>
+<div class="topic">
+<p class="topic-title first">Java process provider: Minimal example (Java code)</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.deegree.services.wps.Processlet</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.deegree.services.wps.ProcessletException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.deegree.services.wps.ProcessletExecutionInfo</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.deegree.services.wps.ProcessletInputs</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.deegree.services.wps.ProcessletOutputs</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.deegree.services.wps.output.LiteralOutput</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Processlet42</span> <span class="kd">implements</span> <span class="n">Processlet</span> <span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">process</span><span class="o">(</span> <span class="n">ProcessletInputs</span> <span class="n">in</span><span class="o">,</span> <span class="n">ProcessletOutputs</span> <span class="n">out</span><span class="o">,</span> <span class="n">ProcessletExecutionInfo</span> <span class="n">info</span> <span class="o">)</span>
+                            <span class="kd">throws</span> <span class="n">ProcessletException</span> <span class="o">{</span>
+        <span class="n">LiteralOutput</span> <span class="n">output</span> <span class="o">=</span> <span class="o">(</span><span class="n">LiteralOutput</span><span class="o">)</span> <span class="n">out</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span> <span class="s">&quot;Answer&quot;</span> <span class="o">);</span>
+        <span class="n">output</span><span class="o">.</span><span class="na">setValue</span><span class="o">(</span> <span class="s">&quot;42&quot;</span> <span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// nothing to initialize</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">destroy</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// nothing to destroy</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="more-complex-configuration-example">
+<h3>15.1.2. More complex configuration example<a class="headerlink" href="#more-complex-configuration-example" title="Permalink to this headline">¶</a></h3>
+<p>A more complex configuration example looks like this:</p>
+<div class="topic">
+<p class="topic-title first">Java process provider: More complex example (resource configuration)</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;ProcessDefinition</span> <span class="na">configVersion=</span><span class="s">&quot;3.0.0&quot;</span> <span class="na">processVersion=</span><span class="s">&quot;1.0.0&quot;</span> <span class="na">storeSupported=</span><span class="s">&quot;true&quot;</span> <span class="na">statusSupported=</span><span class="s">&quot;false&quot;</span>
+  <span class="na">xmlns=</span><span class="s">&quot;http://www.deegree.org/processes/java&quot;</span> <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+  <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.deegree.org/processes/java http://schemas.deegree.org/processes/java/3.0.0/java.xsd&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;Identifier&gt;</span>Addition<span class="nt">&lt;/Identifier&gt;</span>
+  <span class="nt">&lt;JavaClass&gt;</span>AdditionProcesslet<span class="nt">&lt;/JavaClass&gt;</span>
+  <span class="nt">&lt;Title&gt;</span>Process for adding two integer values.<span class="nt">&lt;/Title&gt;</span>
+  <span class="nt">&lt;Abstract&gt;</span>The purpose of this process is to provide new users with a simple example process.<span class="nt">&lt;/Abstract&gt;</span>
+  <span class="nt">&lt;InputParameters&gt;</span>
+    <span class="nt">&lt;LiteralInput&gt;</span>
+      <span class="nt">&lt;Identifier&gt;</span>SummandA<span class="nt">&lt;/Identifier&gt;</span>
+      <span class="nt">&lt;Title&gt;</span>First summand <span class="nt">&lt;/Title&gt;</span>
+      <span class="nt">&lt;Abstract&gt;</span>This parameter specifies the first summand for a simple addition.<span class="nt">&lt;/Abstract&gt;</span>
+      <span class="nt">&lt;DataType</span> <span class="na">reference=</span><span class="s">&quot;http://www.w3.org/TR/xmlschema-2/#integer&quot;</span><span class="nt">&gt;</span>integer<span class="nt">&lt;/DataType&gt;</span>
+      <span class="nt">&lt;DefaultUOM&gt;</span>meters<span class="nt">&lt;/DefaultUOM&gt;</span>
+      <span class="nt">&lt;OtherUOM&gt;</span>centimeters<span class="nt">&lt;/OtherUOM&gt;</span>
+    <span class="nt">&lt;/LiteralInput&gt;</span>
+    <span class="nt">&lt;LiteralInput&gt;</span>
+      <span class="nt">&lt;Identifier&gt;</span>SummandB<span class="nt">&lt;/Identifier&gt;</span>
+      <span class="nt">&lt;Title&gt;</span>Second summand <span class="nt">&lt;/Title&gt;</span>
+      <span class="nt">&lt;Abstract&gt;</span>This parameter specifies the second summand for a simple addition.<span class="nt">&lt;/Abstract&gt;</span>
+      <span class="nt">&lt;DataType</span> <span class="na">reference=</span><span class="s">&quot;http://www.w3.org/TR/xmlschema-2/#integer&quot;</span><span class="nt">&gt;</span>integer<span class="nt">&lt;/DataType&gt;</span>
+      <span class="nt">&lt;DefaultUOM&gt;</span>meters<span class="nt">&lt;/DefaultUOM&gt;</span>
+      <span class="nt">&lt;OtherUOM&gt;</span>centimeters<span class="nt">&lt;/OtherUOM&gt;</span>
+    <span class="nt">&lt;/LiteralInput&gt;</span>
+  <span class="nt">&lt;/InputParameters&gt;</span>
+  <span class="nt">&lt;OutputParameters&gt;</span>
+    <span class="nt">&lt;LiteralOutput&gt;</span>
+      <span class="nt">&lt;Identifier&gt;</span>Sum<span class="nt">&lt;/Identifier&gt;</span>
+      <span class="nt">&lt;Title&gt;</span>The result of the addition operation<span class="nt">&lt;/Title&gt;</span>
+      <span class="nt">&lt;DataType</span> <span class="na">reference=</span><span class="s">&quot;http://www.w3.org/TR/xmlschema-2/#integer&quot;</span><span class="nt">&gt;</span>integer<span class="nt">&lt;/DataType&gt;</span>
+      <span class="nt">&lt;DefaultUOM&gt;</span>meters<span class="nt">&lt;/DefaultUOM&gt;</span>
+      <span class="nt">&lt;OtherUOM&gt;</span>centimeters<span class="nt">&lt;/OtherUOM&gt;</span>
+    <span class="nt">&lt;/LiteralOutput&gt;</span>
+  <span class="nt">&lt;/OutputParameters&gt;</span>
+<span class="nt">&lt;/ProcessDefinition&gt;</span>
+</pre></div>
+</div>
+</div>
+<p>This example defines a demonstration process with the following properties:</p>
+<ul class="simple">
+<li>Identifier: <tt class="docutils literal"><span class="pre">AdditionProcess</span></tt></li>
+<li>Bound to Java code from class <tt class="docutils literal"><span class="pre">AdditionProcesslet</span></tt></li>
+<li>Title <strong>Process for adding two integer values.</strong> (returned in WPS responses)</li>
+<li>Two integer input parameters <tt class="docutils literal"><span class="pre">SummandA</span></tt> and <tt class="docutils literal"><span class="pre">SummandB</span></tt> with title, abstract and unit of measure</li>
+<li>Single integer output parameter with identifier <tt class="docutils literal"><span class="pre">Sum</span></tt>, title and unit of measure</li>
+</ul>
+<p>In order to make this configuration work, a matching Processlet class is required:</p>
+<div class="topic">
+<p class="topic-title first">Java process provider: Minimal example (Java code)</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.deegree.services.wps.Processlet</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.deegree.services.wps.ProcessletException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.deegree.services.wps.ProcessletExecutionInfo</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.deegree.services.wps.ProcessletInputs</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.deegree.services.wps.ProcessletOutputs</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.deegree.services.wps.input.LiteralInput</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.deegree.services.wps.output.LiteralOutput</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AdditionProcesslet</span> <span class="kd">implements</span> <span class="n">Processlet</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">process</span><span class="o">(</span> <span class="n">ProcessletInputs</span> <span class="n">in</span><span class="o">,</span> <span class="n">ProcessletOutputs</span> <span class="n">out</span><span class="o">,</span> <span class="n">ProcessletExecutionInfo</span> <span class="n">info</span> <span class="o">)</span>
+                            <span class="kd">throws</span> <span class="n">ProcessletException</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">summandA</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span> <span class="o">(</span> <span class="o">(</span><span class="n">LiteralInput</span><span class="o">)</span> <span class="n">in</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span> <span class="s">&quot;SummandA&quot;</span> <span class="o">)</span> <span class="o">).</span><span class="na">getValue</span><span class="o">()</span> <span class="o">);</span>
+        <span class="kt">int</span> <span class="n">summandB</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span> <span class="o">(</span> <span class="o">(</span><span class="n">LiteralInput</span><span class="o">)</span> <span class="n">in</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span> <span class="s">&quot;SummandB&quot;</span> <span class="o">)</span> <span class="o">).</span><span class="na">getValue</span><span class="o">()</span> <span class="o">);</span>
+        <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">summandA</span> <span class="o">+</span> <span class="n">summandB</span><span class="o">;</span>
+
+        <span class="n">LiteralOutput</span> <span class="n">output</span> <span class="o">=</span> <span class="o">(</span><span class="n">LiteralOutput</span><span class="o">)</span> <span class="n">out</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span> <span class="s">&quot;Sum&quot;</span> <span class="o">);</span>
+        <span class="n">output</span><span class="o">.</span><span class="na">setValue</span><span class="o">(</span> <span class="s">&quot;&quot;</span> <span class="o">+</span> <span class="n">sum</span> <span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">destroy</span><span class="o">()</span> <span class="o">{}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">()</span> <span class="o">{}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="configuration-options">
+<h3>15.1.3. Configuration options<a class="headerlink" href="#configuration-options" title="Permalink to this headline">¶</a></h3>
+<p>The configuration format for the Java process provider is defined by schema file <a class="reference external" href="http://schemas.deegree.org/processes/java/3.0.0/java.xsd">http://schemas.deegree.org/processes/java/3.0.0/java.xsd</a>. The following table lists all available configuration options. When specifiying them, their order must be respected.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="11%" />
+<col width="8%" />
+<col width="66%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Cardinality</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>&#64;processVersion</td>
+<td>1</td>
+<td>String</td>
+<td>Release version of this process (metadata)</td>
+</tr>
+<tr class="row-odd"><td>&#64;storeSupported</td>
+<td>0..1</td>
+<td>Boolean</td>
+<td>If set to true, asynchronous execution will become available</td>
+</tr>
+<tr class="row-even"><td>&#64;statusSupported</td>
+<td>0..1</td>
+<td>Boolean</td>
+<td>If set to true, process code provides status information</td>
+</tr>
+<tr class="row-odd"><td>Identifier</td>
+<td>1</td>
+<td>String</td>
+<td>Identifier of the process</td>
+</tr>
+<tr class="row-even"><td>JavaClass</td>
+<td>1</td>
+<td>String</td>
+<td>Fully qualified name of a Processlet that implements the process logic</td>
+</tr>
+<tr class="row-odd"><td>Title</td>
+<td>1</td>
+<td>String</td>
+<td>Short and meaningful title (metadata)</td>
+</tr>
+<tr class="row-even"><td>Abstract</td>
+<td>0..1</td>
+<td>String</td>
+<td>Short, human readable description (metadata)</td>
+</tr>
+<tr class="row-odd"><td>Metadata</td>
+<td>0..n</td>
+<td>String</td>
+<td>Additional metadata</td>
+</tr>
+<tr class="row-even"><td>Profile</td>
+<td>0..n</td>
+<td>String</td>
+<td>Profile to which the WPS process complies (metadata)</td>
+</tr>
+<tr class="row-odd"><td>WSDL</td>
+<td>0..1</td>
+<td>String</td>
+<td>URL of a WSDL document which describes this process (metadata)</td>
+</tr>
+<tr class="row-even"><td>InputParameters</td>
+<td>0..1</td>
+<td>Complex</td>
+<td>Definition and metadata of the input parameters</td>
+</tr>
+<tr class="row-odd"><td>OutputParameters</td>
+<td>1</td>
+<td>Complex</td>
+<td>Definition and metadata of the output parameters</td>
+</tr>
+</tbody>
+</table>
+<p>The following sections describe these options and their sub-options in detail, as well as the Processlet API.</p>
+</div>
+<div class="section" id="general-options">
+<h3>15.1.4. General options<a class="headerlink" href="#general-options" title="Permalink to this headline">¶</a></h3>
+<p>All general options just provide metadata that the WPS reports to client. They don&#8217;t affect the behaviour of the configured process.</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">processVersion</span></tt>: The processVersion attribute has to be managed by the process developer and describes the version of the process implementation. This parameter is usually increased when changes to the implementation of a process apply.</li>
+<li><tt class="docutils literal"><span class="pre">Identifier</span></tt>: An unambiguous identifier</li>
+<li><tt class="docutils literal"><span class="pre">Title</span></tt>: Short and meaningful title</li>
+<li><tt class="docutils literal"><span class="pre">Abstract</span></tt>: Short, human readable description</li>
+<li><tt class="docutils literal"><span class="pre">Metadata</span></tt>: Additional metadata</li>
+<li><tt class="docutils literal"><span class="pre">Profile</span></tt>: Profile to which the WPS process complies</li>
+<li><tt class="docutils literal"><span class="pre">WSDL</span></tt>: URL of a WSDL document which describes this process</li>
+</ul>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">These options directly relate to metadata defined in the <a class="reference external" href="http://www.opengeospatial.org/standards/wps">WPS 1.0.0 specification</a>.</p>
+</div>
+</div>
+<div class="section" id="the-processlet-api">
+<h3>15.1.5. The Processlet API<a class="headerlink" href="#the-processlet-api" title="Permalink to this headline">¶</a></h3>
+<p>Option <tt class="docutils literal"><span class="pre">JavaClass</span></tt> specifies the fully qualified name of a Java class that implement deegree&#8217;s <tt class="docutils literal"><span class="pre">Processlet</span></tt> Java interface. This interface is part of an API that hides the complexity of the WPS protocol while providing efficient and scalable handling of input and output parameters. By using this API, the process developer can focus on implementing the process logic without having to care of the details of the protocol:</p>
+<ul class="simple">
+<li>Request encoding (KVP, XML, SOAP)</li>
+<li>Input parameter passing variants (inline, by reference)</li>
+<li>Output parameter representation (inline, by reference)</li>
+<li>Storing of response documents</li>
+<li>Synchronous/asynchronous execution</li>
+</ul>
+<p>The interface looks like this:</p>
+<div class="topic">
+<p class="topic-title first">Java process provider: Processlet interface</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">package</span> <span class="n">org</span><span class="o">.</span><span class="na">deegree</span><span class="o">.</span><span class="na">services</span><span class="o">.</span><span class="na">wps</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Processlet</span> <span class="o">{</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Called by the {@link ProcessManager} to perform an execution of this {@link Processlet}.</span>
+<span class="cm">     * &lt;p&gt;</span>
+<span class="cm">     * The typical workflow is:</span>
+<span class="cm">     * &lt;ol&gt;</span>
+<span class="cm">     * &lt;li&gt;Get inputs from &lt;code&gt;in&lt;/code&gt; parameter&lt;/li&gt;</span>
+<span class="cm">     * &lt;li&gt;Parse inputs into the required format (e.g. GML)&lt;/li&gt;</span>
+<span class="cm">     * &lt;li&gt;Do computation.&lt;/li&gt;</span>
+<span class="cm">     * &lt;li&gt;Transform computational results into required format (e.g. GML)&lt;/li&gt;</span>
+<span class="cm">     * &lt;li&gt;Write results to &lt;code&gt;out&lt;/code&gt; parameter&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ol&gt;</span>
+<span class="cm">     * </span>
+<span class="cm">     * @param in</span>
+<span class="cm">     *            input arguments to be processed, never &lt;code&gt;null&lt;/code&gt;</span>
+<span class="cm">     * @param out</span>
+<span class="cm">     *            used to store the process outputs, never &lt;code&gt;null&lt;/code&gt;</span>
+<span class="cm">     * @param info</span>
+<span class="cm">     *            can be used to provide execution information, i.e. percentage completed and start/success messages</span>
+<span class="cm">     *            that it wants to make known to clients, never &lt;code&gt;null&lt;/code&gt;</span>
+<span class="cm">     * @throws ProcessletException</span>
+<span class="cm">     *             may be thrown by the processlet to indicate a processing exception</span>
+<span class="cm">     */</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">process</span><span class="o">(</span> <span class="n">ProcessletInputs</span> <span class="n">in</span><span class="o">,</span> <span class="n">ProcessletOutputs</span> <span class="n">out</span><span class="o">,</span> <span class="n">ProcessletExecutionInfo</span> <span class="n">info</span> <span class="o">)</span>
+                            <span class="kd">throws</span> <span class="n">ProcessletException</span><span class="o">;</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Called by the {@link ProcessManager} to indicate to a {@link Processlet} that it is being placed into service.</span>
+<span class="cm">     */</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">();</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Called by the {@link ProcessManager} to indicate to a {@link Processlet} that it is being taken out of service.</span>
+<span class="cm">     * &lt;p&gt;</span>
+<span class="cm">     * This method gives the {@link Processlet} an opportunity to clean up any resources that are being held (for</span>
+<span class="cm">     * example, memory, file handles, threads) and make sure that any persistent state is synchronized with the</span>
+<span class="cm">     * {@link Processlet}&#39;s current state in memory.</span>
+<span class="cm">     * &lt;/p&gt;</span>
+<span class="cm">     */</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">destroy</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<p>As you can see, the interface defines three methods:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">init()</span></tt>: Called once when the workspace initializes the Java process provider resource that references the class.</li>
+<li><tt class="docutils literal"><span class="pre">destroy()</span></tt>: Called once when the workspace destroys the Java process provider resource that references the class.</li>
+<li><tt class="docutils literal"><span class="pre">process(...)</span></tt>: Called every time an Execute request is sent to the WPS that targets this Processlet. The method usually reads the input parameters, performs the actual computation and writes the output parameters.</li>
+</ul>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">The Processlet interface mimics the well-known Java Servlet interface (hence the name). A Servlet developer does not need to care of the details of HTTP. Similarly, a Processlet developer does not need to care of the details of the WPS protocol.</p>
+</div>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">The Java process provider instantiates the Processlet class only once. However, multiple simultaneous executions of a Processlet are possible (in case parallel Execute-requests are sent to a WPS), and therefore, the Processlet code must be implemented in a thread-safe manner (just like Servlets).</p>
+</div>
+<div class="section" id="processlet-compilation">
+<h4>15.1.5.1. Processlet compilation<a class="headerlink" href="#processlet-compilation" title="Permalink to this headline">¶</a></h4>
+<p>In order to succesfully compile a <tt class="docutils literal"><span class="pre">Processlet</span></tt> implementation, you will need to make the Processlet API available to the compiler. Generally, this means that the Java module <tt class="docutils literal"><span class="pre">deegree-services-wps</span></tt> (and it&#8217;s dependencies) have to be on the build path. We suggest to use Apache Maven for this. Here&#8217;s an example POM for your convenience:</p>
+<div class="topic">
+<p class="topic-title first">Java process provider: Example Maven POM for compiling processlets</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;project</span> <span class="na">xmlns=</span><span class="s">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+  <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;modelVersion&gt;</span>4.0.0<span class="nt">&lt;/modelVersion&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>processlet-examples<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;packaging&gt;</span>jar<span class="nt">&lt;/packaging&gt;</span>
+  <span class="nt">&lt;name&gt;</span>processlet-examples<span class="nt">&lt;/name&gt;</span>
+  <span class="nt">&lt;description&gt;</span>Maven project for compiling Processlets<span class="nt">&lt;/description&gt;</span>
+
+  <span class="nt">&lt;parent&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.deegree<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>deegree<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>${project.version}<span class="nt">&lt;/version&gt;</span>
+  <span class="nt">&lt;/parent&gt;</span>
+
+  <span class="nt">&lt;repositories&gt;</span>
+    <span class="nt">&lt;repository&gt;</span>
+      <span class="nt">&lt;id&gt;</span>deegree-repo<span class="nt">&lt;/id&gt;</span>
+      <span class="nt">&lt;url&gt;</span>http://repo.deegree.org/content/groups/public<span class="nt">&lt;/url&gt;</span>
+      <span class="nt">&lt;releases&gt;</span>
+        <span class="nt">&lt;updatePolicy&gt;</span>never<span class="nt">&lt;/updatePolicy&gt;</span>
+      <span class="nt">&lt;/releases&gt;</span>
+      <span class="nt">&lt;snapshots&gt;</span>
+        <span class="nt">&lt;enabled&gt;</span>true<span class="nt">&lt;/enabled&gt;</span>
+      <span class="nt">&lt;/snapshots&gt;</span>
+    <span class="nt">&lt;/repository&gt;</span>
+  <span class="nt">&lt;/repositories&gt;</span>
+
+  <span class="nt">&lt;dependencies&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.deegree<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>deegree-services-wps<span class="nt">&lt;/artifactId&gt;</span>
+      <span class="nt">&lt;version&gt;</span>${project.version}<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;/dependencies&gt;</span>
+
+<span class="nt">&lt;/project&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">You can use this POM to compile the example Processlets above. Just create an empty directory somewhere and save the example POM as <tt class="docutils literal"><span class="pre">pom.xml</span></tt>. Place the Processlet Java files into subdirectory <tt class="docutils literal"><span class="pre">src/main/java/</span></tt> (as files <tt class="docutils literal"><span class="pre">Processlet42.java</span></tt> / <tt class="docutils literal"><span class="pre">AdditionProcesslet.java</span></tt>). On the command line, change to the project directory and use <tt class="docutils literal"><span class="pre">mvn</span> <span class="pre">package</span></tt> (Apache Maven 3.0 and a compatible Java JDK have to be installed). Subdirectory <tt class="docutils literal"><span class="pre">target</span></tt> should now contain a JAR file that you can copy into the <tt class="docutils literal"><span class="pre">modules/</span></tt> directory of the deegree workspace.</p>
+</div>
+</div>
+<div class="section" id="testing-processlets-using-raw-wps-requests">
+<h4>15.1.5.2. Testing Processlets using raw WPS requests<a class="headerlink" href="#testing-processlets-using-raw-wps-requests" title="Permalink to this headline">¶</a></h4>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">In order to perform WPS request to access your process provider/Processlet, you need to have an active <a class="reference internal" href="webservices.html#anchor-configuration-wps"><em>Web Processing Service (WPS)</em></a> resource in your workspace (which handles the WPS protocol and forwards the request to the process provider and the processlet).</p>
+</div>
+<p>The general idea of the WPS specification is that a client connects to a WPS server and invokes processes offered by the server to perform a computation. However, in some cases, you may just want to send raw WPS requests to a server and check the response yourself (e.g. for testing the behaviour of your processlet). The <a class="reference external" href="http://www.opengeospatial.org/standards/wps">WPS 1.0.0 specification</a> defines KVP, XML and SOAP-encoded requests. All encodings are supported by the deegree WPS, so you can choose the most appropriate one for your use-case. For sending KVP-requests, you can simply use your web browser (or a command line tools like wget or curl). XML or SOAP requests can be send using deegree&#8217;s generic client.</p>
+<p>Some KVP <tt class="docutils literal"><span class="pre">GetCapabilities</span></tt>/<tt class="docutils literal"><span class="pre">DescribeProcess</span></tt> request examples for checking the metadata of processes:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">http://127.0.0.1:8080/services/wps?service=WPS&amp;request=GetCapabilities</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">http://127.0.0.1:8080/services/wps?service=WPS&amp;version=1.0.0&amp;request=DescribeProcess&amp;identifier=Process42</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">http://127.0.0.1:8080/services/wps?service=WPS&amp;version=1.0.0&amp;request=DescribeProcess&amp;identifier=AdditionProcess</span></tt></li>
+</ul>
+<p>Some simple KVP <tt class="docutils literal"><span class="pre">Execute</span></tt> request examples for invoking processes:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">http://127.0.0.1:8080/services/wps?service=WPS&amp;version=1.0.0&amp;request=Execute&amp;identifier=Process42</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">http://127.0.0.1:8080/services/wps?service=WPS&amp;version=1.0.0&amp;request=Execute&amp;identifier=Addition&amp;datainputs=SummandA=21;SummandB=21</span></tt></li>
+</ul>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">The <a class="reference external" href="http://www.opengeospatial.org/standards/wps">WPS 1.0.0 specification</a> (and the deegree WPS) support many features with regard to process invocation, such as input parameter passing (inline or by reference), return parameters (inline or by reference), response variants and asynchronous execution. <a class="reference internal" href="lightly.html#anchor-workspace-wps"><em>Example workspace 4: Web Processing Service demo</em></a> contains XML example requests which demonstrate most of these features.</p>
+</div>
+</div>
+</div>
+<div class="section" id="input-and-output-parameters">
+<h3>15.1.6. Input and output parameters<a class="headerlink" href="#input-and-output-parameters" title="Permalink to this headline">¶</a></h3>
+<p>Besides the process logic, the most crucial topic of WPS process implementation is the standard-compliant definition and handling of input and output parameters. The deegree WPS and the Java process provider support all parameter types that are defined by the <a class="reference external" href="http://www.opengeospatial.org/standards/wps">WPS 1.0.0 specification</a>:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">LiteralInput</span></tt>/<tt class="docutils literal"><span class="pre">LiteralOutput</span></tt>: Literal values, e.g. &#8220;red&#8221;, &#8220;42&#8221; or &#8220;highway 66&#8221;</li>
+<li><tt class="docutils literal"><span class="pre">BoundingBoxInput</span></tt>/<tt class="docutils literal"><span class="pre">BoundingBoxOutput</span></tt>: A geo-referenced bounding box</li>
+<li><tt class="docutils literal"><span class="pre">ComplexInput</span></tt>/<tt class="docutils literal"><span class="pre">ComplexOutput</span></tt>: Either an XML structure (e.g. GML encoded features) or binary data (e.g. coverage data as GeoTIFF)</li>
+</ul>
+<p>In order to create your own process, first find out which input and output parameters you want it to have. During implementation, each parameter has to be considered twice:</p>
+<ul class="simple">
+<li>It has to be defined in the resource configuration file</li>
+<li>It has to be read or written in the Processlet</li>
+</ul>
+<p>The definition in the resource configuration is mostly to specify metadata (identifier, title, abstract, datatype) of the parameter. The WPS will report it in response to <tt class="docutils literal"><span class="pre">DescribeProcess</span></tt> requests. When performing <tt class="docutils literal"><span class="pre">Execute</span></tt> requests, the deegree WPS will also perform a basic check of the validity of the input parameters (identifier, number of occurences, type) and respond with an <tt class="docutils literal"><span class="pre">ExceptionReport</span></tt> if the constraints are not met.</p>
+<div class="section" id="basics-of-defining-input-and-output-parameters">
+<h4>15.1.6.1. Basics of defining input and output parameters<a class="headerlink" href="#basics-of-defining-input-and-output-parameters" title="Permalink to this headline">¶</a></h4>
+<p>In order to define a parameter of a process, create a new child element in your process provider configuration:</p>
+<ul class="simple">
+<li>Input: Add a <tt class="docutils literal"><span class="pre">LiteralInput</span></tt>, <tt class="docutils literal"><span class="pre">BoundingBoxInput</span></tt> or <tt class="docutils literal"><span class="pre">ComplexInput</span></tt> element to section <tt class="docutils literal"><span class="pre">InputParameters</span></tt></li>
+<li>Output: Add a <tt class="docutils literal"><span class="pre">LiteralOutput</span></tt>, <tt class="docutils literal"><span class="pre">BoundingBoxOutput</span></tt> or <tt class="docutils literal"><span class="pre">ComplexOutput</span></tt> element to section <tt class="docutils literal"><span class="pre">OutputParameters</span></tt></li>
+</ul>
+<p>Here&#8217;s an <tt class="docutils literal"><span class="pre">InputParameters</span></tt> example that defines four parameters:</p>
+<div class="topic">
+<p class="topic-title first">Java process provider: Example for <tt class="docutils literal"><span class="pre">InputParameters</span></tt> section</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;InputParameters&gt;</span>
+  <span class="nt">&lt;LiteralInput&gt;</span>
+    <span class="nt">&lt;Identifier&gt;</span>LiteralInput<span class="nt">&lt;/Identifier&gt;</span>
+    <span class="nt">&lt;Title&gt;</span>Example literal input <span class="nt">&lt;/Title&gt;</span>
+    <span class="nt">&lt;Abstract&gt;</span>This parameter specifies how long the execution of the process takes (the process sleeps for this time).
+      May be specified in seconds or minutes.<span class="nt">&lt;/Abstract&gt;</span>
+    <span class="nt">&lt;DataType</span> <span class="na">reference=</span><span class="s">&quot;http://www.w3.org/TR/xmlschema-2/#integer&quot;</span><span class="nt">&gt;</span>integer<span class="nt">&lt;/DataType&gt;</span>
+    <span class="nt">&lt;DefaultUOM&gt;</span>seconds<span class="nt">&lt;/DefaultUOM&gt;</span>
+    <span class="nt">&lt;OtherUOM&gt;</span>minutes<span class="nt">&lt;/OtherUOM&gt;</span>
+  <span class="nt">&lt;/LiteralInput&gt;</span>
+  <span class="nt">&lt;BoundingBoxInput&gt;</span>
+    <span class="nt">&lt;Identifier&gt;</span>BBOXInput<span class="nt">&lt;/Identifier&gt;</span>
+    <span class="nt">&lt;Title&gt;</span>BBOXInput<span class="nt">&lt;/Title&gt;</span>
+    <span class="nt">&lt;DefaultCRS&gt;</span>EPSG:4326<span class="nt">&lt;/DefaultCRS&gt;</span>
+  <span class="nt">&lt;/BoundingBoxInput&gt;</span>
+  <span class="nt">&lt;ComplexInput&gt;</span>
+    <span class="nt">&lt;Identifier&gt;</span>XMLInput<span class="nt">&lt;/Identifier&gt;</span>
+    <span class="nt">&lt;Title&gt;</span>XMLInput<span class="nt">&lt;/Title&gt;</span>
+    <span class="nt">&lt;DefaultFormat</span> <span class="na">mimeType=</span><span class="s">&quot;text/xml&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/ComplexInput&gt;</span>
+  <span class="nt">&lt;ComplexInput&gt;</span>
+    <span class="nt">&lt;Identifier&gt;</span>BinaryInput<span class="nt">&lt;/Identifier&gt;</span>
+    <span class="nt">&lt;Title&gt;</span>BinaryInput<span class="nt">&lt;/Title&gt;</span>
+    <span class="nt">&lt;DefaultFormat</span> <span class="na">mimeType=</span><span class="s">&quot;image/png&quot;</span> <span class="na">encoding=</span><span class="s">&quot;base64&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/ComplexInput&gt;</span>
+<span class="nt">&lt;/InputParameters&gt;</span>
+</pre></div>
+</div>
+</div>
+<p>Here&#8217;s an <tt class="docutils literal"><span class="pre">OutputParameters</span></tt> example that defines four parameters:</p>
+<div class="topic">
+<p class="topic-title first">Java process provider: Example for <tt class="docutils literal"><span class="pre">OutputParameters</span></tt> section</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;OutputParameters&gt;</span>
+  <span class="nt">&lt;LiteralOutput&gt;</span>
+    <span class="nt">&lt;Identifier&gt;</span>LiteralOutput<span class="nt">&lt;/Identifier&gt;</span>
+    <span class="nt">&lt;Title&gt;</span>A literal output parameter<span class="nt">&lt;/Title&gt;</span>
+    <span class="nt">&lt;DataType</span> <span class="na">reference=</span><span class="s">&quot;http://www.w3.org/TR/xmlschema-2/#integer&quot;</span><span class="nt">&gt;</span>integer<span class="nt">&lt;/DataType&gt;</span>
+    <span class="nt">&lt;DefaultUOM&gt;</span>seconds<span class="nt">&lt;/DefaultUOM&gt;</span>
+  <span class="nt">&lt;/LiteralOutput&gt;</span>
+  <span class="nt">&lt;BoundingBoxOutput&gt;</span>
+    <span class="nt">&lt;Identifier&gt;</span>BBOXOutput<span class="nt">&lt;/Identifier&gt;</span>
+    <span class="nt">&lt;Title&gt;</span>A bounding box output parameter<span class="nt">&lt;/Title&gt;</span>
+    <span class="nt">&lt;DefaultCRS&gt;</span>EPSG:4326<span class="nt">&lt;/DefaultCRS&gt;</span>
+  <span class="nt">&lt;/BoundingBoxOutput&gt;</span>
+  <span class="nt">&lt;ComplexOutput&gt;</span>
+    <span class="nt">&lt;Identifier&gt;</span>XMLOutput<span class="nt">&lt;/Identifier&gt;</span>
+    <span class="nt">&lt;Title&gt;</span>An XML output parameter<span class="nt">&lt;/Title&gt;</span>
+    <span class="nt">&lt;DefaultFormat</span> <span class="na">mimeType=</span><span class="s">&quot;text/xml&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/ComplexOutput&gt;</span>
+  <span class="nt">&lt;ComplexOutput&gt;</span>
+    <span class="nt">&lt;Identifier&gt;</span>BinaryOutput<span class="nt">&lt;/Identifier&gt;</span>
+    <span class="nt">&lt;Title&gt;</span>A binary output parameter<span class="nt">&lt;/Title&gt;</span>
+    <span class="nt">&lt;DefaultFormat</span> <span class="na">mimeType=</span><span class="s">&quot;image/png&quot;</span> <span class="na">encoding=</span><span class="s">&quot;base64&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/ComplexOutput&gt;</span>
+<span class="nt">&lt;/OutputParameters&gt;</span>
+</pre></div>
+</div>
+</div>
+<p>Each parameter definition element has the following common options:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="11%" />
+<col width="8%" />
+<col width="66%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Cardinality</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Identifier</td>
+<td>1</td>
+<td>String</td>
+<td>Identifier of the parameter</td>
+</tr>
+<tr class="row-odd"><td>Title</td>
+<td>1</td>
+<td>String</td>
+<td>Short and meaningful title (metadata)</td>
+</tr>
+<tr class="row-even"><td>Abstract</td>
+<td>0..1</td>
+<td>String</td>
+<td>Short, human readable description (metadata)</td>
+</tr>
+<tr class="row-odd"><td>Metadata</td>
+<td>0..n</td>
+<td>String</td>
+<td>Additional metadata</td>
+</tr>
+</tbody>
+</table>
+<p>Besides the identifier of the parameter, these parameters just define metadata that the WPS reports. Additionally, each input parameter definition element supports the following two attributes:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="11%" />
+<col width="8%" />
+<col width="66%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Cardinality</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>&#64;minOccurs</td>
+<td>0..n</td>
+<td>Integer</td>
+<td>Minimum number of times the input has to be present in a request, default: 1</td>
+</tr>
+<tr class="row-odd"><td>&#64;maxOccurs</td>
+<td>0..n</td>
+<td>String</td>
+<td>Maximum number of times the input has to be present in a request, default: 1</td>
+</tr>
+</tbody>
+</table>
+<p>The differences and special options of the individual parameter types (Literal, Bounding Box, Complex) are described in the following sections.</p>
+</div>
+<div class="section" id="basics-of-accessing-input-and-output-parameters">
+<h4>15.1.6.2. Basics of accessing input and output parameters<a class="headerlink" href="#basics-of-accessing-input-and-output-parameters" title="Permalink to this headline">¶</a></h4>
+<p>The first two arguments of <tt class="docutils literal"><span class="pre">Processlet#process(..)</span></tt> provide access to the input parameter values and output parameter sinks. The first argument is of type <tt class="docutils literal"><span class="pre">ProcessletInputs</span></tt> and encapsulates the process input parameters. Here&#8217;s an example snippet that shows how to access the input parameter with identifier <tt class="docutils literal"><span class="pre">LiteralInput</span></tt>:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kt">void</span> <span class="nf">process</span><span class="o">(</span> <span class="n">ProcessletInputs</span> <span class="n">in</span><span class="o">,</span> <span class="n">ProcessletOutputs</span> <span class="n">out</span><span class="o">,</span> <span class="n">ProcessletExecutionInfo</span> <span class="n">info</span> <span class="o">)</span>
+                     <span class="kd">throws</span> <span class="n">ProcessletException</span> <span class="o">{</span>
+
+    <span class="n">ProcessletInput</span> <span class="n">literalInput</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span> <span class="s">&quot;LiteralInput&quot;</span> <span class="o">);</span>
+    <span class="o">[...]</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">getParameter(...)</span></tt> method of <tt class="docutils literal"><span class="pre">ProcessletInputs</span></tt> takes the identifier of the process parameter as an argument and returns a <tt class="docutils literal"><span class="pre">ProcessletInput</span></tt> (without the <strong>s</strong>)  object that provides access to the actual value of the process parameter. Here&#8217;s the <tt class="docutils literal"><span class="pre">ProcessletInput</span></tt> interface:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ProcessletInput</span> <span class="o">{</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Returns the identifier or name of the input parameter as defined in the process description.</span>
+<span class="cm">     *</span>
+<span class="cm">     * @return the identifier of the input parameter</span>
+<span class="cm">     */</span>
+    <span class="kd">public</span> <span class="n">CodeType</span> <span class="nf">getIdentifier</span><span class="o">();</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Returns the title that has been supplied with the input parameter, normally available for display to a human.</span>
+<span class="cm">     *</span>
+<span class="cm">     * @return the title provided with the input, may be null</span>
+<span class="cm">     */</span>
+    <span class="kd">public</span> <span class="n">LanguageString</span> <span class="nf">getTitle</span><span class="o">();</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Returns the narrative description that has been supplied with the input parameter, normally available for display</span>
+<span class="cm">     * to a human.</span>
+<span class="cm">     *</span>
+<span class="cm">     * @return the abstract provided with the input, may be null</span>
+<span class="cm">     */</span>
+    <span class="kd">public</span> <span class="n">LanguageString</span> <span class="nf">getAbstract</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>This interface does not provide access to the passed value, but <tt class="docutils literal"><span class="pre">ProcessletInput</span></tt> is the parent of three Java types that directly correspond to three input parameter types of the process provider configuration:</p>
+<div class="figure">
+<a class="reference external image-reference" href="_images/java_processprovider_inputtypes.png"><img alt="_images/java_processprovider_inputtypes.png" src="_images/java_processprovider_inputtypes.png" /></a>
+<p class="caption">ProcessletInput interface and sub types for each parameter type</p>
+</div>
+<p>For example, if your input parameter definition &#8220;A&#8221; is a <tt class="docutils literal"><span class="pre">BoundingBoxInput</span></tt>, then the Java type for this parameter will be <tt class="docutils literal"><span class="pre">BoundingBoxInput</span></tt> as well. In your Java code, use a type cast to narrow the return type (and gain access to the passed value):</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kt">void</span> <span class="nf">process</span><span class="o">(</span> <span class="n">ProcessletInputs</span> <span class="n">in</span><span class="o">,</span> <span class="n">ProcessletOutputs</span> <span class="n">out</span><span class="o">,</span> <span class="n">ProcessletExecutionInfo</span> <span class="n">info</span> <span class="o">)</span>
+                     <span class="kd">throws</span> <span class="n">ProcessletException</span> <span class="o">{</span>
+
+    <span class="n">BoundingBoxInput</span> <span class="n">inputA</span> <span class="o">=</span> <span class="o">(</span><span class="n">BoundingBoxInput</span><span class="o">)</span> <span class="n">in</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span> <span class="s">&quot;A&quot;</span> <span class="o">);</span>
+    <span class="o">[...]</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">If an input parameter can occur multiple times (<tt class="docutils literal"><span class="pre">maxOccurs</span></tt> &gt; 1 in the definition), use method <tt class="docutils literal"><span class="pre">getParameters(...)</span></tt> instead of <tt class="docutils literal"><span class="pre">getParameter(...)</span></tt>. The latter method returns a <tt class="docutils literal"><span class="pre">List</span></tt> of <tt class="docutils literal"><span class="pre">ProcessletInput</span></tt> objects.</p>
+</div>
+<p>Output parameters are treated in a similar manner. The second parameter of <tt class="docutils literal"><span class="pre">Processlet#process(..)</span></tt> provides to output parameter sinks. It is of type <tt class="docutils literal"><span class="pre">ProcessletOutputs</span></tt>. Here&#8217;s a basic usage example:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kt">void</span> <span class="nf">process</span><span class="o">(</span> <span class="n">ProcessletInputs</span> <span class="n">in</span><span class="o">,</span> <span class="n">ProcessletOutputs</span> <span class="n">out</span><span class="o">,</span> <span class="n">ProcessletExecutionInfo</span> <span class="n">info</span> <span class="o">)</span>
+                     <span class="kd">throws</span> <span class="n">ProcessletException</span> <span class="o">{</span>
+
+    <span class="n">ProcessletOutput</span> <span class="n">literalOutput</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span> <span class="s">&quot;LiteralOutput&quot;</span> <span class="o">);</span>
+    <span class="o">[...]</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Here&#8217;s the <tt class="docutils literal"><span class="pre">ProcessletOutput</span></tt> interface:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ProcessletOutput</span> <span class="o">{</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Returns the identifier or name of the output parameter as defined in the process description.</span>
+<span class="cm">     *</span>
+<span class="cm">     * @return the identifier of the output parameter</span>
+<span class="cm">     */</span>
+    <span class="kd">public</span> <span class="n">CodeType</span> <span class="nf">getIdentifier</span><span class="o">();</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Returns the title that has been supplied with the request of the output parameter, normally available for display</span>
+<span class="cm">     * to a human.</span>
+<span class="cm">     *</span>
+<span class="cm">     * @return the title provided with the output, may be null</span>
+<span class="cm">     */</span>
+    <span class="kd">public</span> <span class="n">LanguageString</span> <span class="nf">getSubmittedTitle</span><span class="o">();</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Returns the narrative description that has been supplied with the request of the output parameter, normally</span>
+<span class="cm">     * available for display to a human.</span>
+<span class="cm">     *</span>
+<span class="cm">     * @return the abstract provided with the output, may be null</span>
+<span class="cm">     */</span>
+    <span class="kd">public</span> <span class="n">LanguageString</span> <span class="nf">getSubmittedAbstract</span><span class="o">();</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Returns whether this output parameter has been requested by the client, i.e. if it will be present in the result.</span>
+<span class="cm">     * &lt;p&gt;</span>
+<span class="cm">     * NOTE: If the parameter is requested, the {@link Processlet} must set a value for this parameter, if not, it may</span>
+<span class="cm">     * or may not do so. However, for complex output parameters that are not requested, it is advised to omit them for</span>
+<span class="cm">     * more efficient execution of the {@link Processlet}.</span>
+<span class="cm">     * &lt;/p&gt;</span>
+<span class="cm">     *</span>
+<span class="cm">     * @return true, if the {@link Processlet} must set the value of this parameter (in this execution), false otherwise</span>
+<span class="cm">     */</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isRequested</span><span class="o">();</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Sets the parameter title in the response sent to the client.</span>
+<span class="cm">     *</span>
+<span class="cm">     * @param title</span>
+<span class="cm">     *            the parameter title in the response sent to the client</span>
+<span class="cm">     */</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setTitle</span><span class="o">(</span> <span class="n">LanguageString</span> <span class="n">title</span> <span class="o">);</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Sets the parameter abstract in the response sent to the client.</span>
+<span class="cm">     *</span>
+<span class="cm">     * @param summary</span>
+<span class="cm">     *            the parameter abstract in the response sent to the client</span>
+<span class="cm">     */</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setAbstract</span><span class="o">(</span> <span class="n">LanguageString</span> <span class="n">summary</span> <span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Again, there are three subtypes. Each subtype of <tt class="docutils literal"><span class="pre">ProcessletOutput</span></tt> corresponds to one output parameter type:</p>
+<div class="figure">
+<a class="reference external image-reference" href="_images/java_processprovider_outputtypes.png"><img alt="_images/java_processprovider_outputtypes.png" src="_images/java_processprovider_outputtypes.png" /></a>
+<p class="caption">ProcessletOutput interface and sub types for each parameter type</p>
+</div>
+</div>
+<div class="section" id="literal-parameters">
+<h4>15.1.6.3. Literal parameters<a class="headerlink" href="#literal-parameters" title="Permalink to this headline">¶</a></h4>
+<p>Literal input and output parameter definitions have the following additional options:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="11%" />
+<col width="7%" />
+<col width="64%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Cardinality</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>DataType</td>
+<td>0..1</td>
+<td>String</td>
+<td>Data Type of this input (or output), default: unspecified (string)</td>
+</tr>
+<tr class="row-odd"><td>DefaultUOM</td>
+<td>0..1</td>
+<td>String</td>
+<td>Default unit of measure, default: unspecified</td>
+</tr>
+<tr class="row-even"><td>OtherUOM</td>
+<td>0..n</td>
+<td>String</td>
+<td>Alternative unit of measure</td>
+</tr>
+<tr class="row-odd"><td>DefaultValue</td>
+<td>0..1</td>
+<td>String</td>
+<td>Default value of this input (only for inputs)</td>
+</tr>
+<tr class="row-even"><td>AllowedValues</td>
+<td>0..1</td>
+<td>Complex</td>
+<td>Constraints based on value sets and ranges (only for inputs)</td>
+</tr>
+<tr class="row-odd"><td>ValidValueReference</td>
+<td>0..1</td>
+<td>Complex</td>
+<td>References to externally defined value sets and ranges (only for inputs)</td>
+</tr>
+</tbody>
+</table>
+<p>These options basically define metadata that the WPS publishes to clients. For the sub-options of the <tt class="docutils literal"><span class="pre">AllowedValues</span></tt> and <tt class="docutils literal"><span class="pre">ValidValueReference</span></tt> options, please refer to the <a class="reference external" href="http://www.opengeospatial.org/standards/wps">WPS 1.0.0 specification</a> or the XML schema for the Java process provider configuration format (<a class="reference external" href="http://schemas.deegree.org/processes/java/3.0.0/java.xsd">http://schemas.deegree.org/processes/java/3.0.0/java.xsd</a>).</p>
+<p>In order to work with a <tt class="docutils literal"><span class="pre">LiteralInput</span></tt> parameter in the Processlet code, the corresponding Java type offers the following methods:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="cm">/**</span>
+<span class="cm"> * Returns the literal value.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @see #getUOM()</span>
+<span class="cm"> * @return the literal value (has to be in the correct UOM)</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">getValue</span><span class="o">();</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Returns the UOM (unit-of-measure) for the literal value, it is guaranteed that the returned UOM is supported for</span>
+<span class="cm"> * this parameter (according to the process description).</span>
+<span class="cm"> *</span>
+<span class="cm"> * @return the requested UOM (unit-of-measure) for the literal value, may be null if no UOM is specified in the</span>
+<span class="cm"> *         process description</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">getUOM</span><span class="o">();</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Returns the (human-readable) literal data type from the process definition, e.g. &lt;code&gt;integer&lt;/code&gt;,</span>
+<span class="cm"> * &lt;code&gt;real&lt;/code&gt;, etc).</span>
+<span class="cm"> *</span>
+<span class="cm"> * @return the data type, or null if not specified in the process definition</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">getDataType</span><span class="o">();</span>
+</pre></div>
+</div>
+<p>Similarly, the <tt class="docutils literal"><span class="pre">LiteralOutput</span></tt> type offers the following methods:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="cm">/**</span>
+<span class="cm"> * Sets the value for this output parameter of the {@link Processlet} execution.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @see #getRequestedUOM()</span>
+<span class="cm"> * @param value</span>
+<span class="cm"> *            value to be set (in the requested UOM)</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setValue</span><span class="o">(</span> <span class="n">String</span> <span class="n">value</span> <span class="o">);</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Returns the requested UOM (unit-of-measure) for the literal value, it is guaranteed that this UOM is supported</span>
+<span class="cm"> * for this parameter (according to the process description).</span>
+<span class="cm"> *</span>
+<span class="cm"> * @return the requested UOM (unit-of-measure) for the literal value, may be null</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">getRequestedUOM</span><span class="o">();</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Returns the announced literal data type from the process definition (e.g. integer, real, etc) as an URI, such as</span>
+<span class="cm"> * &lt;code&gt;http://www.w3.org/TR/xmlschema-2/#integer&lt;/code&gt;.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @return the data type, or null if not specified in the process definition</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">getDataType</span><span class="o">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="boundingbox-parameters">
+<h4>15.1.6.4. BoundingBox parameters<a class="headerlink" href="#boundingbox-parameters" title="Permalink to this headline">¶</a></h4>
+<p>BoundingBox input and output parameter definitions have the following additional options:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="11%" />
+<col width="7%" />
+<col width="64%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Cardinality</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>DefaultCRS</td>
+<td>1</td>
+<td>String</td>
+<td>Identifier of the default coordinate reference system</td>
+</tr>
+<tr class="row-odd"><td>OtherCRS</td>
+<td>0..n</td>
+<td>String</td>
+<td>Additionally supported coordinate reference system</td>
+</tr>
+</tbody>
+</table>
+<p>In order to work with a <tt class="docutils literal"><span class="pre">BoundingBoxInput</span></tt> parameter in the Processlet code, the corresponding Java type offers the following methods:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="cm">/**</span>
+<span class="cm"> * Returns the lower corner point of the bounding box.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @return the lower corner point</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="kt">double</span><span class="o">[]</span> <span class="nf">getLower</span><span class="o">();</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Returns the upper corner point of the bounding box.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @return the upper corner point</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="kt">double</span><span class="o">[]</span> <span class="nf">getUpper</span><span class="o">();</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Returns the CRS (coordinate reference system) name of the bounding box.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @return the CRS (coordinate reference system) name or null if unspecified</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">getCRSName</span><span class="o">();</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Returns the bounding box value, it is guaranteed that the CRS (coordinate reference system) of the returned</span>
+<span class="cm"> * {@link Envelope} is supported for this parameter (according to the process description).</span>
+<span class="cm"> *</span>
+<span class="cm"> * @return the value</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="n">Envelope</span> <span class="nf">getValue</span><span class="o">();</span>
+</pre></div>
+</div>
+<p>Similarly, the <tt class="docutils literal"><span class="pre">BoundingBoxOutput</span></tt> type offers the following methods:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="cm">/**</span>
+<span class="cm"> * Sets the value for this output parameter of the {@link Processlet} execution.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @param lowerX</span>
+<span class="cm"> * @param lowerY</span>
+<span class="cm"> * @param upperX</span>
+<span class="cm"> * @param upperY</span>
+<span class="cm"> * @param crsName</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setValue</span><span class="o">(</span> <span class="kt">double</span> <span class="n">lowerX</span><span class="o">,</span> <span class="kt">double</span> <span class="n">lowerY</span><span class="o">,</span> <span class="kt">double</span> <span class="n">upperX</span><span class="o">,</span> <span class="kt">double</span> <span class="n">upperY</span><span class="o">,</span> <span class="n">String</span> <span class="n">crsName</span> <span class="o">);</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Sets the value for this output parameter of the {@link Processlet} execution.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @param lower</span>
+<span class="cm"> * @param upper</span>
+<span class="cm"> * @param crsName</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setValue</span><span class="o">(</span> <span class="kt">double</span><span class="o">[]</span> <span class="n">lower</span><span class="o">,</span> <span class="kt">double</span><span class="o">[]</span> <span class="n">upper</span><span class="o">,</span> <span class="n">String</span> <span class="n">crsName</span> <span class="o">);</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Sets the value for this output parameter of the {@link Processlet} execution.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @param value</span>
+<span class="cm"> *            value to be set</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setValue</span><span class="o">(</span> <span class="n">Envelope</span> <span class="n">value</span> <span class="o">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="complex-parameters">
+<h4>15.1.6.5. Complex parameters<a class="headerlink" href="#complex-parameters" title="Permalink to this headline">¶</a></h4>
+<p>Complex input and output parameter definitions have the following additional options:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="11%" />
+<col width="7%" />
+<col width="64%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Cardinality</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>&#64;maximumMegabytes</td>
+<td>0..n</td>
+<td>Integer</td>
+<td>Maximum file size, in megabytes (only for inputs)</td>
+</tr>
+<tr class="row-odd"><td>DefaultFormat</td>
+<td>1</td>
+<td>Complex</td>
+<td>Definition of the default XML or binary format</td>
+</tr>
+<tr class="row-even"><td>OtherFormats</td>
+<td>0..n</td>
+<td>Complex</td>
+<td>Definition of an alternative XML or binary format</td>
+</tr>
+</tbody>
+</table>
+<p>A complex format (<tt class="docutils literal"><span class="pre">DefaultFormat</span></tt>/<tt class="docutils literal"><span class="pre">OtherFormat</span></tt>) is defined via three attributes (compare with the <a class="reference external" href="http://www.opengeospatial.org/standards/wps">WPS 1.0.0 specification</a>):</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="11%" />
+<col width="7%" />
+<col width="64%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Cardinality</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>&#64;mimeType</td>
+<td>0..1</td>
+<td>String</td>
+<td>Mime type of the content, default: unspecified</td>
+</tr>
+<tr class="row-odd"><td>&#64;encoding</td>
+<td>0..1</td>
+<td>String</td>
+<td>Encoding of the content, default: unspecified</td>
+</tr>
+<tr class="row-even"><td>&#64;schema</td>
+<td>0..1</td>
+<td>String</td>
+<td>XML schema of the content, default: unspecified</td>
+</tr>
+</tbody>
+</table>
+<p>In order to work with a <tt class="docutils literal"><span class="pre">ComplexInput</span></tt> parameter in the Processlet code, the corresponding Java type offers the following methods:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="cm">/**</span>
+<span class="cm"> * Returns the mime type of the input.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @return the mime type of the input, may be &lt;code&gt;null&lt;/code&gt;</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">getMimeType</span><span class="o">();</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Returns the encoding information supplied with the input.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @return the encoding information supplied with the input, may be &lt;code&gt;null&lt;/code&gt;</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">getEncoding</span><span class="o">();</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Returns the schema URL supplied with the input.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @return the schema URL supplied with the input, may be &lt;code&gt;null&lt;/code&gt;</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">getSchema</span><span class="o">();</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Returns an {@link InputStream} for accessing the complex value as a raw stream of bytes (usually for binary</span>
+<span class="cm"> * input).</span>
+<span class="cm"> * &lt;p&gt;</span>
+<span class="cm"> * NOTE: Never use this method if the input parameter is encoded in XML -- use {@link #getValueAsXMLStream()}</span>
+<span class="cm"> * instead. Otherwise erroneous behaviour has to be expected (if the input value is given embedded in the execute</span>
+<span class="cm"> * request document).</span>
+<span class="cm"> * &lt;/p&gt;</span>
+<span class="cm"> *</span>
+<span class="cm"> * @see #getValueAsXMLStream()</span>
+<span class="cm"> * @return the input value as a raw stream of bytes</span>
+<span class="cm"> * @throws IOException</span>
+<span class="cm"> *             if accessing the value fails</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="n">InputStream</span> <span class="nf">getValueAsBinaryStream</span><span class="o">()</span>
+                        <span class="kd">throws</span> <span class="n">IOException</span><span class="o">;</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Returns an {@link XMLStreamReader} for accessing the complex value as an XML event stream.</span>
+<span class="cm"> * &lt;p&gt;</span>
+<span class="cm"> * NOTE: Never use this method if the input parameter is a binary value -- use {@link #getValueAsBinaryStream()}</span>
+<span class="cm"> * instead.</span>
+<span class="cm"> * &lt;/p&gt;</span>
+<span class="cm"> * The returned stream will point at the first START_ELEMENT event of the data.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @return the input value as an XML event stream, current event is START_ELEMENT (the root element of the data</span>
+<span class="cm"> *         object)</span>
+<span class="cm"> * @throws IOException</span>
+<span class="cm"> *             if accessing the value fails</span>
+<span class="cm"> * @throws XMLStreamException</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="n">XMLStreamReader</span> <span class="nf">getValueAsXMLStream</span><span class="o">()</span>
+                        <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">XMLStreamException</span><span class="o">;</span>
+</pre></div>
+</div>
+<p>Similarly, the <tt class="docutils literal"><span class="pre">ComplexOutput</span></tt> type offers the following methods:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="cm">/**</span>
+<span class="cm"> * Returns a stream for writing binary output.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @return stream for writing binary output, never &lt;code&gt;null&lt;/code&gt;</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="n">OutputStream</span> <span class="nf">getBinaryOutputStream</span><span class="o">();</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Returns a stream for for writing XML output. The stream is already initialized with a</span>
+<span class="cm"> * {@link XMLStreamWriter#writeStartDocument()}.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @return a stream for writing XML output, never &lt;code&gt;null&lt;/code&gt;</span>
+<span class="cm"> * @throws XMLStreamException</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="n">XMLStreamWriter</span> <span class="nf">getXMLStreamWriter</span><span class="o">()</span>
+                        <span class="kd">throws</span> <span class="n">XMLStreamException</span><span class="o">;</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Returns the requested mime type for the complex value, it is guaranteed that the mime type is supported for this</span>
+<span class="cm"> * parameter (according to the process description).</span>
+<span class="cm"> *</span>
+<span class="cm"> * @return the requested mime type, never &lt;code&gt;null&lt;/code&gt; (as each complex output format has a default mime type)</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">getRequestedMimeType</span><span class="o">();</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Returns the requested XML format for the complex value (specified by a schema URL), it is guaranteed that the</span>
+<span class="cm"> * format is supported for this parameter (according to the process description).</span>
+<span class="cm"> *</span>
+<span class="cm"> * @return the requested schema (XML format), may be &lt;code&gt;null&lt;/code&gt; (as a complex output format may omit schema</span>
+<span class="cm"> *         information)</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">getRequestedSchema</span><span class="o">();</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Returns the requested encoding for the complex value, it is guaranteed that the encoding is supported for this</span>
+<span class="cm"> * parameter (according to the process description).</span>
+<span class="cm"> *</span>
+<span class="cm"> * @return the requested encoding, may be &lt;code&gt;null&lt;/code&gt; (as a complex output format may omit encoding</span>
+<span class="cm"> *         information)</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">getRequestedEncoding</span><span class="o">();</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="asynchronous-execution-and-status-information">
+<h3>15.1.7. Asynchronous execution and status information<a class="headerlink" href="#asynchronous-execution-and-status-information" title="Permalink to this headline">¶</a></h3>
+<p>The WPS protocol offers support for asynchronous execution of processes as well as providing status information for long running processes. The following two options of the Java process provider deal with this:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">&#64;storeSupported</span></tt>: If the storeSupported attribute is set to true, asynchronous execution of the process will be possible. A WPS client can then choose between synchronous execution (default) and asynchronous execution. Note that this doesn&#8217;t add any requirements to the implementation of the Processlet code, this is taken care of automatically by the deegree WPS.</li>
+<li><tt class="docutils literal"><span class="pre">&#64;statusSupported</span></tt>: If statusSupported is set to true, the WPS will announce that the process can provide status information, i.e. execution percentage. In order for this to work, the Processlet code has to provide status information.</li>
+</ul>
+<div class="section" id="providing-status-information-in-the-processlet-code">
+<h4>15.1.7.1. Providing status information in the Processlet code<a class="headerlink" href="#providing-status-information-in-the-processlet-code" title="Permalink to this headline">¶</a></h4>
+<p>The third parameter that&#8217;s passed to the <tt class="docutils literal"><span class="pre">execute(...)</span></tt> method is of type <tt class="docutils literal"><span class="pre">ProcessletExecutionInfo</span></tt>. This type provides the following methods:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="cm">/**</span>
+<span class="cm"> * Allows the {@link Processlet} to indicate the percentage of the process that has been completed, where 0 means</span>
+<span class="cm"> * the process has just started, and 99 means the process is almost complete. This value is expected to be accurate</span>
+<span class="cm"> * to within ten percent.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @param percentCompleted</span>
+<span class="cm"> *            the percentage value to be set, a number between 0 and 99</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setPercentCompleted</span><span class="o">(</span> <span class="kt">int</span> <span class="n">percentCompleted</span> <span class="o">);</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Allows the {@link Processlet} to provide a custom started message for the client.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @param message</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setStartedMessage</span><span class="o">(</span> <span class="n">String</span> <span class="n">message</span> <span class="o">);</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Allows the {@link Processlet} to provide a custom finished message for the client.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @param message</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setSucceededMessage</span><span class="o">(</span> <span class="n">String</span> <span class="n">message</span> <span class="o">);</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Depending on the type of computation that a Processlet performs, it may or may not be trivial to provide correct progress information via <tt class="docutils literal"><span class="pre">setPercentCompleted(...)</span></tt>.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013, The deegree project.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

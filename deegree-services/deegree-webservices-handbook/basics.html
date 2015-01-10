@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>4. Configuration basics &mdash; deegree webservices ${project.version} documentation</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.2.0/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.2.0/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '${project.version}',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="deegree webservices ${project.version} documentation" href="index.html" />
+    <link rel="next" title="5. Web services" href="webservices.html" />
+    <link rel="prev" title="3. Getting started" href="lightly.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          deegree webservices</a>
+        <span class="navbar-text navbar-version pull-left"><b>${project.version}</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">2. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lightly.html">3. Getting started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">4. Configuration basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webservices.html">5. Web services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="featurestores.html">6. Feature stores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tilestores.html">7. Tile stores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coveragestores.html">8. Coverage stores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metadatastores.html">9. Metadata stores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layers.html">10. Map layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="themes.html">11. Map themes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="renderstyles.html">12. Map styles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filterencoding.html">13. Filter Encoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="serverconnections.html">14. Server connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processproviders.html">15. Process providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="crs.html">16. Coordinate reference systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="restapi.html">17. deegree REST interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javamodules.html">18. Java modules and libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gdal.html">19. GDAL components</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">4. Configuration basics</a><ul>
+<li><a class="reference internal" href="#the-deegree-workspace">4.1. The deegree workspace</a></li>
+<li><a class="reference internal" href="#dependencies-of-the-deegree-configuration-files">4.2. Dependencies of the deegree configuration files</a></li>
+<li><a class="reference internal" href="#location-of-the-deegree-workspace-directory">4.3. Location of the deegree workspace directory</a><ul>
+<li><a class="reference internal" href="#linux-solaris-mac-os-x">4.3.1. Linux/Solaris/Mac OS X</a></li>
+<li><a class="reference internal" href="#windows">4.3.2. Windows</a></li>
+<li><a class="reference internal" href="#global-configuration-files-and-the-active-workspace">4.3.3. Global configuration files and the active workspace</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#structure-of-the-deegree-workspace-directory">4.4. Structure of the deegree workspace directory</a><ul>
+<li><a class="reference internal" href="#workspace-files-and-resources">4.4.1. Workspace files and resources</a></li>
+<li><a class="reference internal" href="#resource-identifiers-and-dependencies">4.4.2. Resource identifiers and dependencies</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#using-the-service-console-for-managing-resources">4.5. Using the service console for managing resources</a><ul>
+<li><a class="reference internal" href="#displaying-configured-resources">4.5.1. Displaying configured resources</a></li>
+<li><a class="reference internal" href="#deactivating-a-resource">4.5.2. Deactivating a resource</a></li>
+<li><a class="reference internal" href="#editing-a-resource">4.5.3. Editing a resource</a></li>
+<li><a class="reference internal" href="#deleting-a-resource">4.5.4. Deleting a resource</a></li>
+<li><a class="reference internal" href="#creating-a-new-resource">4.5.5. Creating a new resource</a></li>
+<li><a class="reference internal" href="#displaying-error-messages">4.5.6. Displaying error messages</a></li>
+<li><a class="reference internal" href="#resource-type-specific-actions">4.5.7. Resource type specific actions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#best-practices-for-creating-workspaces">4.6. Best practices for creating workspaces</a><ul>
+<li><a class="reference internal" href="#start-from-example-or-from-scratch">4.6.1. Start from example or from scratch</a></li>
+<li><a class="reference internal" href="#find-out-which-resources-you-need">4.6.2. Find out which resources you need</a></li>
+<li><a class="reference internal" href="#use-a-validating-xml-editor">4.6.3. Use a validating XML editor</a></li>
+<li><a class="reference internal" href="#check-the-resource-status-and-error-messages">4.6.4. Check the resource status and error messages</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="lightly.html" title="Previous Chapter: 3. Getting started"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 3. Getting start...</span>
+    </a>
+  </li>
+  <li>
+    <a href="webservices.html" title="Next Chapter: 5. Web services"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">5. Web services &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/basics.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      
+  <div class="section" id="configuration-basics">
+<span id="anchor-configuration-basics"></span><h1>4. Configuration basics<a class="headerlink" href="#configuration-basics" title="Permalink to this headline">¶</a></h1>
+<p>In the previous chapter, you learned how to access and log in to the deegree service console and how to download and activate example workspaces. This chapter introduces the basic concepts of deegree webservices configuration:</p>
+<ul class="simple">
+<li>The deegree workspace and the active workspace directory</li>
+<li>Workspace files and resources</li>
+<li>Workspace directories and resource types</li>
+<li>Resource identifiers and dependencies</li>
+<li>Usage of the service console for workspace configuration</li>
+</ul>
+<p>The final section of this chapter describes recommended practices for creating your own workspace. The remaining chapters of the documentation describe the individual workspace resource formats in detail.</p>
+<div class="section" id="the-deegree-workspace">
+<h2>4.1. The deegree workspace<a class="headerlink" href="#the-deegree-workspace" title="Permalink to this headline">¶</a></h2>
+<p>The deegree workspace is the modular, resource-oriented and extensible configuration concept used by deegree webservices. The following diagram shows the different types of resources that it contains:</p>
+<div class="figure">
+<a class="reference external image-reference" href="_images/workspace-overview.png"><img alt="_images/workspace-overview.png" src="_images/workspace-overview.png" /></a>
+<p class="caption">Configuration aspects of deegree workspaces</p>
+</div>
+<p>The following table provides a short description of the different types of workspace resources:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Resource type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Web Services</td>
+<td>Web services (WFS, WMS, WMTS, CSW, WPS)</td>
+</tr>
+<tr class="row-odd"><td>Data Stores (Coverage)</td>
+<td>Coverage (raster) data access (GeoTIFFs, raster pyramids, etc.)</td>
+</tr>
+<tr class="row-even"><td>Data Stores (Feature)</td>
+<td>Feature (vector) data access (Shapefiles, PostGIS, Oracle Spatial, etc.)</td>
+</tr>
+<tr class="row-odd"><td>Data Stores (Metadata)</td>
+<td>Metadata record access (ISO records stored in PostGIS, Oracle, etc.)</td>
+</tr>
+<tr class="row-even"><td>Data Stores (Tile)</td>
+<td>Pre-rendered map tiles (GeoTIFF, image hierarchies in the file system, etc.)</td>
+</tr>
+<tr class="row-odd"><td>Map Layers (Layer)</td>
+<td>Map layers based on data stores and styles</td>
+</tr>
+<tr class="row-even"><td>Map Layers (Style)</td>
+<td>Styling rules for features and coverages</td>
+</tr>
+<tr class="row-odd"><td>Map Layers (Theme)</td>
+<td>Layer trees based on individual layers</td>
+</tr>
+<tr class="row-even"><td>Processes</td>
+<td>Geospatial processes for the WPS</td>
+</tr>
+<tr class="row-odd"><td>Server connections (JDBC)</td>
+<td>Connections to SQL databases</td>
+</tr>
+<tr class="row-even"><td>Server connections (remote OWS)</td>
+<td>Connections to remote OGC web services</td>
+</tr>
+</tbody>
+</table>
+<p>Physically, every configured resource corresponds to an XML configuration file in the active workspace directory.</p>
+</div>
+<div class="section" id="dependencies-of-the-deegree-configuration-files">
+<h2>4.2. Dependencies of the deegree configuration files<a class="headerlink" href="#dependencies-of-the-deegree-configuration-files" title="Permalink to this headline">¶</a></h2>
+<p>The following diagram shows the different types of resources and their dependencies. The deegree configuration can be divided into several sections:</p>
+<blockquote>
+<div><ul class="simple">
+<li>web sevrices</li>
+<li>data stores</li>
+<li>map layers</li>
+<li>server connections</li>
+</ul>
+</div></blockquote>
+<p>For example, to offer a Web Feature Service, a feature store (based on a shapefile, database, etc) must be configured. With a rasterfile, like a GeoTIFF, you can configured a tile store and a coverage store to offer a Web Map Service.</p>
+<div class="figure">
+<a class="reference external image-reference" href="_images/workspace-configuration-dependencies.png"><img alt="_images/workspace-configuration-dependencies.png" src="_images/workspace-configuration-dependencies.png" /></a>
+<p class="caption">Workspace configuration dependencies</p>
+</div>
+</div>
+<div class="section" id="location-of-the-deegree-workspace-directory">
+<h2>4.3. Location of the deegree workspace directory<a class="headerlink" href="#location-of-the-deegree-workspace-directory" title="Permalink to this headline">¶</a></h2>
+<p>The active deegree workspace is part of the <tt class="docutils literal"><span class="pre">.deegree</span></tt> directory which stores a few global configuration files along with the workspace. The location of this directory depends on your operating system.</p>
+<div class="section" id="linux-solaris-mac-os-x">
+<h3>4.3.1. Linux/Solaris/Mac OS X<a class="headerlink" href="#linux-solaris-mac-os-x" title="Permalink to this headline">¶</a></h3>
+<p>On UNIX-like systems (Linux/Solaris/MacOS X), deegree&#8217;s configuration files are located in folder <tt class="docutils literal"><span class="pre">$HOME/.deegree/</span></tt>. Note that <tt class="docutils literal"><span class="pre">$HOME</span></tt> is determined by the user that started the web application container that runs deegree. If you started the ZIP version of deegree as user &#8220;kelvin&#8221;, then the directory will be something like <tt class="docutils literal"><span class="pre">/home/kelvin/.deegree</span></tt>.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">In order to use a different folder for deegree&#8217;s configuration files, you can set the system environment variable <tt class="docutils literal"><span class="pre">DEEGREE_WORKSPACE_ROOT</span></tt>. Note that the user running the web application container must have read/write access to this directory.</p>
+</div>
+</div>
+<div class="section" id="windows">
+<h3>4.3.2. Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h3>
+<p>On Windows, deegree&#8217;s configuration files are located in folder <tt class="docutils literal"><span class="pre">%USERPROFILE%/.deegree/</span></tt>. Note that <tt class="docutils literal"><span class="pre">%USERPROFILE%</span></tt> is determined by the user that started the web application container that runs deegree. If you started the ZIP version of deegree as user &#8220;kelvin&#8221;, then the directory will be something like <tt class="docutils literal"><span class="pre">C:\Users\kelvin\.deegree</span></tt> or <tt class="docutils literal"><span class="pre">C:\Dokumente</span> <span class="pre">und</span> <span class="pre">Einstellungen\kelvin\.deegree</span></tt>.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">In order to use a different folder for deegree&#8217;s configuration files, you can set the system environment variable <tt class="docutils literal"><span class="pre">DEEGREE_WORKSPACE_ROOT</span></tt>.  Note that the user running the web application container must have read/write access to this directory.</p>
+</div>
+</div>
+<div class="section" id="global-configuration-files-and-the-active-workspace">
+<h3>4.3.3. Global configuration files and the active workspace<a class="headerlink" href="#global-configuration-files-and-the-active-workspace" title="Permalink to this headline">¶</a></h3>
+<p>If you downloaded all four example workspaces (as described in <a class="reference internal" href="lightly.html#anchor-lightly"><em>Getting started</em></a>), set a console password and the proxy parameters, your <tt class="docutils literal"><span class="pre">.deegree</span></tt> directory will look like this:</p>
+<div class="figure">
+<a class="reference external image-reference" href="_images/workspace-root.png"><img alt="_images/workspace-root.png" src="_images/workspace-root.png" /></a>
+<p class="caption">Example <tt class="docutils literal"><span class="pre">.deegree</span></tt> directory</p>
+</div>
+<p>As you see, this <tt class="docutils literal"><span class="pre">.deegree</span></tt> directory contains four subdirectories. Every subdirectory corresponds to a deegree workspace. Besides the configuration files inside the workspace, three global configuration files exist:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="36%" />
+<col width="64%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">File name</th>
+<th class="head">Function</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>&lt;subdirectory&gt;</td>
+<td>Workspace directory</td>
+</tr>
+<tr class="row-odd"><td>console.pw</td>
+<td>Password for services console</td>
+</tr>
+<tr class="row-even"><td>proxy.xml</td>
+<td>Proxy settings</td>
+</tr>
+<tr class="row-odd"><td>webapps.properties</td>
+<td>Selects the active workspace</td>
+</tr>
+</tbody>
+</table>
+<p>Note that only a single workspace can be active at a time. The information on the active one is stored in file <tt class="docutils literal"><span class="pre">webapps.properties</span></tt>.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Usually, you don&#8217;t need to care about the three files that are located at the top level of this directory. The service console creates and modifies them as required (e.g. when switching to a different workspace). In order to create a deegree webservices setup, you will need to create or edit resource configuration files in the active workspace directory. The remaining documentation will always refer to files in the (active) workspace directory.</p>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">When multiple deegree webservices instances run on a single machine, every instance can use a different workspace. The file <tt class="docutils literal"><span class="pre">webapps.properties</span></tt> stores the active workspace for every deegree webapp separately.</p>
+</div>
+</div>
+</div>
+<div class="section" id="structure-of-the-deegree-workspace-directory">
+<h2>4.4. Structure of the deegree workspace directory<a class="headerlink" href="#structure-of-the-deegree-workspace-directory" title="Permalink to this headline">¶</a></h2>
+<p>The workspace directory is a container for resource files with a well-defined directory structure. When deegree starts up, the active workspace directory is determined and the following subdirectories are scanned for XML resource configuration files:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="42%" />
+<col width="58%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Directory</th>
+<th class="head">Resource type</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>services/</td>
+<td>Web services</td>
+</tr>
+<tr class="row-odd"><td>datasources/coverage/</td>
+<td>Coverage Stores</td>
+</tr>
+<tr class="row-even"><td>datasources/feature/</td>
+<td>Feature Stores</td>
+</tr>
+<tr class="row-odd"><td>datasources/metadata/</td>
+<td>Metadata Stores</td>
+</tr>
+<tr class="row-even"><td>datasources/tile/</td>
+<td>Tile Stores</td>
+</tr>
+<tr class="row-odd"><td>layers/</td>
+<td>Map Layers (Layer)</td>
+</tr>
+<tr class="row-even"><td>styles/</td>
+<td>Map Layers (Style)</td>
+</tr>
+<tr class="row-odd"><td>themes/</td>
+<td>Map Layers (Theme)</td>
+</tr>
+<tr class="row-even"><td>processes/</td>
+<td>Processes</td>
+</tr>
+<tr class="row-odd"><td>jdbc/</td>
+<td>Server Connections (JDBC)</td>
+</tr>
+<tr class="row-even"><td>datasources/remoteows/</td>
+<td>Server Connections (Remote OWS)</td>
+</tr>
+</tbody>
+</table>
+<p>A workspace directory may contain additional directories to provide additional files along with the resource configurations. The major difference is that these directories are not scanned for resource files. Some common ones are:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="35%" />
+<col width="65%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Directory</th>
+<th class="head">Used for</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>appschemas/</td>
+<td>GML application schemas</td>
+</tr>
+<tr class="row-odd"><td>data/</td>
+<td>Datasets (GML, GeoTIFF, ...)</td>
+</tr>
+<tr class="row-even"><td>manager/</td>
+<td>Example requests (for the generic client)</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="workspace-files-and-resources">
+<h3>4.4.1. Workspace files and resources<a class="headerlink" href="#workspace-files-and-resources" title="Permalink to this headline">¶</a></h3>
+<p>In order to clarify the relation between workspace files and resources, let&#8217;s have a look at an example:</p>
+<div class="figure">
+<a class="reference external image-reference" href="_images/workspace-example.png"><img alt="_images/workspace-example.png" src="_images/workspace-example.png" /></a>
+<p class="caption">Example workspace directory</p>
+</div>
+<p>As noted, deegree scans the well-known resource directories for XML files (<tt class="docutils literal"><span class="pre">*.xml</span></tt>) on startup (note that it will omit directory <tt class="docutils literal"><span class="pre">manager</span></tt>, as it is not a well-known resource directory). For every file found, deegree will check the type of configuration format (by determining the name of the XML root element). If it is a recognized format, deegree will try to create and initialize a corresponding resource. For the example, this results in the following setup:</p>
+<ul class="simple">
+<li>A metadata store with id <tt class="docutils literal"><span class="pre">iso19115</span></tt></li>
+<li>A JDBC connection pool with id <tt class="docutils literal"><span class="pre">conn1</span></tt></li>
+<li>A web service with id <tt class="docutils literal"><span class="pre">csw</span></tt></li>
+</ul>
+<p>The individual XML resource formats and their options are described in the later chapters of the documentation.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">You may wonder why the <tt class="docutils literal"><span class="pre">main.xml</span></tt> and <tt class="docutils literal"><span class="pre">metadata.xml</span></tt> files are not considered as web service resource files. These two filenames are reserved and treated specifically. See <a class="reference internal" href="webservices.html#anchor-configuration-service"><em>Web services</em></a> for details.</p>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">The configuration format has to match the workspace subdirectory, e.g. metadata store configuration files are only considered when they are located in <tt class="docutils literal"><span class="pre">datasources/metadata</span></tt>.</p>
+</div>
+</div>
+<div class="section" id="resource-identifiers-and-dependencies">
+<h3>4.4.2. Resource identifiers and dependencies<a class="headerlink" href="#resource-identifiers-and-dependencies" title="Permalink to this headline">¶</a></h3>
+<p>It has already been hinted that resources have an identifier, e.g. for file <tt class="docutils literal"><span class="pre">jdbc/conn1.xml</span></tt> a JDBC connection pool with identifier <tt class="docutils literal"><span class="pre">conn1</span></tt> is created. You probably have guessed that the identifier is derived from the file name (file name minus suffix), but you may wonder what purpose the identifier serves. The identifier is used for wiring resources. For example, an ISO metadata store resource requires a JDBC pool, because it provides the actual connections to the SQL database. Therefore, the corresponding resource configuration format has an element to specify it:</p>
+<div class="topic">
+<p class="topic-title first">Example for wiring workspace resources</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;ISOMetadataStore</span> <span class="na">configVersion=</span><span class="s">&quot;3.2.0&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.deegree.org/datasource/metadata/iso19115&quot;</span><span class="nt">&gt;</span>
+
+  <span class="c">&lt;!-- [1] Identifier of JDBC connection --&gt;</span>
+  <span class="nt">&lt;JDBCConnId&gt;</span>conn1<span class="nt">&lt;/JDBCConnId&gt;</span>
+
+  [...]
+
+<span class="nt">&lt;/ISOMetadataStore&gt;</span>
+</pre></div>
+</div>
+</div>
+<p>In this example, the ISO metadata store is wired to JDBC connection pool <tt class="docutils literal"><span class="pre">conn1</span></tt>. Many deegree resource configuration files contain such references to dependent resources. Some resources perform auto-wiring. For example, every CSW instance needs to connect to a metadata store for accessing stored metadata records. If the CSW configuration omits the reference to the metadata store, it is assumed that there&#8217;s exactly one metadata store defined in the workspace and deegree will automatically connect the CSW to this store.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">The required dependencies are specific to every type of resource and are documented for each resource configuration format.</p>
+</div>
+</div>
+</div>
+<div class="section" id="using-the-service-console-for-managing-resources">
+<h2>4.5. Using the service console for managing resources<a class="headerlink" href="#using-the-service-console-for-managing-resources" title="Permalink to this headline">¶</a></h2>
+<p>As an alternative to dealing with the workspace resource configuration files directly on the filesystem, you can also use the service console for this task. The service console has a corresponding menu entry for every type of workspace resource. All resource menu entries are grouped in the lower menu on the left:</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/console_resources.png"><img alt="_images/console_resources.png" src="_images/console_resources.png" style="width: 50%;" /></a>
+<p class="caption">Workspace resource menu entries</p>
+</div>
+<p>Although the console offers additional functionality for some resource types, the basic management of resources is always identical.</p>
+<div class="section" id="displaying-configured-resources">
+<h3>4.5.1. Displaying configured resources<a class="headerlink" href="#displaying-configured-resources" title="Permalink to this headline">¶</a></h3>
+<p>In order to display the configured workspace resources of a certain type, click on the corresponding menu entry. The following screenshot shows the metadata store resources in deegree-workspace-csw:</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/console_metadata_stores.png"><img alt="_images/console_metadata_stores.png" src="_images/console_metadata_stores.png" style="width: 50%;" /></a>
+<p class="caption">Displaying metadata store resources</p>
+</div>
+<p>The right part of the window displays a table with all configured metadata store resources. In this case, the workspace contains a single resource with identifier &#8220;iso19115&#8221; which is in status &#8220;On&#8221;.</p>
+</div>
+<div class="section" id="deactivating-a-resource">
+<h3>4.5.2. Deactivating a resource<a class="headerlink" href="#deactivating-a-resource" title="Permalink to this headline">¶</a></h3>
+<p>The &#8220;Deactivate&#8221; link allows to turn off a resource temporarily (while keeping the configuration):</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/console_deactivate.png"><img alt="_images/console_deactivate.png" src="_images/console_deactivate.png" style="width: 50%;" /></a>
+<p class="caption">Deactivate action</p>
+</div>
+<p>After clicking on &#8220;Deactivate&#8221;, the status of the resource will be &#8220;Off&#8221;, and the &#8220;Deactivate&#8221; link will change to &#8220;Activate&#8221;. Also, the &#8220;Reload&#8221; link at the top will turn red to notify that there may be changes that need to be propagated to dependent resources:</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/console_deactivated.png"><img alt="_images/console_deactivated.png" src="_images/console_deactivated.png" style="width: 50%;" /></a>
+<p class="caption">Deactivated a resource</p>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">When a resource is being deactivated, the suffix of the corresponding configuration file is changed to &#8221;.ignore&#8221;. Reactivating changes the suffix back to &#8221;.xml&#8221;.</p>
+</div>
+</div>
+<div class="section" id="editing-a-resource">
+<h3>4.5.3. Editing a resource<a class="headerlink" href="#editing-a-resource" title="Permalink to this headline">¶</a></h3>
+<p>By clicking on the &#8220;Edit&#8221; link, you can edit the corresponding XML configuration inside your browser:</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/console_edit.png"><img alt="_images/console_edit.png" src="_images/console_edit.png" style="width: 50%;" /></a>
+<p class="caption">Edit action</p>
+</div>
+<p>The XML configuration will be displayed:</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/console_editing.png"><img alt="_images/console_editing.png" src="_images/console_editing.png" style="width: 50%;" /></a>
+<p class="caption">Editing a resource configuration</p>
+</div>
+<p>You can now perform configuration changes in the text area and click on &#8220;Save&#8221;. Or click any of the links:</p>
+<ul class="simple">
+<li>Display Schema: Displays the XML schema file for the resource configuration format.</li>
+<li>Cancel: Discards any changes.</li>
+<li>Turn on highlighting: Perform syntax highlighting.</li>
+</ul>
+<p>If there are no (syntactical) errors in the configuration, the &#8220;Save&#8221; link will take you back to the corresponding resource view. Before actually saving the file, the service console will perform an XML validation of the file and display any syntactical errors:</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/console_edit_error.png"><img alt="_images/console_edit_error.png" src="_images/console_edit_error.png" style="width: 50%;" /></a>
+<p class="caption">Displaying a syntax error</p>
+</div>
+<p>In this case, the mandatory &#8220;JDBCConnId&#8221; element was removed, which violates the configuration schema. This needs to be corrected, before &#8220;Save&#8221; will actually save the file to the workspace directory.</p>
+</div>
+<div class="section" id="deleting-a-resource">
+<h3>4.5.4. Deleting a resource<a class="headerlink" href="#deleting-a-resource" title="Permalink to this headline">¶</a></h3>
+<p>The &#8220;Delete&#8221; link will deactivate the resource and delete the corresponding configuration file from the workspace:</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/console_delete.png"><img alt="_images/console_delete.png" src="_images/console_delete.png" style="width: 50%;" /></a>
+<p class="caption">Delete action</p>
+</div>
+</div>
+<div class="section" id="creating-a-new-resource">
+<h3>4.5.5. Creating a new resource<a class="headerlink" href="#creating-a-new-resource" title="Permalink to this headline">¶</a></h3>
+<p>In order to add a new resource, enter a new identifier in the text field, select a resource sub-type from the drop-down and click on &#8220;Create new&#8221;:</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/console_add.png"><img alt="_images/console_add.png" src="_images/console_add.png" style="width: 50%;" /></a>
+<p class="caption">Adding a WMS resource with identifier &#8220;mywms&#8221;</p>
+</div>
+<p>The next steps depend on the type of resource, but generally you have to choose between different options and the result will be a new resource configuration file in the workspace.</p>
+</div>
+<div class="section" id="displaying-error-messages">
+<span id="anchor-console-errors"></span><h3>4.5.6. Displaying error messages<a class="headerlink" href="#displaying-error-messages" title="Permalink to this headline">¶</a></h3>
+<p>One of the most helpful features of the console is that it can help to detect and fix errors in a workspace setup. For example, if you delete (or deactivate) JDBC connection &#8220;conn1&#8221; in deegree-workspace-csw and click &#8220;[Reload]&#8221;, you will see the following:</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/console_error.png"><img alt="_images/console_error.png" src="_images/console_error.png" style="width: 50%;" /></a>
+<p class="caption">Errors in resource categories</p>
+</div>
+<p>The red exclamation marks near &#8220;services&#8221; and &#8220;metadata&#8221; show that these resource categories have resources with errors. Let&#8217;s click on the metadata link to see what&#8217;s going on:</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/console_error2.png"><img alt="_images/console_error2.png" src="_images/console_error2.png" style="width: 50%;" /></a>
+<p class="caption">Resource &#8220;iso19115&#8221; has an error</p>
+</div>
+<p>The metadata resource view reveals that the metadata store &#8220;iso19115&#8221; has an error. Clicking on &#8220;Show errors&#8221; leads to:</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/console_error3.png"><img alt="_images/console_error3.png" src="_images/console_error3.png" style="width: 50%;" /></a>
+<p class="caption">Details on the problem with &#8220;iso19115&#8221;</p>
+</div>
+<p>The error message gives an important hint: &#8220;No JDBC connection pool with id &#8216;conn1&#8217; defined.&#8221; deegree was unable to initialize the metadata store, because it refers to a JDBC connection pool &#8220;conn1&#8221;. You may wonder what the error in the services category is about:</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/console_error4.png"><img alt="_images/console_error4.png" src="_images/console_error4.png" style="width: 50%;" /></a>
+<p class="caption">Details on the problem with &#8220;csw&#8221;</p>
+</div>
+<p>As you see, the problem with the service resource (&#8220;There is no MetadataStore configured, ensure that exactly one store is available!) is actually a consequence of the other issue. Because deegree couldn&#8217;t initialize the metadata store, it was also unable to start up the CSW correctly. If you add a new JDBC connection &#8220;conn1&#8221; and click on &#8220;[Reload]&#8221;, both problems should disappear.</p>
+</div>
+<div class="section" id="resource-type-specific-actions">
+<h3>4.5.7. Resource type specific actions<a class="headerlink" href="#resource-type-specific-actions" title="Permalink to this headline">¶</a></h3>
+<p>In addition to the common management functionality, some resource views offer additional actions. This is described in the corresponding chapters, but here&#8217;s a short overview:</p>
+<ul class="simple">
+<li>Web Services: Display service capabilities (&#8220;Capabilities&#8221;), edit service metadata (&#8220;Edit metadata&#8221;), edit controller configuration (&#8220;Edit global config&#8221;)</li>
+<li>Feature Stores: Display feature types and number of stored features (&#8220;Info&#8221;), Import GML feature collections (&#8220;Loader&#8221;), Mapping wizard (&#8220;Create new&#8221; SQL feature store)</li>
+<li>Metadata Stores: Import metadata sets (&#8220;Loader&#8221;), create database tables (&#8220;Setup tables&#8221;)</li>
+<li>Server Connections (JDBC): Test database connection (&#8220;Test&#8221;)</li>
+</ul>
+</div>
+</div>
+<div class="section" id="best-practices-for-creating-workspaces">
+<h2>4.6. Best practices for creating workspaces<a class="headerlink" href="#best-practices-for-creating-workspaces" title="Permalink to this headline">¶</a></h2>
+<p>This section provides some hints for creating a deegree workspace.</p>
+<div class="section" id="start-from-example-or-from-scratch">
+<h3>4.6.1. Start from example or from scratch<a class="headerlink" href="#start-from-example-or-from-scratch" title="Permalink to this headline">¶</a></h3>
+<p>For creating your own workspace, you have two options. Option 1 is to use an existing workspace as a template and adapt it to your needs. Option 2 is to start from scratch, using an empty workspace. Adapting an existing workspace makes a lot of sense if your use-case is close to the scenario of the workspace. For example, if you want to set up INSPIRE View and Download Services, it is a good option to use <a class="reference internal" href="lightly.html#anchor-workspace-inspire"><em>Example workspace 1: INSPIRE Network Services</em></a> as a starting point.</p>
+<p>In order to create a new workspace, simply create a new directory in the <tt class="docutils literal"><span class="pre">.deegree</span></tt> directory.</p>
+<div class="figure">
+<a class="reference external image-reference" href="_images/workspace-new.png"><img alt="_images/workspace-new.png" src="_images/workspace-new.png" /></a>
+<p class="caption">Creating the new workspace <tt class="docutils literal"><span class="pre">myscenario</span></tt></p>
+</div>
+<p>Afterwards, switch to the new workspace using the services console, as described in <a class="reference internal" href="lightly.html#anchor-downloading-workspaces"><em>Downloading and activating example workspaces</em></a>.</p>
+</div>
+<div class="section" id="find-out-which-resources-you-need">
+<h3>4.6.2. Find out which resources you need<a class="headerlink" href="#find-out-which-resources-you-need" title="Permalink to this headline">¶</a></h3>
+<p>The first step is to identify the types of workspace resources that you need for your use-case. You probably know already which types of services your setup requires. The next step is to identify the dependencies for every service by having a look at the respective chapter in the documentation.  Let&#8217;s say you want a setup with a transactional WFS, a WMS and a CSW:</p>
+<ul class="simple">
+<li>A WFS instance requires 1..n feature stores</li>
+<li>A WMS instance requires 1..n themes</li>
+<li>A CSW instance requires a single metadata store</li>
+</ul>
+<p>Now you have to dig deeper: What kinds of feature stores exist? Maybe you will find out that what you want is an SQL feature store. So you read the respective part of the documentation and see that an SQL feature store requires a JDBC connection pool resource. Do the same research for the WMS dependencies. A WMS depends on a theme. Find out what a theme is and what it requires. In short, you have to answer the following questions for every encountered resource:</p>
+<ul class="simple">
+<li>What does resource do?</li>
+<li>How is it configured?</li>
+<li>On which resources does this resource depend?</li>
+</ul>
+<p>At the end of this process you should know about the resources that you will have to configure for your setup.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Alternatively, you can approach the resources question bottom-up. Let&#8217;s say you have your data ready in a PostGIS database. You want to visualize it using a WMS. So you would require a JDBC resource pool that connects to your database. You need a simple SQL feature store (or an SQL feature store) that uses the new connection pool. You create one or more feature layers that are wired to the feature store and a theme based on the layers. At the end of the chain is the WMS resource which has to be configured to use the theme resource. Rendering styles can be created later (references have to be added to the layers configuration).</p>
+</div>
+</div>
+<div class="section" id="use-a-validating-xml-editor">
+<h3>4.6.3. Use a validating XML editor<a class="headerlink" href="#use-a-validating-xml-editor" title="Permalink to this headline">¶</a></h3>
+<p>All deegree XML configuration files have a corresponding XML schema, which allows to detect syntactical errors easily. The editor built into the services console performs validation when you save a configuration file. If the contents is not valid according to the schema, the file will not be saved, but an error message will be displayed:</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/console_edit_error.png"><img alt="_images/console_edit_error.png" src="_images/console_edit_error.png" style="width: 50%;" /></a>
+<p class="caption">The services console displays an XML syntax error</p>
+</div>
+<p>If you prefer to use a different editor for editing deegree&#8217;s configuration files, it is highly recommended to choose a validating XML editor. Successfully tested editors are Eclipse and Altova XML Spy, but any schema-aware editor should work.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">In case you are able to understand XML schema, you can also use the schema file to find out about the available config options. deegree&#8217;s schema files are hosted at <a class="reference external" href="http://schemas.deegree.org">http://schemas.deegree.org</a>.</p>
+</div>
+</div>
+<div class="section" id="check-the-resource-status-and-error-messages">
+<h3>4.6.4. Check the resource status and error messages<a class="headerlink" href="#check-the-resource-status-and-error-messages" title="Permalink to this headline">¶</a></h3>
+<p>As pointed out in <a class="reference internal" href="#anchor-console-errors"><em>Displaying error messages</em></a>, the service console indicates errors if resources cannot be initialized. Here&#8217;s an example:</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/console_error3.png"><img alt="_images/console_error3.png" src="_images/console_error3.png" style="width: 50%;" /></a>
+<p class="caption">Error message</p>
+</div>
+<p>In this case, it was not possible to initialize the JDBC connection (and the resources that depend on it). You can spot resource categories and resources that have errors easily, as they have a red exclamation mark. Click on the respective resource level and on &#8220;Errors&#8221; near the broken resource to see the error message. After fixing the error, click on &#8220;Reload&#8221; to re-initialize the workspace. If your fix was successful, the exclamation mark will be gone.</p>
+<p>Additional information can be found in the deegree log. If you&#8217;re running the ZIP version, switch to the terminal window. When initializing workspace resources, information on every resource will be logged, along with error messages.</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/terminal.png"><img alt="_images/terminal.png" src="_images/terminal.png" style="width: 50%;" /></a>
+<p class="caption">Log messages in the deegree log</p>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">If you deployed the WAR version, the location of the deegree log depends on your web application container. For Tomcat, you will find it in file <tt class="docutils literal"><span class="pre">catalina.out</span></tt> in the <tt class="docutils literal"><span class="pre">log/</span></tt> directory.</p>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">More logging can be activated by adjusting file <tt class="docutils literal"><span class="pre">log4j.properties</span></tt> in the <tt class="docutils literal"><span class="pre">/WEB-INF/classes/</span></tt> directory of the deegree webapplication.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013, The deegree project.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

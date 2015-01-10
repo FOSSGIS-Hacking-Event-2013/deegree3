@@ -178,13 +178,12 @@ pseudoxml:
 	@echo "Build finished. The pseudo-XML files are in $(BUILDDIR)/pseudoxml."
 
 gh-pages:
-	git checkout master
 	git checkout gh-pages
-	rm -rf deegree-services
+	rm -rf build _sources _static _images
 	git checkout feature/fossgis-hacking-handbook $(GH_PAGES_SOURCES)
 	git reset HEAD
 	make html
 	mv -fv deegree-services/deegree-webservices-handbook/build/html/* ./
 	rm -rf $(GH_PAGES_SOURCES) build
 	git add -A
-	git commit -m "Generated gh-pages for feature/fossgis-hacking-handbook" && git push origin gh-pages ; git checkout feature/fossgis-hacking-handbook
+	git commit -m "generated gh-pages for feature/fossgis-hacking-handbook" && git push origin gh-pages ; git checkout feature/fossgis-hacking-handbook

@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>14. Server connections &mdash; deegree webservices ${project.version} documentation</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.2.0/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.2.0/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '${project.version}',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="deegree webservices ${project.version} documentation" href="index.html" />
+    <link rel="next" title="15. Process providers" href="processproviders.html" />
+    <link rel="prev" title="13. Filter Encoding" href="filterencoding.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          deegree webservices</a>
+        <span class="navbar-text navbar-version pull-left"><b>${project.version}</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">2. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lightly.html">3. Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basics.html">4. Configuration basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webservices.html">5. Web services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="featurestores.html">6. Feature stores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tilestores.html">7. Tile stores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coveragestores.html">8. Coverage stores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metadatastores.html">9. Metadata stores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layers.html">10. Map layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="themes.html">11. Map themes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="renderstyles.html">12. Map styles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filterencoding.html">13. Filter Encoding</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">14. Server connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processproviders.html">15. Process providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="crs.html">16. Coordinate reference systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="restapi.html">17. deegree REST interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javamodules.html">18. Java modules and libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gdal.html">19. GDAL components</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">14. Server connections</a><ul>
+<li><a class="reference internal" href="#jdbc-connections">14.1. JDBC connections</a><ul>
+<li><a class="reference internal" href="#minimal-configuration-example-postgresql">14.1.1. Minimal configuration example (PostgreSQL)</a></li>
+<li><a class="reference internal" href="#configuration-example-oracle">14.1.2. Configuration example (Oracle)</a></li>
+<li><a class="reference internal" href="#configuration-example-microsoft-sql-server">14.1.3. Configuration example (Microsoft SQL Server)</a></li>
+<li><a class="reference internal" href="#configuration-example-jndi">14.1.4. Configuration example (JNDI)</a></li>
+<li><a class="reference internal" href="#configuration-example-oracle-ucp">14.1.5. Configuration example (Oracle UCP)</a></li>
+<li><a class="reference internal" href="#configuration-options">14.1.6. Configuration options</a></li>
+<li><a class="reference internal" href="#legacy-configuration-format">14.1.7. Legacy configuration format</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#remote-ows-connections">14.2. Remote OWS connections</a><ul>
+<li><a class="reference internal" href="#remote-wms-connection">14.2.1. Remote WMS connection</a></li>
+<li><a class="reference internal" href="#remote-wmts-connection">14.2.2. Remote WMTS connection</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="filterencoding.html" title="Previous Chapter: 13. Filter Encoding"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 13. Filter Encod...</span>
+    </a>
+  </li>
+  <li>
+    <a href="processproviders.html" title="Next Chapter: 15. Process providers"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">15. Process prov... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/serverconnections.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      
+  <blockquote>
+<div></div></blockquote>
+<div class="section" id="server-connections">
+<span id="anchor-configuration-serverconnections"></span><h1>14. Server connections<a class="headerlink" href="#server-connections" title="Permalink to this headline">¶</a></h1>
+<p>Server connections are workspace resources that provide connections to remote services. These connections can then be used by other workspace resources. Some common example use cases:</p>
+<ul class="simple">
+<li>JDBC connection: Used by SQL feature stores to access the database that stores the feature data</li>
+<li>JDBC connection: Used by SQL ISO metadata stores to access the database that stores the metadata records</li>
+<li>WMS connection: Used by remote WMS layers to access remote WMS</li>
+<li>WMS connection: Used by remote WMS tile stores to access remote WMS</li>
+<li>WMTS connection: Used by remote WMTS tile stores to access remote WMTS</li>
+</ul>
+<p>There are currently two categories of server connection resources, JDBC connections (to connect to SQL databases) and remote OWS connections (to connect to other OGC webservices).</p>
+<div class="figure" style="width: 80%">
+<a class="reference external image-reference" href="_images/workspace-overview-connection.png"><img alt="_images/workspace-overview-connection.png" src="_images/workspace-overview-connection.png" style="width: 80%;" /></a>
+<p class="caption">Server connection resources define how to obtain a connection to a remote server</p>
+</div>
+<div class="section" id="jdbc-connections">
+<span id="anchor-configuration-jdbc"></span><h2>14.1. JDBC connections<a class="headerlink" href="#jdbc-connections" title="Permalink to this headline">¶</a></h2>
+<p>These resources define connections to SQL databases, such as PostgreSQL/PostGIS, Oracle Spatial or Microsoft SQL Server.</p>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">By default, deegree webservices includes JDBC drivers for connecting to PostgreSQL and Derby databases. If you want to make a connection to other SQL databases (e.g. Oracle), you will need to add a compatible JDBC driver manually. This is described in <em class="xref std std-ref">anchor-oraclejars</em>.</p>
+</div>
+<div class="section" id="minimal-configuration-example-postgresql">
+<h3>14.1.1. Minimal configuration example (PostgreSQL)<a class="headerlink" href="#minimal-configuration-example-postgresql" title="Permalink to this headline">¶</a></h3>
+<p>This example defines a basic connection pool for a PostgreSQL/PostGIS database:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;DataSourceConnectionProvider</span> <span class="na">configVersion=</span><span class="s">&quot;3.4.0&quot;</span>
+  <span class="na">xmlns=</span><span class="s">&quot;http://www.deegree.org/connectionprovider/datasource&quot;</span> <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+  <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.deegree.org/connectionprovider/datasource http://schemas.deegree.org/jdbc/datasource/3.4.0/datasource.xsd&quot;</span><span class="nt">&gt;</span>
+
+  <span class="c">&lt;!-- Creation / lookup of javax.sql.DataSource instance --&gt;</span>
+  <span class="nt">&lt;DataSource</span> <span class="na">javaClass=</span><span class="s">&quot;org.apache.commons.dbcp.BasicDataSource&quot;</span> <span class="nt">/&gt;</span>
+
+  <span class="c">&lt;!-- Configuration of DataSource properties --&gt;</span>
+  <span class="nt">&lt;Property</span> <span class="na">name=</span><span class="s">&quot;driverClassName&quot;</span> <span class="na">value=</span><span class="s">&quot;org.postgresql.Driver&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;Property</span> <span class="na">name=</span><span class="s">&quot;url&quot;</span> <span class="na">value=</span><span class="s">&quot;jdbc:postgresql://localhost/deegree-db&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;Property</span> <span class="na">name=</span><span class="s">&quot;username&quot;</span> <span class="na">value=</span><span class="s">&quot;kelvin&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;Property</span> <span class="na">name=</span><span class="s">&quot;password&quot;</span> <span class="na">value=</span><span class="s">&quot;s3cr3t&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;Property</span> <span class="na">name=</span><span class="s">&quot;maxActive&quot;</span> <span class="na">value=</span><span class="s">&quot;10&quot;</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;/DataSourceConnectionProvider&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>The DataSource object uses Java class <tt class="docutils literal"><span class="pre">org.apache.commons.dbcp.BasicDataSource</span></tt> (a connection pool class provided by <a class="reference external" href="http://commons.apache.org/proper/commons-dbcp/index.html">Apache Commons DBCP</a>.). If you don&#8217;t know what this means, then this is most likely what you want to use.</li>
+<li>The JDBC driver class is <tt class="docutils literal"><span class="pre">org.postgresql.Driver</span></tt> (this is the Java class name to use for PostgreSQL/PostGIS databases).</li>
+<li>The JDBC URL is <tt class="docutils literal"><span class="pre">jdbc:postgresql://localhost:5432/deegree-db</span></tt>. This means that PostgreSQL is running on the same machine, port 5432 (default). The database identifier is <tt class="docutils literal"><span class="pre">deegree-db</span></tt>. Adapt these values to match to your setup.</li>
+<li>The database username is <tt class="docutils literal"><span class="pre">kelvin</span></tt>, password is <tt class="docutils literal"><span class="pre">s3cr3t</span></tt>. Adapt these parameters to match your setup.</li>
+<li>The maximum number of simultaneous connections is 10.</li>
+</ul>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">There are additional properties that can be tweaked and which may improve performance. See <a class="reference internal" href="#anchor-configuration-jdbc-properties"><em>Configuration options</em></a>.</p>
+</div>
+</div>
+<div class="section" id="configuration-example-oracle">
+<h3>14.1.2. Configuration example (Oracle)<a class="headerlink" href="#configuration-example-oracle" title="Permalink to this headline">¶</a></h3>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">By default, deegree webservices includes JDBC drivers for connecting to PostgreSQL and Derby databases. In order to connect to Oracle databases, you need to add a compatible JDBC driver manually. This is described in <em class="xref std std-ref">anchor-oraclejars</em>.</p>
+</div>
+<p>This example defines a connection pool for an Oracle database:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;DataSourceConnectionProvider</span> <span class="na">configVersion=</span><span class="s">&quot;3.4.0&quot;</span>
+  <span class="na">xmlns=</span><span class="s">&quot;http://www.deegree.org/connectionprovider/datasource&quot;</span> <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+  <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.deegree.org/connectionprovider/datasource http://schemas.deegree.org/jdbc/datasource/3.4.0/datasource.xsd&quot;</span><span class="nt">&gt;</span>
+
+  <span class="c">&lt;!-- Creation / lookup of javax.sql.DataSource instance --&gt;</span>
+  <span class="nt">&lt;DataSource</span> <span class="na">javaClass=</span><span class="s">&quot;org.apache.commons.dbcp.BasicDataSource&quot;</span> <span class="nt">/&gt;</span>
+
+  <span class="c">&lt;!-- Configuration of DataSource properties --&gt;</span>
+  <span class="nt">&lt;Property</span> <span class="na">name=</span><span class="s">&quot;driverClassName&quot;</span> <span class="na">value=</span><span class="s">&quot;oracle.jdbc.OracleDriver&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;Property</span> <span class="na">name=</span><span class="s">&quot;url&quot;</span> <span class="na">value=</span><span class="s">&quot;jdbc:oracle:thin:@localhost:1521:deegree&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;Property</span> <span class="na">name=</span><span class="s">&quot;username&quot;</span> <span class="na">value=</span><span class="s">&quot;kelvin&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;Property</span> <span class="na">name=</span><span class="s">&quot;password&quot;</span> <span class="na">value=</span><span class="s">&quot;s3cr3t&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;Property</span> <span class="na">name=</span><span class="s">&quot;poolPreparedStatements&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;Property</span> <span class="na">name=</span><span class="s">&quot;maxActive&quot;</span> <span class="na">value=</span><span class="s">&quot;10&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;Property</span> <span class="na">name=</span><span class="s">&quot;maxIdle&quot;</span> <span class="na">value=</span><span class="s">&quot;10&quot;</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;/DataSourceConnectionProvider&gt;</span>
+</pre></div>
+</div>
+<p>This defines a database connection with the following properties:</p>
+<ul class="simple">
+<li>The DataSource object uses the Java class <tt class="docutils literal"><span class="pre">org.apache.commons.dbcp.BasicDataSource</span></tt> (a connection pool class provided by Apache DBCP). If you are not familiar with J2EE containers, this is most likely what you want to use.</li>
+<li>The JDBC driver class is <tt class="docutils literal"><span class="pre">oracle.jdbc.OracleDriver</span></tt>. This is the Java class name to use for Oracle.</li>
+<li>The so-called JDBC URL is <tt class="docutils literal"><span class="pre">jdbc:oracle:thin:&#64;localhost:1521:deegree</span></tt>. This means that Oracle is running on the local machine, port 1521 (adapt host name and port as required). The database identifier is <tt class="docutils literal"><span class="pre">deegree</span></tt>.</li>
+<li>The database username is <tt class="docutils literal"><span class="pre">kelvin</span></tt>, password is <tt class="docutils literal"><span class="pre">s3cr3t</span></tt>.</li>
+<li>The maximum number of simultaneous connections is 10.</li>
+</ul>
+</div>
+<div class="section" id="configuration-example-microsoft-sql-server">
+<h3>14.1.3. Configuration example (Microsoft SQL Server)<a class="headerlink" href="#configuration-example-microsoft-sql-server" title="Permalink to this headline">¶</a></h3>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">By default, deegree webservices includes JDBC drivers for connecting to PostgreSQL and Derby databases. In order to connect to Microsoft SQL Server, you need to add a compatible JDBC driver manually. This is described in <em class="xref std std-ref">anchor-oraclejars</em>.</p>
+</div>
+<p>This example defines a connection pool for a Microsoft SQL Server:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;DataSourceConnectionProvider</span> <span class="na">configVersion=</span><span class="s">&quot;3.4.0&quot;</span>
+  <span class="na">xmlns=</span><span class="s">&quot;http://www.deegree.org/connectionprovider/datasource&quot;</span> <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+  <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.deegree.org/connectionprovider/datasource http://schemas.deegree.org/jdbc/datasource/3.4.0/datasource.xsd&quot;</span><span class="nt">&gt;</span>
+
+  <span class="c">&lt;!-- Creation / lookup of javax.sql.DataSource instance --&gt;</span>
+  <span class="nt">&lt;DataSource</span> <span class="na">javaClass=</span><span class="s">&quot;org.apache.commons.dbcp.BasicDataSource&quot;</span> <span class="nt">/&gt;</span>
+
+  <span class="c">&lt;!-- Configuration of DataSource properties --&gt;</span>
+  <span class="nt">&lt;Property</span> <span class="na">name=</span><span class="s">&quot;driverClassName&quot;</span> <span class="na">value=</span><span class="s">&quot;org.postgresql.Driver&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;Property</span> <span class="na">name=</span><span class="s">&quot;url&quot;</span> <span class="na">value=</span><span class="s">&quot;jdbc:postgresql://localhost/deegree-db&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;Property</span> <span class="na">name=</span><span class="s">&quot;username&quot;</span> <span class="na">value=</span><span class="s">&quot;kelvin&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;Property</span> <span class="na">name=</span><span class="s">&quot;password&quot;</span> <span class="na">value=</span><span class="s">&quot;s3cr3t&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;Property</span> <span class="na">name=</span><span class="s">&quot;poolPreparedStatements&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;Property</span> <span class="na">name=</span><span class="s">&quot;maxActive&quot;</span> <span class="na">value=</span><span class="s">&quot;10&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;Property</span> <span class="na">name=</span><span class="s">&quot;maxIdle&quot;</span> <span class="na">value=</span><span class="s">&quot;10&quot;</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;/DataSourceConnectionProvider&gt;</span>
+</pre></div>
+</div>
+<p>This defines a database connection with the following properties:</p>
+<ul class="simple">
+<li>The DataSource object uses the Java class <tt class="docutils literal"><span class="pre">org.apache.commons.dbcp.BasicDataSource</span></tt> (a connection pool class provided by Apache DBCP). If you are not familiar with J2EE containers, this is most likely what you want to use.</li>
+<li>The JDBC driver class is <tt class="docutils literal"><span class="pre">org.postgresql.Driver</span></tt>. This is the Java class name to use for PostgreSQL/PostGIS.</li>
+<li>The so-called JDBC URL is <tt class="docutils literal"><span class="pre">jdbc:postgresql://localhost:5432/deegree-db</span></tt>. This means that PostgreSQL is running on the local machine, port 5432 (adapt host name and port as required). The database identifier is <tt class="docutils literal"><span class="pre">deegree-db</span></tt>.</li>
+<li>The database username is <tt class="docutils literal"><span class="pre">kelvin</span></tt>, password is <tt class="docutils literal"><span class="pre">s3cr3t</span></tt>.</li>
+<li>The maximum number of simultaneous connections is 10.</li>
+</ul>
+</div>
+<div class="section" id="configuration-example-jndi">
+<h3>14.1.4. Configuration example (JNDI)<a class="headerlink" href="#configuration-example-jndi" title="Permalink to this headline">¶</a></h3>
+<p>This example uses a connection pool that is defined externally by the servlet container that runs deegree webservices (e.g. Apache Tomcat):</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;DataSourceConnectionProvider</span> <span class="na">configVersion=</span><span class="s">&quot;3.4.0&quot;</span>
+  <span class="na">xmlns=</span><span class="s">&quot;http://www.deegree.org/connectionprovider/datasource&quot;</span> <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+  <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.deegree.org/connectionprovider/datasource http://schemas.deegree.org/jdbc/datasource/3.4.0/datasource.xsd&quot;</span><span class="nt">&gt;</span>
+
+  <span class="c">&lt;!-- Creation / lookup of javax.sql.DataSource instance --&gt;</span>
+  <span class="nt">&lt;DataSource</span> <span class="na">javaClass=</span><span class="s">&quot;org.deegree.db.datasource.JndiLookup&quot;</span> <span class="na">factoryMethod=</span><span class="s">&quot;lookup&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;Argument</span> <span class="na">value=</span><span class="s">&quot;java:comp/env/jdbc/DatabaseName&quot;</span> <span class="na">javaClass=</span><span class="s">&quot;java.lang.String&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/DataSource&gt;</span>
+
+<span class="nt">&lt;/DataSourceConnectionProvider&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>The DataSource object is retrieved using Java method <tt class="docutils literal"><span class="pre">lookup</span></tt> of class <tt class="docutils literal"><span class="pre">org.deegree.db.datasource.JndiLookup</span></tt>. This is the correct value for retrieving a JNDI-defined connection pool.</li>
+<li>The JNDI name to look for is <tt class="docutils literal"><span class="pre">java:comp/env/jdbc/DatabaseName</span></tt>. Adapt this value to match your setup.</li>
+</ul>
+</div>
+<div class="section" id="configuration-example-oracle-ucp">
+<h3>14.1.5. Configuration example (Oracle UCP)<a class="headerlink" href="#configuration-example-oracle-ucp" title="Permalink to this headline">¶</a></h3>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">By default, deegree webservices includes JDBC drivers for connecting to PostgreSQL and Derby databases. In order to connect to Oracle databases, you need to add a compatible JDBC driver manually. This is described in <em class="xref std std-ref">anchor-oraclejars</em>.</p>
+</div>
+<p>This example uses a connection pool based on Oracle UCP (Universal Connection Pool):</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;DataSourceConnectionProvider</span> <span class="na">configVersion=</span><span class="s">&quot;3.4.0&quot;</span>
+  <span class="na">xmlns=</span><span class="s">&quot;http://www.deegree.org/connectionprovider/datasource&quot;</span> <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+  <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.deegree.org/connectionprovider/datasource http://schemas.deegree.org/jdbc/datasource/3.4.0/datasource.xsd&quot;</span><span class="nt">&gt;</span>
+
+  <span class="c">&lt;!-- Creation / lookup of javax.sql.DataSource instance --&gt;</span>
+  <span class="nt">&lt;DataSource</span> <span class="na">javaClass=</span><span class="s">&quot;oracle.ucp.jdbc.PoolDataSourceFactory&quot;</span> <span class="na">factoryMethod=</span><span class="s">&quot;getPoolDataSource&quot;</span> <span class="nt">/&gt;</span>
+
+  <span class="c">&lt;!-- Configuration of DataSource properties --&gt;</span>
+  <span class="nt">&lt;Property</span> <span class="na">name=</span><span class="s">&quot;connectionFactoryClassName&quot;</span> <span class="na">value=</span><span class="s">&quot;oracle.jdbc.pool.OracleDataSource&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;Property</span> <span class="na">name=</span><span class="s">&quot;URL&quot;</span> <span class="na">value=</span><span class="s">&quot;jdbc:oracle:thin:@//localhost:1521/XE&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;Property</span> <span class="na">name=</span><span class="s">&quot;user&quot;</span> <span class="na">value=</span><span class="s">&quot;kelvin&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;Property</span> <span class="na">name=</span><span class="s">&quot;password&quot;</span> <span class="na">value=</span><span class="s">&quot;s3cr3t&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;Property</span> <span class="na">name=</span><span class="s">&quot;initialPoolSize&quot;</span> <span class="na">value=</span><span class="s">&quot;5&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;Property</span> <span class="na">name=</span><span class="s">&quot;minPoolSize&quot;</span> <span class="na">value=</span><span class="s">&quot;5&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;Property</span> <span class="na">name=</span><span class="s">&quot;maxPoolSize&quot;</span> <span class="na">value=</span><span class="s">&quot;10&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;Property</span> <span class="na">name=</span><span class="s">&quot;maxStatements&quot;</span> <span class="na">value=</span><span class="s">&quot;50&quot;</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;/DataSourceConnectionProvider&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>The DataSource object is retrieved using Java method <tt class="docutils literal"><span class="pre">getPoolDataSource</span></tt> of class <tt class="docutils literal"><span class="pre">oracle.ucp.jdbc.PoolDataSourceFactory</span></tt>. This is the correct value for creating an Oracle UCP connection pool.</li>
+</ul>
+</div>
+<div class="section" id="configuration-options">
+<span id="anchor-configuration-jdbc-properties"></span><h3>14.1.6. Configuration options<a class="headerlink" href="#configuration-options" title="Permalink to this headline">¶</a></h3>
+<p>The database connection config file format is defined by schema file <a class="reference external" href="http://schemas.deegree.org/jdbc/datasource/3.4.0/datasource.xsd">http://schemas.deegree.org/jdbc/datasource/3.4.0/datasource.xsd</a>. The root element is <tt class="docutils literal"><span class="pre">DataSourceConnectionProvider</span></tt> and the config attribute must be <tt class="docutils literal"><span class="pre">3.4.0</span></tt>. The following table lists the available configuration options. When specifiying them, their order must be respected.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="15%" />
+<col width="11%" />
+<col width="60%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Cardinality</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>DataSource</td>
+<td>1..1</td>
+<td>Complex</td>
+<td>Creation/lookup of javax.sql.DataSource object</td>
+</tr>
+<tr class="row-odd"><td>Property</td>
+<td>0..n</td>
+<td>Complex</td>
+<td>Configuration of javax.sql.DataSource object</td>
+</tr>
+</tbody>
+</table>
+<p>Technically, the <tt class="docutils literal"><span class="pre">DataSource</span></tt> element defines how the <tt class="docutils literal"><span class="pre">javax.sql.DataSource</span></tt> object is retrieved. The retrieved object provides the actual database connections. The <tt class="docutils literal"><span class="pre">DataSource</span></tt> element allows for the following options:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="13%" />
+<col width="9%" />
+<col width="64%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Cardinality</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>javaClass</td>
+<td>1..1</td>
+<td>String</td>
+<td>Java class to use for instantiation/creation</td>
+</tr>
+<tr class="row-odd"><td>factoryMethod</td>
+<td>0..1</td>
+<td>String</td>
+<td>If present, this static method is used (instead of constructor)</td>
+</tr>
+<tr class="row-even"><td>destroyMethod</td>
+<td>0..1</td>
+<td>String</td>
+<td>Configuration of javax.sql.DataSource object</td>
+</tr>
+<tr class="row-odd"><td>Argument</td>
+<td>0..1</td>
+<td>Complex</td>
+<td>Argument to use for instantiation/method call</td>
+</tr>
+</tbody>
+</table>
+<p>Depending on the presence of attribute <tt class="docutils literal"><span class="pre">factoryMethod</span></tt>, either the constructor of the specified <tt class="docutils literal"><span class="pre">javaClass</span></tt> will be invoked, or the static method of this class will be called. Here are two example snippets for clarification:</p>
+<div class="highlight-xml"><div class="highlight"><pre>...
+<span class="nt">&lt;DataSource</span> <span class="na">javaClass=</span><span class="s">&quot;org.apache.commons.dbcp.BasicDataSource&quot;</span> <span class="nt">/&gt;</span>
+...
+</pre></div>
+</div>
+<p>In this snippet, no <tt class="docutils literal"><span class="pre">factoryMethod</span></tt> attribute is present. Therefore, the constructor of Java class <tt class="docutils literal"><span class="pre">org.apache.commons.dbcp.BasicDataSource</span></tt> is invoked. The returned instance must be an implementation of <tt class="docutils literal"><span class="pre">javax.sql.DataSource</span></tt>, and this is guaranteed, because the class implements this interface. There are no arguments passed to the constructor.</p>
+<div class="highlight-xml"><div class="highlight"><pre>...
+<span class="nt">&lt;DataSource</span> <span class="na">javaClass=</span><span class="s">&quot;org.deegree.db.datasource.JndiLookup&quot;</span> <span class="na">factoryMethod=</span><span class="s">&quot;lookup&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;Argument</span> <span class="na">value=</span><span class="s">&quot;java:comp/env/jdbc/DatabaseName&quot;</span> <span class="na">javaClass=</span><span class="s">&quot;java.lang.String&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/DataSource&gt;</span>
+...
+</pre></div>
+</div>
+<p>In this snippet, a <tt class="docutils literal"><span class="pre">factoryMethod</span></tt> attribute is present (<tt class="docutils literal"><span class="pre">lookup</span></tt>). Therefore, the static method of Java class <tt class="docutils literal"><span class="pre">org.deegree.db.datasource.JndiLookup</span></tt> is called. The value returned by this method must be a <tt class="docutils literal"><span class="pre">javax.sql.DataSource</span></tt> object, which is guaranteed by the implementation. A single String-valued argument with value <tt class="docutils literal"><span class="pre">java:comp/env/jdbc/DatabaseName</span></tt> is passed to the method.</p>
+<p>For completeness, here&#8217;s the list of configuration options of element <tt class="docutils literal"><span class="pre">Attribute</span></tt>:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="15%" />
+<col width="10%" />
+<col width="60%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Cardinality</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>javaClass</td>
+<td>1..1</td>
+<td>String</td>
+<td>Java class of the argument (e.g. java.lang.String)</td>
+</tr>
+<tr class="row-odd"><td>value</td>
+<td>1..1</td>
+<td>String</td>
+<td>Argument value</td>
+</tr>
+</tbody>
+</table>
+<p>The <tt class="docutils literal"><span class="pre">Property</span></tt> child elements of element <tt class="docutils literal"><span class="pre">DataSourceConnectionProvider</span></tt> are used to configure properties of the <tt class="docutils literal"><span class="pre">javax.sql.DataSource</span></tt> instance:</p>
+<div class="highlight-xml"><div class="highlight"><pre>...
+<span class="nt">&lt;Property</span> <span class="na">name=</span><span class="s">&quot;driverClassName&quot;</span> <span class="na">value=</span><span class="s">&quot;org.postgresql.Driver&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;Property</span> <span class="na">name=</span><span class="s">&quot;url&quot;</span> <span class="na">value=</span><span class="s">&quot;jdbc:postgresql://localhost/deegree-db&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;Property</span> <span class="na">name=</span><span class="s">&quot;username&quot;</span> <span class="na">value=</span><span class="s">&quot;kelvin&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;Property</span> <span class="na">name=</span><span class="s">&quot;password&quot;</span> <span class="na">value=</span><span class="s">&quot;s3cr3t&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;Property</span> <span class="na">name=</span><span class="s">&quot;poolPreparedStatements&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;Property</span> <span class="na">name=</span><span class="s">&quot;maxActive&quot;</span> <span class="na">value=</span><span class="s">&quot;10&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;Property</span> <span class="na">name=</span><span class="s">&quot;maxIdle&quot;</span> <span class="na">value=</span><span class="s">&quot;10&quot;</span> <span class="nt">/&gt;</span>
+...
+</pre></div>
+</div>
+<p>The properties available for configuration depend on the implementation of <tt class="docutils literal"><span class="pre">javax.sql.DataSource</span></tt>:</p>
+<ul class="simple">
+<li>Apache Commons DBCP: See <a class="reference external" href="http://commons.apache.org/proper/commons-dbcp/api-1.4/org/apache/commons/dbcp/BasicDataSource.html">http://commons.apache.org/proper/commons-dbcp/api-1.4/org/apache/commons/dbcp/BasicDataSource.html</a></li>
+<li>Oracle UCP: <a class="reference external" href="http://docs.oracle.com/cd/E11882_01/java.112/e12826/oracle/ucp/jdbc/PoolDataSource.html">http://docs.oracle.com/cd/E11882_01/java.112/e12826/oracle/ucp/jdbc/PoolDataSource.html</a></li>
+</ul>
+<p>For completeness, here&#8217;s the list of options of element <tt class="docutils literal"><span class="pre">Property</span></tt>:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="25%" />
+<col width="17%" />
+<col width="42%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Cardinality</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>name</td>
+<td>1..1</td>
+<td>String</td>
+<td>Name of the property</td>
+</tr>
+<tr class="row-odd"><td>value</td>
+<td>1..1</td>
+<td>String</td>
+<td>Property value</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="legacy-configuration-format">
+<h3>14.1.7. Legacy configuration format<a class="headerlink" href="#legacy-configuration-format" title="Permalink to this headline">¶</a></h3>
+<p>Prior to deegree webservices release 3.4, a simpler (but limited) configuration format was used. Here&#8217;s an example that connects to a PostgreSQL database on localhost, port 5432. The database to connect to is called &#8216;inspire&#8217;, the database user is &#8216;postgres&#8217; and password is &#8216;postgres&#8217;.</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;JDBCConnection</span> <span class="na">configVersion=</span><span class="s">&quot;3.0.0&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.deegree.org/jdbc&quot;</span> <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+                <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.deegree.org/jdbc http://schemas.deegree.org/jdbc/3.0.0/jdbc.xsd&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;Url&gt;</span>jdbc:postgresql://localhost:5432/inspire<span class="nt">&lt;/Url&gt;</span>
+  <span class="nt">&lt;User&gt;</span>postgres<span class="nt">&lt;/User&gt;</span>
+  <span class="nt">&lt;Password&gt;</span>postgres<span class="nt">&lt;/Password&gt;</span>
+<span class="nt">&lt;/JDBCConnection&gt;</span>
+</pre></div>
+</div>
+<p>The legacy connection config file format is defined by schema file <a class="reference external" href="http://schemas.deegree.org/jdbc/3.0.0/jdbc.xsd">http://schemas.deegree.org/jdbc/3.0.0/jdbc.xsd</a>. The root element is <tt class="docutils literal"><span class="pre">JDBCConnection</span></tt> and the config attribute must be <tt class="docutils literal"><span class="pre">3.0.0</span></tt>. The following table lists the available configuration options. When specifiying them, their order must be respected.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="18%" />
+<col width="11%" />
+<col width="56%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Cardinality</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Url</td>
+<td>1..1</td>
+<td>String</td>
+<td>JDBC URL (without username / password)</td>
+</tr>
+<tr class="row-odd"><td>User</td>
+<td>1..n</td>
+<td>String</td>
+<td>DB username</td>
+</tr>
+<tr class="row-even"><td>Password</td>
+<td>1..1</td>
+<td>String</td>
+<td>DB password</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="remote-ows-connections">
+<h2>14.2. Remote OWS connections<a class="headerlink" href="#remote-ows-connections" title="Permalink to this headline">¶</a></h2>
+<p>Remote OWS connections are typically configured with a capabilities document reference and optionally some HTTP request parameters (such as timeouts etc.). Contrary to earlier experiments these resources only define the actual connection to the service, not what is requested. This resource is all about <em>how</em> to request, not <em>what</em> to request. Other resources (such as a remote WMS tile store) which make use of such a server connection typically define <em>what</em> to request.</p>
+<div class="section" id="remote-wms-connection">
+<h3>14.2.1. Remote WMS connection<a class="headerlink" href="#remote-wms-connection" title="Permalink to this headline">¶</a></h3>
+<p>The remote WMS connection can be used to connect to OGC WMS services. Versions 1.1.1 and 1.3.0 (with limitations) are supported.</p>
+<p>Let&#8217;s have a look at an example:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;RemoteWMS</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.deegree.org/remoteows/wms&quot;</span> <span class="na">configVersion=</span><span class="s">&quot;3.1.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;CapabilitiesDocumentLocation</span>
+    <span class="na">location=</span><span class="s">&quot;http://deegree3-demo.deegree.org/utah-workspace/services?request=GetCapabilities&amp;amp;service=WMS&amp;amp;version=1.1.1&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;ConnectionTimeout&gt;</span>10<span class="nt">&lt;/ConnectionTimeout&gt;</span>
+  <span class="nt">&lt;RequestTimeout&gt;</span>30<span class="nt">&lt;/RequestTimeout&gt;</span>
+  <span class="nt">&lt;HTTPBasicAuthentication&gt;</span>
+    <span class="nt">&lt;Username&gt;</span>hans<span class="nt">&lt;/Username&gt;</span>
+    <span class="nt">&lt;Password&gt;</span>moleman<span class="nt">&lt;/Password&gt;</span>
+  <span class="nt">&lt;/HTTPBasicAuthentication&gt;</span>
+<span class="nt">&lt;/RemoteWMS&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>The capabilities document location is the only mandatory option. You can also use a relative path to a local copy of the capabilities document to improve startup time.</li>
+<li>The connection timeout defines (in seconds) how long to wait for a connection before throwing an error. Default is 5 seconds.</li>
+<li>The request timeout defines (in seconds) how long to wait for data before throwing an error. Default is 60 seconds.</li>
+<li>The http basic authentication options can be used to provide authentication credentials to use a HTTP basic protected service. Default is not to authenticate.</li>
+</ul>
+<p>The WMS version will be detected from the capabilities document version. When using 1.3.0, there are some limitations (eg. GetFeatureInfo is not supported), and it is tested to a lesser extent compared with the 1.1.1 version.</p>
+</div>
+<div class="section" id="remote-wmts-connection">
+<h3>14.2.2. Remote WMTS connection<a class="headerlink" href="#remote-wmts-connection" title="Permalink to this headline">¶</a></h3>
+<p>The remote WMTS connection can be used to connect to a OGC WMTS service. Version 1.0.0 is supported. The configuration format is almost identical to the remote WMS configuration.</p>
+<p>Let&#8217;s have a look at an example:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;RemoteWMTS</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.deegree.org/remoteows/wmts&quot;</span> <span class="na">configVersion=</span><span class="s">&quot;3.2.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;CapabilitiesDocumentLocation</span>
+    <span class="na">location=</span><span class="s">&quot;http://deegree3-testing.deegree.org/utah-workspace/services?request=GetCapabilities&amp;amp;service=WMTS&amp;amp;version=1.0.0&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;ConnectionTimeout&gt;</span>10<span class="nt">&lt;/ConnectionTimeout&gt;</span>
+  <span class="nt">&lt;RequestTimeout&gt;</span>30<span class="nt">&lt;/RequestTimeout&gt;</span>
+  <span class="nt">&lt;HTTPBasicAuthentication&gt;</span>
+    <span class="nt">&lt;Username&gt;</span>hans<span class="nt">&lt;/Username&gt;</span>
+    <span class="nt">&lt;Password&gt;</span>moleman<span class="nt">&lt;/Password&gt;</span>
+  <span class="nt">&lt;/HTTPBasicAuthentication&gt;</span>
+<span class="nt">&lt;/RemoteWMTS&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>The capabilities document location is the only mandatory option. You can also use a relative path to a local copy of the capabilities document to improve startup time.</li>
+<li>The connection timeout defines (in seconds) how long to wait for a connection before throwing an error. Default is 5 seconds.</li>
+<li>The request timeout defines (in seconds) how long to wait for data before throwing an error. Default is 60 seconds.</li>
+<li>The http basic authentication options can be used to provide authentication credentials to use a HTTP basic protected service. Default is not to authenticate.</li>
+</ul>
+<p>GetTile and GetFeatureInfo operations are supported for remote WMTS resources.</p>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013, The deegree project.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

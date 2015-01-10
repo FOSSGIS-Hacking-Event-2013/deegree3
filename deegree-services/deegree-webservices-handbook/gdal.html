@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>19. GDAL components &mdash; deegree webservices ${project.version} documentation</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.2.0/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.2.0/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '${project.version}',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="deegree webservices ${project.version} documentation" href="index.html" />
+    <link rel="prev" title="18. Java modules and libraries" href="javamodules.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          deegree webservices</a>
+        <span class="navbar-text navbar-version pull-left"><b>${project.version}</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">2. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lightly.html">3. Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basics.html">4. Configuration basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webservices.html">5. Web services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="featurestores.html">6. Feature stores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tilestores.html">7. Tile stores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coveragestores.html">8. Coverage stores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metadatastores.html">9. Metadata stores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layers.html">10. Map layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="themes.html">11. Map themes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="renderstyles.html">12. Map styles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filterencoding.html">13. Filter Encoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="serverconnections.html">14. Server connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processproviders.html">15. Process providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="crs.html">16. Coordinate reference systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="restapi.html">17. deegree REST interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javamodules.html">18. Java modules and libraries</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">19. GDAL components</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">19. GDAL components</a><ul>
+<li><a class="reference internal" href="#connecting-gdal-and-deegree">19.1. Connecting GDAL and deegree</a></li>
+<li><a class="reference internal" href="#gdal-settings">19.2. GDAL settings</a><ul>
+<li><a class="reference internal" href="#minimal-gdal-settings-example">19.2.1. Minimal GDAL settings example</a></li>
+<li><a class="reference internal" href="#more-complex-gdal-settings-example">19.2.2. More complex GDAL settings example</a></li>
+<li><a class="reference internal" href="#configuration-options">19.2.3. Configuration options</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#gdal-layer">19.3. GDAL Layer</a><ul>
+<li><a class="reference internal" href="#configuration-example">19.3.1. Configuration example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#gdal-tile-store">19.4. GDAL Tile Store</a><ul>
+<li><a class="reference internal" href="#minimal-configuration-example">19.4.1. Minimal configuration example</a></li>
+<li><a class="reference internal" href="#more-complex-configuration-example">19.4.2. More complex configuration example</a></li>
+<li><a class="reference internal" href="#id1">19.4.3. Configuration options</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="javamodules.html" title="Previous Chapter: 18. Java modules and libraries"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 18. Java modules...</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/gdal.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      
+  <div class="section" id="gdal-components">
+<span id="anchor-configuration-gdal"></span><h1>19. GDAL components<a class="headerlink" href="#gdal-components" title="Permalink to this headline">¶</a></h1>
+<p>The GDAL library (<a class="reference external" href="http://www.gdal.org/">http://www.gdal.org/</a>) provides very comprehensive support for all kinds of geospatial raster formats. Any of these raster formats can be used to create <a class="reference internal" href="layers.html#anchor-configuration-layers"><em>Map layers</em></a> for a deegree workspace by using either the <a class="reference internal" href="#anchor-configuration-gdal-layer"><em>GDAL Layer</em></a> or the <a class="reference internal" href="#anchor-configuration-gdal-tilestore"><em>GDAL Tile Store</em></a>.</p>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">If there are alternative options for plugging your raster files into the deegree workspace (e.g. by using the GeoTIFFTileStore for GeoTIFF files), you may want to consider them first. As the GDAL library is not written in Java, it is required to install and connect additional (non-deegree) components in order to use it. Additionally, some technical considerations about GDAL dataset pooling and GDAL memory settings may be necessary to achieve optimal performance.</p>
+</div>
+<div class="section" id="connecting-gdal-and-deegree">
+<h2>19.1. Connecting GDAL and deegree<a class="headerlink" href="#connecting-gdal-and-deegree" title="Permalink to this headline">¶</a></h2>
+<p>Before you can set up GDAL-based resources, the native GDAL library has to be installed correctly and must be accessible by your deegree webservices installation. Please see <a class="reference external" href="http://www.gdal.org/">http://www.gdal.org/</a> for general GDAL installation instructions.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Currently, GDAL library version 1.10.1 is supported. Other versions may work as well, but have not been tested.</p>
+</div>
+<p>In order to verify that deegree webservices can use the GDAL library, check the log file of the web container (e.g. <tt class="docutils literal"><span class="pre">catalina.out</span></tt> for Tomcat). If you didn&#8217;t configure a <a class="reference internal" href="#anchor-configuration-gdal-settings"><em>GDAL settings</em></a> file in your workspace yet, you should be able to locate the following lines upon workspace startup:</p>
+<div class="highlight-text"><div class="highlight"><pre>[13:06:40]  INFO: [GdalSettings] --------------------------------------------------------------------------------
+[13:06:40]  INFO: [GdalSettings] GDAL JNI adapter.
+[13:06:40]  INFO: [GdalSettings] --------------------------------------------------------------------------------
+[13:06:40]  INFO: [GdalSettings] No gdal.xml in workspace. Not initializing GDAL JNI adapter.
+</pre></div>
+</div>
+<p>If a valid <a class="reference internal" href="#anchor-configuration-gdal-settings"><em>GDAL settings</em></a> file is present in the active deegree workspace, the corresponding lines should look similar to this:</p>
+<div class="highlight-text"><div class="highlight"><pre>[13:16:54]  INFO: [GdalSettings] --------------------------------------------------------------------------------
+[13:16:54]  INFO: [GdalSettings] GDAL JNI adapter.
+[13:16:54]  INFO: [GdalSettings] --------------------------------------------------------------------------------
+[13:16:54]  INFO: [GdalSettings] Using &#39;gdal.xml&#39; from workspace for GDAL settings.
+[13:16:54]  INFO: [GdalSettings] Max number of open GDAL datasets: 5
+[13:16:54]  INFO: [GdalSettings] GDAL initialized successfully.
+</pre></div>
+</div>
+<p>In case a the <a class="reference internal" href="#anchor-configuration-gdal-settings"><em>GDAL settings</em></a> file is present, but the GDAL library cannot be accessed, you will see something like the following:</p>
+<div class="highlight-text"><div class="highlight"><pre>[13:11:08]  INFO: [GdalSettings] --------------------------------------------------------------------------------
+[13:11:08]  INFO: [GdalSettings] GDAL JNI adapter.
+[13:11:08]  INFO: [GdalSettings] --------------------------------------------------------------------------------
+[13:11:08]  INFO: [GdalSettings] Using &#39;gdal.xml&#39; from workspace for GDAL settings.
+Native library load failed.
+java.lang.UnsatisfiedLinkError: no gdaljni in java.library.path
+[13:11:08] ERROR: [JsfUtils] Workspace startup failed: org.gdal.gdal.gdalJNI.AllRegister()V(class java.lang.UnsatisfiedLinkError)
+java.lang.UnsatisfiedLinkError: org.gdal.gdal.gdalJNI.AllRegister()V
+  at org.gdal.gdal.gdalJNI.AllRegister(Native Method)
+  at org.gdal.gdal.gdal.AllRegister(gdal.java:499)
+  at org.deegree.commons.gdal.GdalSettings.registerOnceQuietly(GdalSettings.java:113)
+  at org.deegree.commons.gdal.GdalSettings.registerGdal(GdalSettings.java:97)
+  at org.deegree.commons.gdal.GdalSettings.init(GdalSettings.java:92)
+  [...]
+</pre></div>
+</div>
+<p>In this case, ensure that the GDAL library is installed on your system and available via the dynamic library path used by the Java VM. You may need to adapt environment variables (e.g. LD_LIBRARY_PATH on Linux) to achieve this.</p>
+</div>
+<div class="section" id="gdal-settings">
+<span id="anchor-configuration-gdal-settings"></span><h2>19.2. GDAL settings<a class="headerlink" href="#gdal-settings" title="Permalink to this headline">¶</a></h2>
+<p>The GDAL settings file gdal.xml belongs in the main directory of the deegree workspace.</p>
+<div class="section" id="minimal-gdal-settings-example">
+<h3>19.2.1. Minimal GDAL settings example<a class="headerlink" href="#minimal-gdal-settings-example" title="Permalink to this headline">¶</a></h3>
+<p>The only mandatory element is OpenDatasets. A minimal valid configuration example looks like this:</p>
+<div class="topic">
+<p class="topic-title first">GDAL settings (minimal example)</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;GDALSettings</span> <span class="na">configVersion=</span><span class="s">&quot;3.4.0&quot;</span>
+  <span class="na">xmlns=</span><span class="s">&quot;http://www.deegree.org/gdal&quot;</span> <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+  <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.deegree.org/gdal http://schemas.deegree.org/commons/gdal/3.4.0/gdal.xsd&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;OpenDatasets&gt;</span>5<span class="nt">&lt;/OpenDatasets&gt;</span>
+<span class="nt">&lt;/GDALSettings&gt;</span>
+</pre></div>
+</div>
+</div>
+<p>This configuration will register the GDAL JNI adapter and will allow a maximum of five GDAL datasets to be kept open for simultaneous access.</p>
+</div>
+<div class="section" id="more-complex-gdal-settings-example">
+<h3>19.2.2. More complex GDAL settings example<a class="headerlink" href="#more-complex-gdal-settings-example" title="Permalink to this headline">¶</a></h3>
+<div class="topic">
+<p class="topic-title first">GDAL settings (more complex example)</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;GDALSettings</span> <span class="na">configVersion=</span><span class="s">&quot;3.4.0&quot;</span>
+  <span class="na">xmlns=</span><span class="s">&quot;http://www.deegree.org/gdal&quot;</span> <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+  <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.deegree.org/gdal http://schemas.deegree.org/commons/gdal/3.4.0/gdal.xsd&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;OpenDatasets&gt;</span>10<span class="nt">&lt;/OpenDatasets&gt;</span>
+  <span class="nt">&lt;GDALOption</span> <span class="na">name=</span><span class="s">&quot;GDAL_CACHEMAX&quot;</span><span class="nt">&gt;</span>1000<span class="nt">&lt;/GDALOption&gt;</span>
+  <span class="nt">&lt;GDALOption</span> <span class="na">name=</span><span class="s">&quot;ECW_CACHE_MAXMEM&quot;</span><span class="nt">&gt;</span>419430400<span class="nt">&lt;/GDALOption&gt;</span>
+<span class="nt">&lt;/GDALSettings&gt;</span>
+</pre></div>
+</div>
+</div>
+<p>This configuration will register the GDAL JNI adapter with the following settings:</p>
+<ul class="simple">
+<li>A maximum of ten GDAL datasets will be kept open for simultaneous access</li>
+<li>GDAL option GDAL_CACHEMAX is set to 1000</li>
+<li>GDAL option ECW_CACHE_MAXMEM is set to 419430400</li>
+</ul>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">A list of general GDAL parameters is available at <a class="reference external" href="http://trac.osgeo.org/gdal/wiki/ConfigOptions">http://trac.osgeo.org/gdal/wiki/ConfigOptions</a>. Some parameters (such as ECW_CACHE_MAXMEM) are format specific and outlined on the respective pages in the GDAL documentation.</p>
+</div>
+</div>
+<div class="section" id="configuration-options">
+<h3>19.2.3. Configuration options<a class="headerlink" href="#configuration-options" title="Permalink to this headline">¶</a></h3>
+<p>The configuration format for the GDAL settings file is defined by schema file <a class="reference external" href="http://schemas.deegree.org/commons/gdal/3.4.0/gdal.xsd">http://schemas.deegree.org/commons/gdal/3.4.0/gdal.xsd</a>. The following table lists the two available configuration options. When specifiying them, their order must be respected.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="14%" />
+<col width="10%" />
+<col width="62%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Cardinality</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>OpenDatasets</td>
+<td>1..1</td>
+<td>Integer</td>
+<td>Number of open datasets / simultaneous file accesses</td>
+</tr>
+<tr class="row-odd"><td>GDALOption</td>
+<td>0..n</td>
+<td>String</td>
+<td>Name / value of parameter to pass on to the GDAL library</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="gdal-layer">
+<span id="anchor-configuration-gdal-layer"></span><h2>19.3. GDAL Layer<a class="headerlink" href="#gdal-layer" title="Permalink to this headline">¶</a></h2>
+<p>A GDAL Layer is a map layer that is backed by one or more raster files. The native GDAL library is used to determine some metadata (e.g. bounding box) and to access the actual raster data.</p>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">You may want to refer to the <a class="reference internal" href="layers.html#anchor-configuration-layers"><em>Map layers</em></a> chapter for general information on using and defining layer resources.</p>
+</div>
+<div class="section" id="configuration-example">
+<h3>19.3.1. Configuration example<a class="headerlink" href="#configuration-example" title="Permalink to this headline">¶</a></h3>
+<p>The only custom element in a GDAL Layer definition is File. A valid example looks like this:</p>
+<div class="topic">
+<p class="topic-title first">GDAL Layers (example)</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;GDALLayers</span> <span class="na">configVersion=</span><span class="s">&quot;3.4.0&quot;</span>
+  <span class="na">xmlns=</span><span class="s">&quot;http://www.deegree.org/layers/gdal&quot;</span> <span class="na">xmlns:d=</span><span class="s">&quot;http://www.deegree.org/metadata/description&quot;</span>
+  <span class="na">xmlns:l=</span><span class="s">&quot;http://www.deegree.org/layers/base&quot;</span> <span class="na">xmlns:s=</span><span class="s">&quot;http://www.deegree.org/metadata/spatial&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;GDALLayer&gt;</span>
+    <span class="nt">&lt;l:Name&gt;</span>luchtfoto_2010<span class="nt">&lt;/l:Name&gt;</span>
+    <span class="nt">&lt;d:Title&gt;</span>Orthophoto layer served from an ECW file<span class="nt">&lt;/d:Title&gt;</span>
+    <span class="nt">&lt;s:CRS&gt;</span>EPSG:28992 EPSG:25831<span class="nt">&lt;/s:CRS&gt;</span>
+    <span class="nt">&lt;l:ScaleDenominators</span> <span class="na">min=</span><span class="s">&quot;0&quot;</span> <span class="na">max=</span><span class="s">&quot;10000&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;File&gt;</span>/geodata/ecw/2010/Luchtfoto2010_25cm.ecw<span class="nt">&lt;/File&gt;</span>
+  <span class="nt">&lt;/GDALLayer&gt;</span>
+<span class="nt">&lt;/GDALLayers&gt;</span>
+</pre></div>
+</div>
+</div>
+<p>This configuration will create a single layer resource with the following settings:</p>
+<ul class="simple">
+<li>The file defines a single layer only</li>
+<li>Name of the layer is luchtfoto_2010</li>
+<li>Layer is offered in coordinate reference systems EPSG:28992 and EPSG:25831</li>
+<li>File /geodata/ecw/2010/Luchtfoto2010_25cm.ecw will be accessed via GDAL to retrieve metadata and raster data</li>
+</ul>
+</div>
+</div>
+<div class="section" id="gdal-tile-store">
+<span id="anchor-configuration-gdal-tilestore"></span><h2>19.4. GDAL Tile Store<a class="headerlink" href="#gdal-tile-store" title="Permalink to this headline">¶</a></h2>
+<p>A GDAL tile store defines one or more tile data sets. Each of these tile data sets is based on a single raster file which is accessed using the native GDAL library.</p>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">You may want to refer to the <a class="reference internal" href="tilestores.html#anchor-configuration-tilestore"><em>Tile stores</em></a> chapter for general information on using and defining tile store resources.</p>
+</div>
+<div class="section" id="minimal-configuration-example">
+<h3>19.4.1. Minimal configuration example<a class="headerlink" href="#minimal-configuration-example" title="Permalink to this headline">¶</a></h3>
+<p>A minimal valid configuration example looks like this:</p>
+<div class="topic">
+<p class="topic-title first">GDAL Tile Store: Minimal configuration</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;GDALTileStore</span> <span class="na">configVersion=</span><span class="s">&quot;3.4.0&quot;</span>
+  <span class="na">xmlns=</span><span class="s">&quot;http://www.deegree.org/datasource/tile/gdal&quot;</span> <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+  <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.deegree.org/datasource/tile/gdal http://schemas.deegree.org/datasource/tile/gdal/3.4.0/gdal.xsd&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;TileDataSet&gt;</span>
+    <span class="nt">&lt;TileMatrixSetId&gt;</span>utah<span class="nt">&lt;/TileMatrixSetId&gt;</span>
+    <span class="nt">&lt;File&gt;</span>../../data/test.tif<span class="nt">&lt;/File&gt;</span>
+  <span class="nt">&lt;/TileDataSet&gt;</span>
+<span class="nt">&lt;/GDALTileStore&gt;</span>
+</pre></div>
+</div>
+</div>
+<p>This configuration will create a GDAL tile store resource with the following settings:</p>
+<ul class="simple">
+<li>Tile store defines a single tile data set</li>
+<li>Name of the tile data set is test (derived from file name)</li>
+<li>Tile matrix set is utah</li>
+<li>File ../../data/test.tif will be accessed via GDAL to retrieve the raster data</li>
+<li>Output tile format is not set, defaults to image/png</li>
+</ul>
+</div>
+<div class="section" id="more-complex-configuration-example">
+<h3>19.4.2. More complex configuration example<a class="headerlink" href="#more-complex-configuration-example" title="Permalink to this headline">¶</a></h3>
+<p>A more complex example that uses all available configuration options:</p>
+<div class="topic">
+<p class="topic-title first">GDAL Tile Store: More complex configuration</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;GDALTileStore</span> <span class="na">configVersion=</span><span class="s">&quot;3.4.0&quot;</span>
+  <span class="na">xmlns=</span><span class="s">&quot;http://www.deegree.org/datasource/tile/gdal&quot;</span> <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+  <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.deegree.org/datasource/tile/gdal http://schemas.deegree.org/datasource/tile/gdal/3.4.0/gdal.xsd&quot;</span><span class="nt">&gt;</span>  
+  <span class="nt">&lt;TileDataSet&gt;</span>
+    <span class="nt">&lt;Identifier&gt;</span>2010<span class="nt">&lt;/Identifier&gt;</span>
+    <span class="nt">&lt;TileMatrixSetId&gt;</span>NLDEPSG28992Scale<span class="nt">&lt;/TileMatrixSetId&gt;</span>
+    <span class="nt">&lt;File&gt;</span>/geodata/ecw/2010/Luchtfoto2010_25cm.ecw<span class="nt">&lt;/File&gt;</span>
+    <span class="nt">&lt;ImageFormat&gt;</span>image/jpeg<span class="nt">&lt;/ImageFormat&gt;</span>    
+  <span class="nt">&lt;/TileDataSet&gt;</span>
+  <span class="nt">&lt;TileDataSet&gt;</span>
+    <span class="nt">&lt;Identifier&gt;</span>2011<span class="nt">&lt;/Identifier&gt;</span>
+    <span class="nt">&lt;TileMatrixSetId&gt;</span>NLDEPSG28992Scale<span class="nt">&lt;/TileMatrixSetId&gt;</span>
+    <span class="nt">&lt;File&gt;</span>/geodata/ecw/2011/Mozaiek2011.ecw<span class="nt">&lt;/File&gt;</span>
+    <span class="nt">&lt;ImageFormat&gt;</span>image/jpeg<span class="nt">&lt;/ImageFormat&gt;</span>
+ <span class="nt">&lt;/TileDataSet&gt;</span>    
+<span class="nt">&lt;/GDALTileStore&gt;</span>
+</pre></div>
+</div>
+</div>
+<p>This configuration will create a GDAL tile store resource with the following settings:</p>
+<ul class="simple">
+<li>Tile store defines two tile data sets with identifiers 2010 and 2011</li>
+<li>Tile matrix set is NLDEPSG28992Scale</li>
+<li>Tile data set 2010 is backed by file /geodata/ecw/2010/Luchtfoto2010_25cm.ecw</li>
+<li>Tile data set 2011 is backed by file /geodata/ecw/2011/Mozaiek2011.ecw</li>
+<li>Output tile format is image/jpeg</li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h3>19.4.3. Configuration options<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>The configuration format for the GDAL tile store is defined by schema file <a class="reference external" href="http://schemas.deegree.org/datasource/tile/gdal/3.4.0/gdal.xsd">http://schemas.deegree.org/datasource/tile/gdal/3.4.0/gdal.xsd</a>. There&#8217;s only a single configuration element, but it may occur several times:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="21%" />
+<col width="15%" />
+<col width="43%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Cardinality</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>TileDataSet</td>
+<td>1..n</td>
+<td>Complex</td>
+<td>GDAL-based tile data set</td>
+</tr>
+</tbody>
+</table>
+<p>Each TileDataSet element defines a single tile data set:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="11%" />
+<col width="7%" />
+<col width="68%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Cardinality</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Identifier</td>
+<td>0..1</td>
+<td>String</td>
+<td>Identifier of the tile data set, default: base file name without path and suffix</td>
+</tr>
+<tr class="row-odd"><td>TileMatrixSetId</td>
+<td>1..1</td>
+<td>String</td>
+<td>Reference to the identifier of corresponding tile matrix set</td>
+</tr>
+<tr class="row-even"><td>File</td>
+<td>1..1</td>
+<td>String</td>
+<td>Raster file that contains the tile data, read using GDAL</td>
+</tr>
+<tr class="row-odd"><td>ImageFormat</td>
+<td>0..1</td>
+<td>String</td>
+<td>Output tile format, default: image/png</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013, The deegree project.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

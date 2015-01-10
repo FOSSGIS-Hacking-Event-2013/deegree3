@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>10. Map layers &mdash; deegree webservices ${project.version} documentation</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.2.0/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.2.0/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '${project.version}',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="deegree webservices ${project.version} documentation" href="index.html" />
+    <link rel="next" title="11. Map themes" href="themes.html" />
+    <link rel="prev" title="9. Metadata stores" href="metadatastores.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          deegree webservices</a>
+        <span class="navbar-text navbar-version pull-left"><b>${project.version}</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">2. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lightly.html">3. Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basics.html">4. Configuration basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webservices.html">5. Web services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="featurestores.html">6. Feature stores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tilestores.html">7. Tile stores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coveragestores.html">8. Coverage stores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metadatastores.html">9. Metadata stores</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">10. Map layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="themes.html">11. Map themes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="renderstyles.html">12. Map styles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filterencoding.html">13. Filter Encoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="serverconnections.html">14. Server connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processproviders.html">15. Process providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="crs.html">16. Coordinate reference systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="restapi.html">17. deegree REST interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javamodules.html">18. Java modules and libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gdal.html">19. GDAL components</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">10. Map layers</a><ul>
+<li><a class="reference internal" href="#common-configuration">10.1. Common configuration</a><ul>
+<li><a class="reference internal" href="#description-metadata">10.1.1. Description metadata</a></li>
+<li><a class="reference internal" href="#spatial-metadata">10.1.2. Spatial metadata</a></li>
+<li><a class="reference internal" href="#common-layer-options">10.1.3. Common layer options</a><ul>
+<li><a class="reference internal" href="#layer-dimensions">10.1.3.1. Layer dimensions</a></li>
+<li><a class="reference internal" href="#layer-styles">10.1.3.2. Layer styles</a></li>
+<li><a class="reference internal" href="#rendering-options">10.1.3.3. Rendering options</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#feature-layers">10.2. Feature layers</a><ul>
+<li><a class="reference internal" href="#auto-layers">10.2.1. Auto layers</a></li>
+<li><a class="reference internal" href="#manual-configuration">10.2.2. Manual configuration</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tile-layers">10.3. Tile layers</a></li>
+<li><a class="reference internal" href="#coverage-layers">10.4. Coverage layers</a><ul>
+<li><a class="reference internal" href="#id1">10.4.1. Auto layers</a></li>
+<li><a class="reference internal" href="#id2">10.4.2. Manual configuration</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#remote-wms-layers">10.5. Remote WMS layers</a><ul>
+<li><a class="reference internal" href="#request-options">10.5.1. Request options</a></li>
+<li><a class="reference internal" href="#layer-configuration">10.5.2. Layer configuration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="metadatastores.html" title="Previous Chapter: 9. Metadata stores"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 9. Metadata stor...</span>
+    </a>
+  </li>
+  <li>
+    <a href="themes.html" title="Next Chapter: 11. Map themes"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">11. Map themes &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/layers.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      
+  <div class="section" id="map-layers">
+<span id="anchor-configuration-layers"></span><h1>10. Map layers<a class="headerlink" href="#map-layers" title="Permalink to this headline">¶</a></h1>
+<p>A (map) layer defines how to combine a data store and a style resource into a map. Each layer resource can be used to define one or more layers. The layers can be used in theme definitions, and depend on various data source and style resources. This chapter assumes you&#8217;ve already configured a data source and a style for your layer (although a style is not strictly needed; some layer types can do without, and others can render in a default style when none is given).</p>
+<div class="figure" style="width: 80%">
+<a class="reference external image-reference" href="_images/workspace-overview-layer.png"><img alt="_images/workspace-overview-layer.png" src="_images/workspace-overview-layer.png" style="width: 80%;" /></a>
+<p class="caption">Layer resources define how data store and style resources are combined</p>
+</div>
+<div class="section" id="common-configuration">
+<h2>10.1. Common configuration<a class="headerlink" href="#common-configuration" title="Permalink to this headline">¶</a></h2>
+<p>Most layer configurations follow a similar structure. That&#8217;s why some of the common components are exactly the same across configurations (they&#8217;re even in common namespaces). In this section these common elements are described first, the subsequent chapters describe the different layer types.</p>
+<div class="section" id="description-metadata">
+<span id="description"></span><h3>10.1.1. Description metadata<a class="headerlink" href="#description-metadata" title="Permalink to this headline">¶</a></h3>
+<p>The description section is used to describe textual metadata which occurs in almost all objects. This includes elements such as title, abstract and so on. The format which is being described here is capable of multilingualism, but processing multilingual strings is not supported yet (you can still define it, though).</p>
+<p>The commonly used prefix for these elements is <tt class="docutils literal"><span class="pre">d</span></tt>. Let&#8217;s have a look at an example:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;d:Title&gt;</span>My Roads Layer<span class="nt">&lt;/d:Title&gt;</span>
+<span class="nt">&lt;d:Abstract&gt;</span>This is my roads layer, which I configured myself. I had no help but the deegree webservices handbook.<span class="nt">&lt;/d:Abstract&gt;</span>
+<span class="nt">&lt;d:Keywords&gt;</span>
+  <span class="nt">&lt;d:Keyword&gt;</span>deegree<span class="nt">&lt;/d:Keyword&gt;</span>
+  <span class="nt">&lt;d:Keyword&gt;</span>transportation<span class="nt">&lt;/d:Keyword&gt;</span>
+  <span class="nt">&lt;d:Type</span> <span class="na">codeSpace=</span><span class="s">&#39;none&#39;</span><span class="nt">&gt;</span>unknown<span class="nt">&lt;/d:Type&gt;</span>
+<span class="nt">&lt;/d:Keywords&gt;</span>
+</pre></div>
+</div>
+<p>All elements support the <tt class="docutils literal"><span class="pre">lang</span></tt> attribute to specify the language, and all elements may occur multiple times (including the <tt class="docutils literal"><span class="pre">Keywords</span></tt> element).</p>
+</div>
+<div class="section" id="spatial-metadata">
+<span id="spatial"></span><h3>10.1.2. Spatial metadata<a class="headerlink" href="#spatial-metadata" title="Permalink to this headline">¶</a></h3>
+<p>The spatial metadata is used to describe coordinate systems and envelopes. Typically, the layers can retrieve the native coordinate system and envelope from the data source, but sometimes it may be desirable to define a special extent, or add more coordinate systems. In the example configurations, the prefix <tt class="docutils literal"><span class="pre">s</span></tt> is used for spatial metadata elements, so it is used here as well:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;s:Envelope</span> <span class="na">crs=</span><span class="s">&#39;EPSG:25832&#39;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;s:LowerCorner&gt;</span>204485 5204122<span class="nt">&lt;/s:LowerCorner&gt;</span>
+  <span class="nt">&lt;s:UpperCorner&gt;</span>1008600 6134557<span class="nt">&lt;/s:UpperCorner&gt;</span>
+<span class="nt">&lt;/s:Envelope&gt;</span>
+<span class="nt">&lt;s:CRS&gt;</span>EPSG:25832 EPSG:31466 EPSG:4326<span class="nt">&lt;/s:CRS&gt;</span>
+</pre></div>
+</div>
+<p>As you can see, the envelope is specified in a specific CRS. If the attribute is omitted, EPSG:4326 is assumed. The CRS element may include multiple codes, separated by whitespace.</p>
+</div>
+<div class="section" id="common-layer-options">
+<span id="common"></span><h3>10.1.3. Common layer options<a class="headerlink" href="#common-layer-options" title="Permalink to this headline">¶</a></h3>
+<p>This sections describes a set of common layer options. Not all options make sense for all layers, but most of them do.</p>
+<p>The namespace for the elements (newly) defined in this section is commonly bound to the <tt class="docutils literal"><span class="pre">l</span></tt> character. Let&#8217;s have a look at the options available:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="14%" />
+<col width="18%" />
+<col width="48%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Cardinality</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Name</td>
+<td>1</td>
+<td>String</td>
+<td>The unique identifier of the layer</td>
+</tr>
+<tr class="row-odd"><td><em>Description</em></td>
+<td>0..1</td>
+<td>Several</td>
+<td>The <a class="reference internal" href="#description">description</a> elements described above</td>
+</tr>
+<tr class="row-even"><td><em>Spatial metadata</em></td>
+<td>0..1</td>
+<td>Several</td>
+<td>The <a class="reference internal" href="#spatial">spatial</a> metadata elements described above</td>
+</tr>
+<tr class="row-odd"><td>MetadataSetId</td>
+<td>0..1</td>
+<td>String</td>
+<td>A metadata set id by which this layer is identified</td>
+</tr>
+<tr class="row-even"><td>ScaleDenominators</td>
+<td>0..1</td>
+<td>Empty</td>
+<td>Used to define scale constraints on the layer</td>
+</tr>
+<tr class="row-odd"><td>Dimension</td>
+<td>0..n</td>
+<td>Complex</td>
+<td>Used to configure extra dimensions for the layer</td>
+</tr>
+<tr class="row-even"><td>StyleRef</td>
+<td>0..n</td>
+<td>Complex</td>
+<td>Used to reference one or more styles</td>
+</tr>
+<tr class="row-odd"><td>LayerOptions</td>
+<td>0..1</td>
+<td>Complex</td>
+<td>Used to configure rendering behaviour</td>
+</tr>
+</tbody>
+</table>
+<p>The <tt class="docutils literal"><span class="pre">MetadataSetId</span></tt> is used in the WMS to export a MetadataURL based on a template. Please refer to the WMS configuration for details on how to configure this.</p>
+<p>The <tt class="docutils literal"><span class="pre">ScaleDenominators</span></tt> element has <tt class="docutils literal"><span class="pre">min</span></tt> and <tt class="docutils literal"><span class="pre">max</span></tt> attributes which define the constraints in WMS 1.3.0 scale denominators (based on 0.28mm pixel size).</p>
+<div class="section" id="layer-dimensions">
+<h4>10.1.3.1. Layer dimensions<a class="headerlink" href="#layer-dimensions" title="Permalink to this headline">¶</a></h4>
+<p>The WMS specification supports extra dimensions (besides the spatial extent) for layers, such as elevation, time or other custom dimensions. Since the support must be present at the layer level, this must be configured on the layer in deegree. The <tt class="docutils literal"><span class="pre">Dimension</span></tt> element can have the attributes <tt class="docutils literal"><span class="pre">isTime</span></tt> and <tt class="docutils literal"><span class="pre">isElevation</span></tt> to indicate that you&#8217;re defining the standard time/elevation dimension. If none is given, you&#8217;ll have to specify the <tt class="docutils literal"><span class="pre">Name</span></tt> element. Let&#8217;s see what you can configure here:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="12%" />
+<col width="16%" />
+<col width="54%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Cardinality</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Name</td>
+<td>0..1</td>
+<td>String</td>
+<td>The dimension name, if not elevation or time</td>
+</tr>
+<tr class="row-odd"><td>Source</td>
+<td>1</td>
+<td>String/QName</td>
+<td>The data source of the dimension</td>
+</tr>
+<tr class="row-even"><td>DefaultValue</td>
+<td>0..1</td>
+<td>String</td>
+<td>Specify a default value to be used, default is none</td>
+</tr>
+<tr class="row-odd"><td>MultipleValues</td>
+<td>0..1</td>
+<td>Boolean</td>
+<td>Whether multiple values are supported, default is false</td>
+</tr>
+<tr class="row-even"><td>NearestValue</td>
+<td>0..1</td>
+<td>Boolean</td>
+<td>Whether jumping to the nearest value is supported, default is false</td>
+</tr>
+<tr class="row-odd"><td>Current</td>
+<td>0..1</td>
+<td>Boolean</td>
+<td>Whether <tt class="docutils literal"><span class="pre">current</span></tt> is supported for time, default is false</td>
+</tr>
+<tr class="row-even"><td>Units</td>
+<td>0..1</td>
+<td>String</td>
+<td>What units this dimension uses. Mandatory for non time/elevation</td>
+</tr>
+<tr class="row-odd"><td>UnitSymbol</td>
+<td>0..1</td>
+<td>String</td>
+<td>What unit symbol to use. Mandatory for non time/elevation</td>
+</tr>
+<tr class="row-even"><td>Extent</td>
+<td>1</td>
+<td>String</td>
+<td>The extent of the dimension</td>
+</tr>
+</tbody>
+</table>
+<p>Please note that for feature layers, the <tt class="docutils literal"><span class="pre">Source</span></tt> element content must be a qualified property name.</p>
+<p>To understand how the omission or specification of the various optional elements here affect the WMS protocol behaviour, it is recommended to read up on the WMS 1.3.0 specification. The deegree WMS is going to behave according to what the spec says it must do (what to do in case a default value is available or not etc.). The format for the values and the extent is also identical to that used for requests/in the spec.</p>
+</div>
+<div class="section" id="layer-styles">
+<h4>10.1.3.2. Layer styles<a class="headerlink" href="#layer-styles" title="Permalink to this headline">¶</a></h4>
+<p>You can configure any number of <tt class="docutils literal"><span class="pre">StyleRef</span></tt> elements. Each corresponds to exactly one style store configuration, specified by the subelement <tt class="docutils literal"><span class="pre">StyleStoreId</span></tt>. The only other allowed subelement is the <tt class="docutils literal"><span class="pre">Style</span></tt> element, which can be used to extract/rename specific styles from the style store. If omitted, all styles matching the layers&#8217; name are used. Let&#8217;s have a look at an example snippet:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;l:StyleRef&gt;</span>
+  <span class="nt">&lt;l:StyleStoreId&gt;</span>roads_style<span class="nt">&lt;/l:StyleStoreId&gt;</span>
+<span class="nt">&lt;/l:StyleRef&gt;</span>
+</pre></div>
+</div>
+<p>Here&#8217;s a snippet with <tt class="docutils literal"><span class="pre">Style</span></tt> elements:</p>
+<p>PLEASE NOTE: The following mechanisms using StyleName LayerNameRef and StyleNameRef elements will only work with SLD files. Using direct SE styles, the only way to configure styles is the above.</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;l:StyleRef&gt;</span>
+  <span class="nt">&lt;l:StyleStoreId&gt;</span>road_styles<span class="nt">&lt;/l:StyleStoreId&gt;</span>
+  <span class="nt">&lt;l:Style&gt;</span>
+  ...
+  <span class="nt">&lt;/l:Style&gt;</span>
+  <span class="nt">&lt;l:Style&gt;</span>
+  ...
+  <span class="nt">&lt;/l:Style&gt;</span>
+<span class="nt">&lt;/l:StyleRef&gt;</span>
+</pre></div>
+</div>
+<p>If a <tt class="docutils literal"><span class="pre">Style</span></tt> element is specified, you must first specify what style you want extracted:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;l:Style&gt;</span>
+  <span class="nt">&lt;l:StyleName&gt;</span>highways<span class="nt">&lt;/l:StyleName&gt;</span>
+  <span class="nt">&lt;l:LayerNameRef&gt;</span>highways<span class="nt">&lt;/l:LayerNameRef&gt;</span>
+  <span class="nt">&lt;l:StyleNameRef&gt;</span>highways<span class="nt">&lt;/l:StyleNameRef&gt;</span>
+  ...
+<span class="nt">&lt;/l:Style&gt;</span>
+</pre></div>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">StyleName</span></tt> specifies the name under which the style will be known in the WMS. The <tt class="docutils literal"><span class="pre">LayerNameRef</span></tt> and <tt class="docutils literal"><span class="pre">StyleNameRef</span></tt> are used to extract the style from the style store.</p>
+<p>The next part to configure within the <tt class="docutils literal"><span class="pre">Style</span></tt> element is the legend generation, if you don&#8217;t want to use the default legend generated from the rendering style. You can either specify a different style from the style store to use for legend generation, or you can specify an external graphic. Referencing a different legend style is straightforward:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;l:Style&gt;</span>
+...
+  <span class="nt">&lt;l:LegendStyle&gt;</span>
+    <span class="nt">&lt;l:LayerNameRef&gt;</span>highways<span class="nt">&lt;/l:LayerNameRef&gt;</span>
+    <span class="nt">&lt;l:StyleNameRef&gt;</span>highways_legend<span class="nt">&lt;/l:StyleNameRef&gt;</span>
+  <span class="nt">&lt;/l:LegendStyle&gt;</span>
+<span class="nt">&lt;/l:Style&gt;</span>
+</pre></div>
+</div>
+<p>With specifying the external graphic, you have the option of referencing a local file, or referencing a remote URL. Specifying a file is straightforward, and will result in the contents of that file being used as legend:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;l:Style&gt;</span>
+...
+  <span class="nt">&lt;l:LegendGraphic&gt;</span>legendimages/mylegend.png<span class="nt">&lt;/l:LegendGraphic&gt;</span>
+<span class="nt">&lt;/l:Style&gt;</span>
+</pre></div>
+</div>
+<p>If you specify an HTTP URL instead of a relative path the behaviour is the same by default, the remote images&#8217; content is used as legend. If you set the optional attribute <tt class="docutils literal"><span class="pre">outputGetLegendGraphicUrl</span></tt> to <tt class="docutils literal"><span class="pre">false</span></tt> (it&#8217;s true by default), the specified URL is written as <tt class="docutils literal"><span class="pre">LegendURL</span></tt> in the WMS capabilities (the behaviour for <tt class="docutils literal"><span class="pre">GetLegendGraphic</span></tt> requests is the same anyway):</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;l:Style&gt;</span>
+...
+  <span class="nt">&lt;l:LegendGraphic</span> <span class="na">outputGetLegendGraphicUrl=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>http://legends.acme.com/menu.png<span class="nt">&lt;/l:LegendGraphic&gt;</span>
+<span class="nt">&lt;/l:Style&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="rendering-options">
+<h4>10.1.3.3. Rendering options<a class="headerlink" href="#rendering-options" title="Permalink to this headline">¶</a></h4>
+<p>The rendering options are basically the same as the WMS layer options. Here&#8217;s a copy of the corresponding table for reference:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="12%" />
+<col width="7%" />
+<col width="65%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Cardinality</th>
+<th class="head">String</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>AntiAliasing</td>
+<td>0..1</td>
+<td>String</td>
+<td>Whether to antialias NONE, TEXT, IMAGE or BOTH, default is BOTH</td>
+</tr>
+<tr class="row-odd"><td>RenderingQuality</td>
+<td>0..1</td>
+<td>String</td>
+<td>Whether to render LOW, NORMAL or HIGH quality, default is HIGH</td>
+</tr>
+<tr class="row-even"><td>Interpolation</td>
+<td>0..1</td>
+<td>String</td>
+<td>Whether to use BILINEAR, NEAREST_NEIGHBOUR or BICUBIC interpolation, default is NEAREST_NEIGHBOUR</td>
+</tr>
+<tr class="row-odd"><td>MaxFeatures</td>
+<td>0..1</td>
+<td>Integer</td>
+<td>Maximum number of features to render at once, default is 10000</td>
+</tr>
+<tr class="row-even"><td>FeatureInfo</td>
+<td>0..1</td>
+<td>None</td>
+<td>attribute <em>enabled</em>: if false, feature info is disabled (default is true)</td>
+</tr>
+<tr class="row-odd"><td>FeatureInfo</td>
+<td>0..1</td>
+<td>None</td>
+<td>attribute <em>pixelRadius</em>: Number of pixels to consider when doing GetFeatureInfo, default is 1</td>
+</tr>
+</tbody>
+</table>
+<p>Here is an example snippet:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;l:LayerOptions&gt;</span>
+  <span class="nt">&lt;l:AntiAliasing&gt;</span>TEXT<span class="nt">&lt;/l:AntiAliasing&gt;</span>
+<span class="nt">&lt;/l:LayerOptions&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="feature-layers">
+<span id="anchor-configuration-feature-layers"></span><h2>10.2. Feature layers<a class="headerlink" href="#feature-layers" title="Permalink to this headline">¶</a></h2>
+<p>Feature layers are layers based on a feature store. You can have multiple layers defined in a feature layers configuration, each based on feature types from the same feature store.</p>
+<p>You have two choices to configure feature layers. One option is to try to have deegree figure out what layers to configure by itself, the other is to manually define all the layers you want. Having deegree do the configuration automatically has the obvious advantage that the configuration is minimal, with the disadvantage of lacking flexibility.</p>
+<div class="section" id="auto-layers">
+<h3>10.2.1. Auto layers<a class="headerlink" href="#auto-layers" title="Permalink to this headline">¶</a></h3>
+<p>This configuration only involves to specify what feature store to use, and optionally, what styles. Let&#8217;s have a look at an example:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;FeatureLayers</span> <span class="na">xmlns=</span><span class="s">&#39;http://www.deegree.org/layers/feature&#39;</span>
+               <span class="na">xmlns:d=</span><span class="s">&#39;http://www.deegree.org/metadata/description&#39;</span>
+               <span class="na">xmlns:s=</span><span class="s">&#39;http://www.deegree.org/metadata/spatial&#39;</span>
+               <span class="na">xmlns:l=</span><span class="s">&#39;http://www.deegree.org/layers/base&#39;</span>
+               <span class="na">configVersion=</span><span class="s">&#39;3.2.0&#39;</span><span class="nt">&gt;</span>
+
+  <span class="nt">&lt;AutoLayers&gt;</span>
+    <span class="nt">&lt;FeatureStoreId&gt;</span>myfeaturestore<span class="nt">&lt;/FeatureStoreId&gt;</span>
+    <span class="nt">&lt;StyleStoreId&gt;</span>style1<span class="nt">&lt;/StyleStoreId&gt;</span>
+    <span class="nt">&lt;StyleStoreId&gt;</span>style2<span class="nt">&lt;/StyleStoreId&gt;</span>
+  <span class="nt">&lt;/AutoLayers&gt;</span>
+
+<span class="nt">&lt;/FeatureLayers&gt;</span>
+</pre></div>
+</div>
+<p>This will create one layer for each (concrete) feature type in the feature store. If no style stores are configured, the default style will be used for all layers. If style stores are configured, matching styles will be automatically used if available. So if you have a feature type with (local) name <tt class="docutils literal"><span class="pre">Autos</span></tt>, deegree will check all configured style stores for styles identified by layer name <tt class="docutils literal"><span class="pre">Autos</span></tt> and use them, if available. The name <tt class="docutils literal"><span class="pre">Autos</span></tt> will be used as name and title as appropriate, and spatial metadata will be used as available from the feature store.</p>
+</div>
+<div class="section" id="manual-configuration">
+<h3>10.2.2. Manual configuration<a class="headerlink" href="#manual-configuration" title="Permalink to this headline">¶</a></h3>
+<p>The basic structure of a manual configuration looks like this:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;FeatureLayers</span> <span class="na">xmlns=</span><span class="s">&#39;http://www.deegree.org/layers/feature&#39;</span>
+               <span class="na">xmlns:d=</span><span class="s">&#39;http://www.deegree.org/metadata/description&#39;</span>
+               <span class="na">xmlns:s=</span><span class="s">&#39;http://www.deegree.org/metadata/spatial&#39;</span>
+               <span class="na">xmlns:l=</span><span class="s">&#39;http://www.deegree.org/layers/base&#39;</span>
+               <span class="na">configVersion=</span><span class="s">&#39;3.2.0&#39;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;FeatureStoreId&gt;</span>myfeaturestore<span class="nt">&lt;/FeatureStoreId&gt;</span>
+  <span class="nt">&lt;FeatureLayer&gt;</span>
+  ...
+  <span class="nt">&lt;/FeatureLayer&gt;</span>
+  <span class="nt">&lt;FeatureLayer&gt;</span>
+  ...
+  <span class="nt">&lt;/FeatureLayer&gt;</span>
+<span class="nt">&lt;/FeatureLayers&gt;</span>
+</pre></div>
+</div>
+<p>As you can see, the first thing to do is to bind the configuration to a feature store. After that, you can define one or more feature layers.</p>
+<p>A feature layer configuration has three optional elements besides the common elements. The <tt class="docutils literal"><span class="pre">FeatureType</span></tt> can be used to restrict a layer to a specific feature type (use a qualified name). The <tt class="docutils literal"><span class="pre">Filter</span></tt> element can be used to specify a filter that applies to the layer globally (use standard OGC filter encoding 1.1.0 <tt class="docutils literal"><span class="pre">ogc:Filter</span></tt> element within):</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;FeatureLayer&gt;</span>
+  <span class="nt">&lt;FeatureType</span> <span class="na">xmlns:app=</span><span class="s">&#39;http://www.deegree.org/app&#39;</span><span class="nt">&gt;</span>app:Roads<span class="nt">&lt;/FeatureType&gt;</span>
+  <span class="nt">&lt;Filter&gt;</span>
+    <span class="nt">&lt;Filter</span> <span class="na">xmlns=</span><span class="s">&#39;http://www.opengis.net/ogc&#39;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;PropertyIsEqualTo&gt;</span>
+        <span class="nt">&lt;PropertyName</span> <span class="na">xmlns:app=</span><span class="s">&#39;http://www.deegree.org/app&#39;</span><span class="nt">&gt;</span>app:type<span class="nt">&lt;/PropertyName&gt;</span>
+        <span class="nt">&lt;Literal&gt;</span>123<span class="nt">&lt;/Literal&gt;</span>
+      <span class="nt">&lt;/PropertyIsEqualTo&gt;</span>
+    <span class="nt">&lt;/Filter&gt;</span>
+  <span class="nt">&lt;/Filter&gt;</span>
+  ...
+<span class="nt">&lt;/FeatureLayer&gt;</span>
+</pre></div>
+</div>
+<p>The third extra option is the <tt class="docutils literal"><span class="pre">SortBy</span></tt> element, which can be used to influence the order in which features are drawn:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;FeatureLayer&gt;</span>
+  ...
+  <span class="nt">&lt;SortBy</span> <span class="na">reverseFeatureInfo=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;SortBy</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.opengis.net/ogc&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;SortProperty&gt;</span>
+        <span class="nt">&lt;PropertyName</span> <span class="na">xmlns:app=</span><span class="s">&quot;http://www.deegree.org/app&quot;</span><span class="nt">&gt;</span>app:level<span class="nt">&lt;/PropertyName&gt;</span>
+      <span class="nt">&lt;/SortProperty&gt;</span>
+    <span class="nt">&lt;/SortBy&gt;</span>
+  <span class="nt">&lt;/SortBy&gt;</span>
+  ...
+<span class="nt">&lt;/FeatureLayer&gt;</span>
+</pre></div>
+</div>
+<p>The attribute <tt class="docutils literal"><span class="pre">reverseFeatureInfo</span></tt> is false by default. If set to true, the feature that is drawn first will appear <strong>last</strong> in a <tt class="docutils literal"><span class="pre">GetFeatureInfo</span></tt> feature collection.</p>
+<p>After that the standard options follow, as outlined in the <a class="reference internal" href="#common">common</a> section.</p>
+</div>
+</div>
+<div class="section" id="tile-layers">
+<h2>10.3. Tile layers<a class="headerlink" href="#tile-layers" title="Permalink to this headline">¶</a></h2>
+<p>Tile layers are based on tile data sets. You can configure an unlimited number of tile layers each based on several different tile data sets within one configuration file.</p>
+<p>As you might have guessed, most of the common parameters are ignored for this layer type. Most notably, the style and dimension configuration is ignored.</p>
+<p>In most cases, a configuration like the following is sufficient:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;TileLayers</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.deegree.org/layers/tile&quot;</span>
+            <span class="na">xmlns:d=</span><span class="s">&quot;http://www.deegree.org/metadata/description&quot;</span>
+            <span class="na">xmlns:l=</span><span class="s">&quot;http://www.deegree.org/layers/base&quot;</span>
+            <span class="na">configVersion=</span><span class="s">&quot;3.2.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;TileLayer&gt;</span>
+    <span class="nt">&lt;l:Name&gt;</span>example<span class="nt">&lt;/l:Name&gt;</span>
+    <span class="nt">&lt;d:Title&gt;</span>Example INSPIRE layer<span class="nt">&lt;/d:Title&gt;</span>
+    <span class="nt">&lt;TileDataSet</span> <span class="na">tileStoreId=</span><span class="s">&quot;sometilestore&quot;</span><span class="nt">&gt;</span>roads<span class="nt">&lt;/TileDataSet&gt;</span>
+    <span class="nt">&lt;TileDataSet</span> <span class="na">tileStoreId=</span><span class="s">&quot;sometilestore4326&quot;</span><span class="nt">&gt;</span>roads<span class="nt">&lt;/TileDataSet&gt;</span>
+  <span class="nt">&lt;/TileLayer&gt;</span>
+<span class="nt">&lt;/TileLayers&gt;</span>
+</pre></div>
+</div>
+<p>Just repeat the <tt class="docutils literal"><span class="pre">TileLayer</span></tt> element once for each layer you wish to configure.</p>
+<p>Please note that each tile data set needs to be configured with a unique tile matrix set within one layer. It is currently not possible (let&#8217;s say it&#8217;s not advisable) to configure two tile data sets based on the same tile matrix set within one layer, even if their actual data does not overlap.</p>
+<p>If used in a WMTS, the WMTS capabilities will contain only the actually used tile matrix sets, and will contain appropriate links in the layers which have been configured with fitting tile data sets.</p>
+</div>
+<div class="section" id="coverage-layers">
+<h2>10.4. Coverage layers<a class="headerlink" href="#coverage-layers" title="Permalink to this headline">¶</a></h2>
+<p>Coverage layers are based on coverages out of coverage stores. Similar to feature layers, you can choose between an automatic layer setup and a manual configuration.</p>
+<div class="section" id="id1">
+<h3>10.4.1. Auto layers<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>All you need to configure is the coverage store and an optional style store:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;CoverageLayers</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.deegree.org/layers/coverage&quot;</span>
+                <span class="na">xmlns:d=</span><span class="s">&quot;http://www.deegree.org/metadata/description&quot;</span>
+                <span class="na">xmlns:l=</span><span class="s">&quot;http://www.deegree.org/layers/base&quot;</span>
+                <span class="na">configVersion=</span><span class="s">&quot;3.2.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;AutoLayers&gt;</span>
+    <span class="nt">&lt;CoverageStoreId&gt;</span>dem<span class="nt">&lt;/CoverageStoreId&gt;</span>
+    <span class="nt">&lt;StyleStoreId&gt;</span>heightmap<span class="nt">&lt;/StyleStoreId&gt;</span>
+  <span class="nt">&lt;/AutoLayers&gt;</span>
+<span class="nt">&lt;/CoverageLayers&gt;</span>
+</pre></div>
+</div>
+<p>In theory this would add one layer for each coverage in the coverage store, but since only one coverage is supported per coverage store at the moment, only one layer will be the result. If a style store is specified, all styles matching the layer name (the coverage store id) will be available for the layer.</p>
+</div>
+<div class="section" id="id2">
+<h3>10.4.2. Manual configuration<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>The manual configuration requires the definition of a coverage store, and one or many coverage layer definitions:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;CoverageLayers</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.deegree.org/layers/coverage&quot;</span>
+                <span class="na">xmlns:d=</span><span class="s">&quot;http://www.deegree.org/metadata/description&quot;</span>
+                <span class="na">xmlns:l=</span><span class="s">&quot;http://www.deegree.org/layers/base&quot;</span>
+                <span class="na">configVersion=</span><span class="s">&quot;3.2.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;CoverageStoreId&gt;</span>dem<span class="nt">&lt;/CoverageStoreId&gt;</span>
+  <span class="nt">&lt;CoverageLayer&gt;</span>
+  <span class="c">&lt;!-- standard layer options --&gt;</span>
+  <span class="nt">&lt;/CoverageLayer&gt;</span>
+<span class="nt">&lt;/CoverageLayers&gt;</span>
+</pre></div>
+</div>
+<p>Within the <tt class="docutils literal"><span class="pre">CoverageLayer</span></tt> element you can only define the <a class="reference internal" href="#common">common</a> layer options. While only one coverage is supported per coverage store, it might still be desirable to define multiple layers based on the store, for example one layer per style.</p>
+</div>
+</div>
+<div class="section" id="remote-wms-layers">
+<h2>10.5. Remote WMS layers<a class="headerlink" href="#remote-wms-layers" title="Permalink to this headline">¶</a></h2>
+<p>Remote WMS layers are based on layers requested from another WMS on the network. In its simplest mode, the remote WMS layer store will provide all layers that the other WMS offers, but you can pick out and restrict the configuration to single layers if you want. The <a class="reference internal" href="#common">common</a> style and dimension options are not used in this layer configuration.</p>
+<p>The remote WMS layer configuration is always based on a single <tt class="docutils literal"><span class="pre">RemoteWMS</span></tt> resource, so the most basic configuration which cascades all available layers looks like this:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;RemoteWMSLayers</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.deegree.org/layers/remotewms&quot;</span> <span class="na">configVersion=</span><span class="s">&quot;3.2.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;RemoteWMSId&gt;</span>d3<span class="nt">&lt;/RemoteWMSId&gt;</span>
+  <span class="c">&lt;!-- more detailed options would follow here --&gt;</span>
+<span class="nt">&lt;/RemoteWMSLayers&gt;</span>
+</pre></div>
+</div>
+<p>In many cases that&#8217;s already sufficient, but if you wish to control the way the requests are being sent, you can specify the <tt class="docutils literal"><span class="pre">RequestOptions</span></tt>. If you want to limit/restrict the layers, you can specify any amount of <tt class="docutils literal"><span class="pre">Layer</span></tt> elements.</p>
+<div class="section" id="request-options">
+<span id="anchor-configuration-layer-request-options"></span><h3>10.5.1. Request options<a class="headerlink" href="#request-options" title="Permalink to this headline">¶</a></h3>
+<p>Use the <tt class="docutils literal"><span class="pre">ImageFormat</span></tt> element to indicate which format should be requested from the remote WMS. Set the attribute <tt class="docutils literal"><span class="pre">transparent</span></tt> to <tt class="docutils literal"><span class="pre">false</span></tt> if you don&#8217;t want to request transparent images. Default is to request transparent <tt class="docutils literal"><span class="pre">image/png</span></tt> maps:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;RequestOptions&gt;</span>
+  <span class="nt">&lt;ImageFormat</span> <span class="na">transparent=</span><span class="s">&#39;false&#39;</span><span class="nt">&gt;</span>image/gif<span class="nt">&lt;/ImageFormat&gt;</span>
+<span class="nt">&lt;/RequestOptions&gt;</span>
+</pre></div>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">DefaultCRS</span></tt> element can be used to specify the CRS to request. If the <tt class="docutils literal"><span class="pre">useAlways</span></tt> attribute is true, maps are always requested in this format, and transformed if necessary. If set to false (the default), the requested CRS will be requested from the remote service if available. If a requested CRS is not available from the remote service, the value of this option is used, and the resulting image transformed.</p>
+<p>The <tt class="docutils literal"><span class="pre">Parameter</span></tt> element can be used (multiple times) to add and/or fix KVP parameter values used in requests to the remote service. The <tt class="docutils literal"><span class="pre">name</span></tt> attribute (which is required) configures which parameter you&#8217;re talking about, and the content specifies a default or fixed value. The <tt class="docutils literal"><span class="pre">use</span></tt> and <tt class="docutils literal"><span class="pre">scope</span></tt> attributes can be used to specify how to handle parameters. Have a look at the following table for default and possible values of these attributes:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="28%" />
+<col width="48%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Default</th>
+<th class="head">Possible values</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>use</td>
+<td>allowOverride</td>
+<td>allowOverride, fixed</td>
+</tr>
+<tr class="row-odd"><td>scope</td>
+<td>All</td>
+<td>GetMap, GetFeatureInfo, All</td>
+</tr>
+</tbody>
+</table>
+<p>Let&#8217;s have a look at a couple of examples:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;RequestOptions&gt;</span>
+  <span class="nt">&lt;Parameter</span> <span class="na">name=</span><span class="s">&#39;BGCOLOR&#39;</span><span class="nt">&gt;</span>#00ff00<span class="nt">&lt;/Parameter&gt;</span>
+<span class="nt">&lt;RequestOptions&gt;</span>
+</pre></div>
+</div>
+<p>This means that all maps are requested with a background color of green, unless the request overrides it. GetFeatureInfo requests will also have the BGCOLOR parameter set, although it makes no difference there.</p>
+<p>Another example:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;RequestOptions&gt;</span>
+  <span class="nt">&lt;Parameter</span> <span class="na">name=</span><span class="s">&#39;USERNAME&#39;</span><span class="nt">&gt;</span>SEC_ADMIN<span class="nt">&lt;/Parameter&gt;</span>
+  <span class="nt">&lt;Parameter</span> <span class="na">name=</span><span class="s">&#39;PASSWORD&#39;</span><span class="nt">&gt;</span>JOSE67<span class="nt">&lt;/Parameter&gt;</span>
+<span class="nt">&lt;/RequestOptions&gt;</span>
+</pre></div>
+</div>
+<p>In this case all requests will have USERNAME and PASSWORD set to these values. Users can still override these values in requests.</p>
+<p>A last example:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;RequestOptions&gt;</span>
+  <span class="nt">&lt;Parameter</span> <span class="na">scope=</span><span class="s">&#39;GetMap&#39;</span> <span class="na">name=</span><span class="s">&#39;BGCOLOR&#39;</span><span class="nt">&gt;</span>#00ff00<span class="nt">&lt;/Parameter&gt;</span>
+  <span class="nt">&lt;Parameter</span> <span class="na">use=</span><span class="s">&#39;fixed&#39;</span> <span class="na">name=</span><span class="s">&#39;USERNAME&#39;</span><span class="nt">&gt;</span>SEC_ADMIN<span class="nt">&lt;/Parameter&gt;</span>
+  <span class="nt">&lt;Parameter</span> <span class="na">use=</span><span class="s">&#39;fixed&#39;</span> <span class="na">name=</span><span class="s">&#39;PASSWORD&#39;</span><span class="nt">&gt;</span>JOSE67<span class="nt">&lt;/Parameter&gt;</span>
+<span class="nt">&lt;/RequestOptions&gt;</span>
+</pre></div>
+</div>
+<p>Now all GetMap requests will have the USERNAME and PASSWORD parameters hard coded to the configured values, with the BGCOLOR parameter set to green by default, but with the possibility of override by the user. GetFeatureInfo requests will only have the USERNAME and PASSWORD parameters fixed to the configured values.</p>
+</div>
+<div class="section" id="layer-configuration">
+<h3>10.5.2. Layer configuration<a class="headerlink" href="#layer-configuration" title="Permalink to this headline">¶</a></h3>
+<p>The manual configuration allows you to pick out a layer, rename it, and optionally override the _common description and spatial metadata. What you don&#8217;t override, will be copied from the source. Let&#8217;s look at an example:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;RemoteWMSLayers&gt;</span>
+  ...
+  <span class="nt">&lt;Layer&gt;</span>
+    <span class="nt">&lt;OriginalName&gt;</span>cite:BasicPolygons<span class="nt">&lt;/OriginalName&gt;</span>
+    <span class="nt">&lt;Name&gt;</span>basic_polygons<span class="nt">&lt;/Name&gt;</span>
+    <span class="c">&lt;!-- optionally override description (title, abstract, keywords) --&gt;</span>
+    <span class="c">&lt;!-- optionally override envelope, crs --&gt;</span>
+    <span class="c">&lt;!-- optionally set layer options --&gt;</span>
+  <span class="nt">&lt;/Layer&gt;</span>
+<span class="nt">&lt;/RemoteWMSLayers&gt;</span>
+</pre></div>
+</div>
+<p>Please note that once you specify one layer, you&#8217;ll need to specify each layer you want to make available. If you want all layers to be available, don&#8217;t specify a <tt class="docutils literal"><span class="pre">Layer</span></tt> element. Of course, you can specify as many <tt class="docutils literal"><span class="pre">Layer</span></tt> elements as you like.</p>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013, The deegree project.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

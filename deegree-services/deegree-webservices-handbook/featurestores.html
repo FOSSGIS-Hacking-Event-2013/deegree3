@@ -1,0 +1,1997 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>6. Feature stores &mdash; deegree webservices ${project.version} documentation</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.2.0/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.2.0/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '${project.version}',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="deegree webservices ${project.version} documentation" href="index.html" />
+    <link rel="next" title="7. Tile stores" href="tilestores.html" />
+    <link rel="prev" title="5. Web services" href="webservices.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          deegree webservices</a>
+        <span class="navbar-text navbar-version pull-left"><b>${project.version}</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">2. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lightly.html">3. Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basics.html">4. Configuration basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webservices.html">5. Web services</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">6. Feature stores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tilestores.html">7. Tile stores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coveragestores.html">8. Coverage stores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metadatastores.html">9. Metadata stores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layers.html">10. Map layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="themes.html">11. Map themes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="renderstyles.html">12. Map styles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filterencoding.html">13. Filter Encoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="serverconnections.html">14. Server connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processproviders.html">15. Process providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="crs.html">16. Coordinate reference systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="restapi.html">17. deegree REST interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="javamodules.html">18. Java modules and libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gdal.html">19. GDAL components</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">6. Feature stores</a><ul>
+<li><a class="reference internal" href="#features-feature-types-and-application-schemas">6.1. Features, feature types and application schemas</a><ul>
+<li><a class="reference internal" href="#simple-vs-rich-features-and-feature-types">6.1.1. Simple vs. rich features and feature types</a></li>
+<li><a class="reference internal" href="#application-schemas">6.1.2. Application schemas</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#shape-feature-store">6.2. Shape feature store</a><ul>
+<li><a class="reference internal" href="#minimal-configuration-example">6.2.1. Minimal configuration example</a></li>
+<li><a class="reference internal" href="#more-complex-configuration-example">6.2.2. More complex configuration example</a></li>
+<li><a class="reference internal" href="#configuration-options">6.2.3. Configuration options</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#memory-feature-store">6.3. Memory feature store</a><ul>
+<li><a class="reference internal" href="#id1">6.3.1. Minimal configuration example</a></li>
+<li><a class="reference internal" href="#id2">6.3.2. More complex configuration example</a></li>
+<li><a class="reference internal" href="#id3">6.3.3. Configuration options</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#simple-sql-feature-store">6.4. Simple SQL feature store</a><ul>
+<li><a class="reference internal" href="#id4">6.4.1. Minimal configuration example</a></li>
+<li><a class="reference internal" href="#id5">6.4.2. More complex configuration example</a></li>
+<li><a class="reference internal" href="#id6">6.4.3. Configuration options</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#sql-feature-store">6.5. SQL feature store</a><ul>
+<li><a class="reference internal" href="#id7">6.5.1. Minimal configuration example</a></li>
+<li><a class="reference internal" href="#id8">6.5.2. More complex configuration example</a></li>
+<li><a class="reference internal" href="#overview-of-configuration-options">6.5.3. Overview of configuration options</a></li>
+<li><a class="reference internal" href="#mapping-tables-to-simple-feature-types">6.5.4. Mapping tables to simple feature types</a><ul>
+<li><a class="reference internal" href="#customizing-the-feature-type-name">6.5.4.1. Customizing the feature type name</a></li>
+<li><a class="reference internal" href="#customizing-the-feature-id">6.5.4.2. Customizing the feature id</a></li>
+<li><a class="reference internal" href="#customizing-the-mapping-between-columns-and-properties">6.5.4.3. Customizing the mapping between columns and properties</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mapping-gml-application-schemas">6.5.5. Mapping GML application schemas</a><ul>
+<li><a class="reference internal" href="#recommended-workflow">6.5.5.1. Recommended workflow</a></li>
+<li><a class="reference internal" href="#mapping-rich-feature-types">6.5.5.2. Mapping rich feature types</a></li>
+<li><a class="reference internal" href="#changing-the-table-context">6.5.5.3. Changing the table context</a></li>
+<li><a class="reference internal" href="#handling-of-null-values">6.5.5.4. Handling of NULL values</a></li>
+<li><a class="reference internal" href="#blob-mapping">6.5.5.5. BLOB mapping</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#transactions-and-feature-id-generation">6.5.6. Transactions and feature id generation</a><ul>
+<li><a class="reference internal" href="#auto-id-generator">6.5.6.1. Auto id generator</a></li>
+<li><a class="reference internal" href="#uuid-generator">6.5.6.2. UUID generator</a></li>
+<li><a class="reference internal" href="#sequence-id-generator">6.5.6.3. Sequence id generator</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#evaluation-of-query-filters">6.5.7. Evaluation of query filters</a></li>
+<li><a class="reference internal" href="#auto-generating-a-mapping-configuration-and-tables">6.5.8. Auto-generating a mapping configuration and tables</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="webservices.html" title="Previous Chapter: 5. Web services"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 5. Web services</span>
+    </a>
+  </li>
+  <li>
+    <a href="tilestores.html" title="Next Chapter: 7. Tile stores"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">7. Tile stores &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/featurestores.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      
+  <div class="section" id="feature-stores">
+<span id="anchor-configuration-featurestore"></span><h1>6. Feature stores<a class="headerlink" href="#feature-stores" title="Permalink to this headline">¶</a></h1>
+<p>Feature stores are workspace resources that provide access to stored features. The two most common use cases for feature stores are:</p>
+<ul class="simple">
+<li>Accessing via <a class="reference internal" href="webservices.html#anchor-configuration-wfs"><em>Web Feature Service (WFS)</em></a></li>
+<li>Providing of data for <a class="reference internal" href="layers.html#anchor-configuration-feature-layers"><em>Feature layers</em></a></li>
+</ul>
+<p>The remainder of this chapter describes some relevant terms and the feature store configuration files in detail. You can access this configuration level by clicking <strong>feature stores</strong> in the service console. The corresponding resource configuration files are located in subdirectory <tt class="docutils literal"><span class="pre">datasources/feature/</span></tt> of the active deegree workspace directory.</p>
+<div class="figure" style="width: 80%">
+<a class="reference external image-reference" href="_images/workspace-overview-feature.png"><img alt="_images/workspace-overview-feature.png" src="_images/workspace-overview-feature.png" style="width: 80%;" /></a>
+<p class="caption">Feature store resources provide access to geo objects</p>
+</div>
+<div class="section" id="features-feature-types-and-application-schemas">
+<h2>6.1. Features, feature types and application schemas<a class="headerlink" href="#features-feature-types-and-application-schemas" title="Permalink to this headline">¶</a></h2>
+<p>Features are abstractions of real-world objects, such as rivers, buildings, streets or state boundaries. They are the geo objects of a particular application domain.</p>
+<p>A feature types defines the data model for a class of features. For example, a feature type <tt class="docutils literal"><span class="pre">River</span></tt> could define a class of river features that all have the same properties.</p>
+<div class="section" id="simple-vs-rich-features-and-feature-types">
+<h3>6.1.1. Simple vs. rich features and feature types<a class="headerlink" href="#simple-vs-rich-features-and-feature-types" title="Permalink to this headline">¶</a></h3>
+<p>Some feature types have a more complex structure than others. Traditionally, GIS software copes with &#8220;simple&#8221; feature types:</p>
+<ul class="simple">
+<li>Every property is either simple (string, number, date, etc.) or a geometry</li>
+<li>Only a single property with one name is allowed</li>
+</ul>
+<p>Basically, a simple feature type is everything that can be represented using a single database table or a single shape file. In contrast, &#8220;rich&#8221; feature types additionally allow the following:</p>
+<ul class="simple">
+<li>Multiple properties with the same name</li>
+<li>Properties that contain other features</li>
+<li>Properties that reference other features or GML objects</li>
+<li>Properties that contain GML core datatypes which are not geometries (e.g. code types or units of measure)</li>
+<li>Properties that contain generic XML</li>
+</ul>
+<div class="topic">
+<p class="topic-title first">Example of a rich feature instance encoded in GML</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;ad:Address</span> <span class="na">gml:id=</span><span class="s">&quot;AD_ADDRESS_b15cd863-1b47-4f3c-9cd5-d5283d674a2b&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;ad:inspireId&gt;</span>
+    <span class="nt">&lt;base:Identifier</span> <span class="na">xmlns:base=</span><span class="s">&quot;urn:x-inspire:specification:gmlas:BaseTypes:3.2&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;base:localId&gt;</span>0532200000000003<span class="nt">&lt;/base:localId&gt;</span>
+      <span class="nt">&lt;base:namespace&gt;</span>NL.KAD.BAG<span class="nt">&lt;/base:namespace&gt;</span>
+    <span class="nt">&lt;/base:Identifier&gt;</span>
+  <span class="nt">&lt;/ad:inspireId&gt;</span>
+  <span class="nt">&lt;ad:position&gt;</span>
+    <span class="nt">&lt;ad:GeographicPosition&gt;</span>
+      <span class="nt">&lt;ad:geometry&gt;</span>
+        <span class="nt">&lt;gml:Point</span> <span class="na">gml:id=</span><span class="s">&quot;POINT_64fae7bf-a836-44af-a63c-349bed1c6f55&quot;</span> <span class="na">srsName=</span><span class="s">&quot;urn:ogc:def:crs:EPSG::4258&quot;</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;gml:pos&gt;</span>52.689618 5.246345<span class="nt">&lt;/gml:pos&gt;</span>
+        <span class="nt">&lt;/gml:Point&gt;</span>
+      <span class="nt">&lt;/ad:geometry&gt;</span>
+      <span class="nt">&lt;ad:specification&gt;</span>entrance<span class="nt">&lt;/ad:specification&gt;</span>
+      <span class="nt">&lt;ad:method&gt;</span>byOtherParty<span class="nt">&lt;/ad:method&gt;</span>
+      <span class="nt">&lt;ad:default&gt;</span>true<span class="nt">&lt;/ad:default&gt;</span>
+    <span class="nt">&lt;/ad:GeographicPosition&gt;</span>
+  <span class="nt">&lt;/ad:position&gt;</span>
+  <span class="nt">&lt;ad:locator&gt;</span>
+    <span class="nt">&lt;ad:AddressLocator&gt;</span>
+      <span class="nt">&lt;ad:designator&gt;</span>
+        <span class="nt">&lt;ad:LocatorDesignator&gt;</span>
+          <span class="nt">&lt;ad:designator&gt;</span>1<span class="nt">&lt;/ad:designator&gt;</span>
+          <span class="nt">&lt;ad:type&gt;</span>2<span class="nt">&lt;/ad:type&gt;</span>
+        <span class="nt">&lt;/ad:LocatorDesignator&gt;</span>
+      <span class="nt">&lt;/ad:designator&gt;</span>
+      <span class="nt">&lt;ad:level&gt;</span>unitLevel<span class="nt">&lt;/ad:level&gt;</span>
+    <span class="nt">&lt;/ad:AddressLocator&gt;</span>
+  <span class="nt">&lt;/ad:locator&gt;</span>
+  <span class="nt">&lt;ad:validFrom&gt;</span>2009-01-05T23:00:00.000<span class="nt">&lt;/ad:validFrom&gt;</span>
+  <span class="nt">&lt;ad:validTo&gt;</span>2299-12-30T23:00:00.000<span class="nt">&lt;/ad:validTo&gt;</span>
+  <span class="nt">&lt;ad:beginLifespanVersion</span> <span class="na">xsi:nil=</span><span class="s">&quot;true&quot;</span> <span class="na">nilReason=</span><span class="s">&quot;UNKNOWN&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;ad:endLifespanVersion</span> <span class="na">xsi:nil=</span><span class="s">&quot;true&quot;</span> <span class="na">nilReason=</span><span class="s">&quot;UNKNOWN&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;ad:component</span> <span class="na">xlink:href=</span><span class="s">&quot;#FEATURE_d4a54e57-91cd-410d-9c3d-b0fafdaa080f&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;ad:component</span> <span class="na">xlink:href=</span><span class="s">&quot;#FEATURE_240b3dd2-fc1c-448e-82a4-210cffe6dd34&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;ad:component</span> <span class="na">xlink:href=</span><span class="s">&quot;#FEATURE_64f481f4-8a21-4474-8efd-28d01db5e2e3&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/ad:Address&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">All deegree feature stores support simple feature types, but only the SQL feature store and the memory feature store support rich feature types.</p>
+</div>
+</div>
+<div class="section" id="application-schemas">
+<h3>6.1.2. Application schemas<a class="headerlink" href="#application-schemas" title="Permalink to this headline">¶</a></h3>
+<p>An application schema defines a number of feature types for a particular application domain. When referring to an application schema, one usually means a GML application schema that defines a hierarchy of rich feature types. Examples for GML application schemas are:</p>
+<ul class="simple">
+<li>INSPIRE Data Themes (Annex I, II and III)</li>
+<li>GeoSciML</li>
+<li>CityGML</li>
+<li>XPlanung</li>
+<li>AAA</li>
+</ul>
+<p>The following diagram shows a part of the INSPIRE Annex I application schema in UML form:</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/address_schema.png"><img alt="_images/address_schema.png" src="_images/address_schema.png" style="width: 50%;" /></a>
+</div>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">The SQL feature store or the memory feature store can be used with GML application schemas.</p>
+</div>
+</div>
+</div>
+<div class="section" id="shape-feature-store">
+<h2>6.2. Shape feature store<a class="headerlink" href="#shape-feature-store" title="Permalink to this headline">¶</a></h2>
+<p>The shape feature store serves a feature type from an ESRI shape file. It is currently not transaction capable and only supports simple feature types.</p>
+<div class="section" id="minimal-configuration-example">
+<h3>6.2.1. Minimal configuration example<a class="headerlink" href="#minimal-configuration-example" title="Permalink to this headline">¶</a></h3>
+<p>The only mandatory element is <tt class="docutils literal"><span class="pre">File</span></tt>. A minimal valid configuration example looks like this:</p>
+<div class="topic">
+<p class="topic-title first">Shape Feature Store config (minimal configuration example)</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;ShapeFeatureStore</span> <span class="na">configVersion=</span><span class="s">&quot;3.1.0&quot;</span>
+  <span class="na">xmlns=</span><span class="s">&quot;http://www.deegree.org/datasource/feature/shape&quot;</span>
+  <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+  <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.deegree.org/datasource/feature/shape</span>
+<span class="s">  http://schemas.deegree.org/datasource/feature/shape/3.1.0/shape.xsd&quot;</span><span class="nt">&gt;</span>
+
+  <span class="c">&lt;!-- Required: Path to shape file on file system (can be relative) --&gt;</span>
+  <span class="nt">&lt;File&gt;</span>/tmp/rivers.shp<span class="nt">&lt;/File&gt;</span>
+
+<span class="nt">&lt;/ShapeFeatureStore&gt;</span>
+</pre></div>
+</div>
+</div>
+<p>This configuration will set up a feature store based on the shape file <tt class="docutils literal"><span class="pre">/tmp/rivers.shp</span></tt> with the following settings:</p>
+<ul class="simple">
+<li>The feature store offers the feature type <tt class="docutils literal"><span class="pre">app:rivers</span></tt> (<tt class="docutils literal"><span class="pre">app</span></tt> bound to <tt class="docutils literal"><span class="pre">http://www.deegree.org/app</span></tt>)</li>
+<li>SRS information is taken from file <tt class="docutils literal"><span class="pre">/tmp/rivers.prj</span></tt> (if it does not exist, <tt class="docutils literal"><span class="pre">EPSG:4326</span></tt> is assumed)</li>
+<li>The geometry is added as property <tt class="docutils literal"><span class="pre">app:GEOMETRY</span></tt></li>
+<li>All data columns from file <tt class="docutils literal"><span class="pre">/tmp/rivers.dbf</span></tt> are used as properties in the feature type</li>
+<li>Encoding of text columns in <tt class="docutils literal"><span class="pre">/tmp/rivers.dbf</span></tt> is guessed based on actual contents</li>
+<li>An alphanumeric index is created for the dbf to speed up filtering based on non-geometric constraints</li>
+</ul>
+</div>
+<div class="section" id="more-complex-configuration-example">
+<h3>6.2.2. More complex configuration example<a class="headerlink" href="#more-complex-configuration-example" title="Permalink to this headline">¶</a></h3>
+<p>A more complex example that uses all available configuration options:</p>
+<div class="topic">
+<p class="topic-title first">Shape Feature Store config (more complex configuration example)</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;ShapeFeatureStore</span> <span class="na">configVersion=</span><span class="s">&quot;3.1.0&quot;</span>
+  <span class="na">xmlns=</span><span class="s">&quot;http://www.deegree.org/datasource/feature/shape&quot;</span>
+  <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+  <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.deegree.org/datasource/feature/shape</span>
+<span class="s">  http://schemas.deegree.org/datasource/feature/shape/3.1.0/shape.xsd&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;StorageCRS&gt;</span>EPSG:4326<span class="nt">&lt;/StorageCRS&gt;</span>
+  <span class="nt">&lt;FeatureTypeName&gt;</span>River<span class="nt">&lt;/FeatureTypeName&gt;</span>
+  <span class="nt">&lt;FeatureTypeNamespace&gt;</span>http://www.deegree.org/app<span class="nt">&lt;/FeatureTypeNamespace&gt;</span>
+  <span class="nt">&lt;FeatureTypePrefix&gt;</span>app<span class="nt">&lt;/FeatureTypePrefix&gt;</span>
+  <span class="nt">&lt;File&gt;</span>/tmp/rivers.shp<span class="nt">&lt;/File&gt;</span>
+  <span class="nt">&lt;Encoding&gt;</span>ISO-8859-1<span class="nt">&lt;/Encoding&gt;</span>
+  <span class="nt">&lt;GenerateAlphanumericIndexes&gt;</span>false<span class="nt">&lt;/GenerateAlphanumericIndexes&gt;</span>
+  <span class="nt">&lt;Mapping&gt;</span>
+    <span class="nt">&lt;SimpleProperty</span> <span class="na">name=</span><span class="s">&quot;objectid&quot;</span> <span class="na">mapping=</span><span class="s">&quot;OBJECTID&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;GeometryProperty</span> <span class="na">name=</span><span class="s">&quot;mygeom&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/Mapping&gt;</span>
+<span class="nt">&lt;/ShapeFeatureStore&gt;</span>
+</pre></div>
+</div>
+</div>
+<p>This configuration will set up a feature store based on the shape file <tt class="docutils literal"><span class="pre">/tmp/rivers.shp</span></tt> with the following settings:</p>
+<ul class="simple">
+<li>SRS of stored geometries is <tt class="docutils literal"><span class="pre">EPSG:4326</span></tt> (no auto-detection)</li>
+<li>The feature store offers the shape file contents as feature type <tt class="docutils literal"><span class="pre">app:River</span></tt> (<tt class="docutils literal"><span class="pre">app</span></tt> bound to <tt class="docutils literal"><span class="pre">http://www.deegree.org/app</span></tt>)</li>
+<li>Encoding of text columns in <tt class="docutils literal"><span class="pre">/tmp/rivers.dbf</span></tt> is <tt class="docutils literal"><span class="pre">ISO-8859-1</span></tt> (no auto-detection)</li>
+<li>No alphanumeric index is created for the dbf (filtering based on non-geometric constraints has to be performed in-memory)</li>
+<li>The mapping between the shape file columns and the feature type properties is customized.</li>
+<li>Property <tt class="docutils literal"><span class="pre">objectid</span></tt> corresponds to column <tt class="docutils literal"><span class="pre">OBJECTID</span></tt> of the shape file</li>
+<li>Property <tt class="docutils literal"><span class="pre">geometry</span></tt> corresponds to the geometry of the shape file</li>
+</ul>
+</div>
+<div class="section" id="configuration-options">
+<h3>6.2.3. Configuration options<a class="headerlink" href="#configuration-options" title="Permalink to this headline">¶</a></h3>
+<p>The configuration format for the deegree shape feature store is defined by schema file <a class="reference external" href="http://schemas.deegree.org/datasource/feature/shape/3.1.0/shape.xsd">http://schemas.deegree.org/datasource/feature/shape/3.1.0/shape.xsd</a>. The following table lists all available configuration options. When specifiying them, their order must be respected.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="10%" />
+<col width="7%" />
+<col width="60%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Cardinality</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>StorageCRS</td>
+<td>0..1</td>
+<td>String</td>
+<td>CRS of stored geometries</td>
+</tr>
+<tr class="row-odd"><td>FeatureTypeName</td>
+<td>0..n</td>
+<td>String</td>
+<td>Local name of the feature type (defaults to base name of shape file)</td>
+</tr>
+<tr class="row-even"><td>FeatureTypeNamespace</td>
+<td>0..1</td>
+<td>String</td>
+<td>Namespace of the feature type (defaults to &#8220;<a class="reference external" href="http://www.deegree.org/app">http://www.deegree.org/app</a>&#8221;)</td>
+</tr>
+<tr class="row-odd"><td>FeatureTypePrefix</td>
+<td>0..1</td>
+<td>String</td>
+<td>Prefix of the feature type (defaults to &#8220;app&#8221;)</td>
+</tr>
+<tr class="row-even"><td>File</td>
+<td>1..1</td>
+<td>String</td>
+<td>Path to shape file (can be relative)</td>
+</tr>
+<tr class="row-odd"><td>Encoding</td>
+<td>0..1</td>
+<td>String</td>
+<td>Encoding of text fields in dbf file</td>
+</tr>
+<tr class="row-even"><td>GenerateAlphanumericIndexes</td>
+<td>0..1</td>
+<td>Boolean</td>
+<td>Set to true, if an index for alphanumeric fields should be generated</td>
+</tr>
+<tr class="row-odd"><td>Mapping</td>
+<td>0..1</td>
+<td>Complex</td>
+<td>Customized mapping between dbf column names and property names</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="memory-feature-store">
+<h2>6.3. Memory feature store<a class="headerlink" href="#memory-feature-store" title="Permalink to this headline">¶</a></h2>
+<p>The memory feature store serves feature types that are defined by a GML application schema and are stored in memory. It is transaction capable and supports rich GML application schemas.</p>
+<div class="section" id="id1">
+<h3>6.3.1. Minimal configuration example<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>The only mandatory element is <tt class="docutils literal"><span class="pre">GMLSchema</span></tt>. A minimal valid configuration example looks like this:</p>
+<div class="topic">
+<p class="topic-title first">Memory Feature Store config (minimal configuration example)</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;MemoryFeatureStore</span> <span class="na">configVersion=</span><span class="s">&quot;3.0.0&quot;</span>
+  <span class="na">xmlns=</span><span class="s">&quot;http://www.deegree.org/datasource/feature/memory&quot;</span>
+  <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+  <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.deegree.org/datasource/feature/memory</span>
+<span class="s">  http://schemas.deegree.org/datasource/feature/memory/3.0.0/memory.xsd&quot;</span><span class="nt">&gt;</span>
+
+  <span class="c">&lt;!-- Required: GML application schema file / directory to read feature types from --&gt;</span>
+  <span class="nt">&lt;GMLSchema</span> <span class="na">version=</span><span class="s">&quot;GML_32&quot;</span><span class="nt">&gt;</span>../../appschemas/inspire/annex1/addresses.xsd<span class="nt">&lt;/GMLSchema&gt;</span>
+
+<span class="nt">&lt;/MemoryFeatureStore&gt;</span>
+</pre></div>
+</div>
+</div>
+<p>This configuration will set up a memory feature store with the following settings:</p>
+<ul class="simple">
+<li>The GML 3.2 application schema from file <tt class="docutils literal"><span class="pre">../../appschemas/inspire/annex1/addresses.xsd</span></tt> is used as application schema (i.e. scanned for feature type definitions)</li>
+<li>No GML datasets are loaded on startup, so the feature store will be empty unless an insertion is performed (e.g. via WFS-T)</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h3>6.3.2. More complex configuration example<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>A more complex example that uses all available configuration options:</p>
+<div class="topic">
+<p class="topic-title first">Memory Feature Store config (more complex configuration example)</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;MemoryFeatureStore</span> <span class="na">configVersion=</span><span class="s">&quot;3.0.0&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.deegree.org/datasource/feature/memory&quot;</span>
+  <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+  <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.deegree.org/datasource/feature/memory</span>
+<span class="s">  http://schemas.deegree.org/datasource/feature/memory/3.0.0/memory.xsd&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;StorageCRS&gt;</span>urn:ogc:def:crs:EPSG::4258<span class="nt">&lt;/StorageCRS&gt;</span>
+  <span class="nt">&lt;GMLSchema</span> <span class="na">version=</span><span class="s">&quot;GML_32&quot;</span><span class="nt">&gt;</span>../../appschemas/inspire/annex1/<span class="nt">&lt;/GMLSchema&gt;</span>
+  <span class="nt">&lt;GMLFeatureCollection</span> <span class="na">version=</span><span class="s">&quot;GML_32&quot;</span><span class="nt">&gt;</span>../../data/gml/address.gml<span class="nt">&lt;/GMLFeatureCollection&gt;</span>
+  <span class="nt">&lt;GMLFeatureCollection</span> <span class="na">version=</span><span class="s">&quot;GML_32&quot;</span><span class="nt">&gt;</span>../../data/gml/parcels.gml<span class="nt">&lt;/GMLFeatureCollection&gt;</span>
+<span class="nt">&lt;/MemoryFeatureStore&gt;</span>
+</pre></div>
+</div>
+</div>
+<p>This configuration will set up a memory feature store with the following settings:</p>
+<ul class="simple">
+<li>Directory <tt class="docutils literal"><span class="pre">../../appschemas/inspire/annex1/</span></tt> is scanned for <tt class="docutils literal"><span class="pre">*.xsd</span></tt> files. All found files are loaded as a GML 3.2 application schema (i.e. analyzed for feature type definitions).</li>
+<li>Dataset file <tt class="docutils literal"><span class="pre">../../data/gml/address.gml</span></tt> is loaded on startup. This must be a GML 3.2 file that contains a feature collection with features that validates against the application schema.</li>
+<li>Dataset file <tt class="docutils literal"><span class="pre">../../data/gml/parcels.gml</span></tt> is loaded on startup. This must be a GML 3.2 file that contains a feature collection with features that validates against the application schema.</li>
+<li>The geometries of loaded features are converted to <tt class="docutils literal"><span class="pre">urn:ogc:def:crs:EPSG::4258</span></tt>.</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h3>6.3.3. Configuration options<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>The configuration format for the deegree memory feature store is defined by schema file <a class="reference external" href="http://schemas.deegree.org/datasource/feature/memory/3.0.0/memory.xsd">http://schemas.deegree.org/datasource/feature/memory/3.0.0/memory.xsd</a>. The following table lists all available configuration options (the complex ones contain nested options themselves). When specifiying them, their order must be respected.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="10%" />
+<col width="7%" />
+<col width="60%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Cardinality</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>StorageCRS</td>
+<td>0..1</td>
+<td>String</td>
+<td>CRS of stored geometries</td>
+</tr>
+<tr class="row-odd"><td>GMLSchema</td>
+<td>1..n</td>
+<td>String</td>
+<td>Path/URL to GML application schema files/dirs to read feature types from</td>
+</tr>
+<tr class="row-even"><td>GMLFeatureCollection</td>
+<td>0..n</td>
+<td>Complex</td>
+<td>Path/URL to GML feature collections documents to read features from</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="simple-sql-feature-store">
+<h2>6.4. Simple SQL feature store<a class="headerlink" href="#simple-sql-feature-store" title="Permalink to this headline">¶</a></h2>
+<p>The simple SQL feature store serves simple feature types that are stored in a spatially-enabled database, such as PostGIS. However, it&#8217;s not suited for mapping rich GML application schemas and does not support transactions. If you need these capabilities, use the SQL feature store instead.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">If you want to use the simple SQL feature store with Oracle or Microsoft SQL Server, you will need to add additional modules first. This is described in <a class="reference internal" href="javamodules.html#anchor-db-libraries"><em>Adding database modules</em></a>.</p>
+</div>
+<div class="section" id="id4">
+<h3>6.4.1. Minimal configuration example<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>There are three mandatory elements: <tt class="docutils literal"><span class="pre">JDBCConnId</span></tt>, <tt class="docutils literal"><span class="pre">SQLStatement</span></tt> and <tt class="docutils literal"><span class="pre">BBoxStatement</span></tt>. A minimal configuration example looks like this:</p>
+<div class="topic">
+<p class="topic-title first">Simple SQL feature store config (minimal configuration example)</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;SimpleSQLFeatureStore</span> <span class="na">configVersion=</span><span class="s">&quot;3.0.1&quot;</span>
+  <span class="na">xmlns=</span><span class="s">&quot;http://www.deegree.org/datasource/feature/simplesql&quot;</span>
+  <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+  <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.deegree.org/datasource/feature/simplesql</span>
+<span class="s">  http://schemas.deegree.org/datasource/feature/simplesql/3.0.1/simplesql.xsd&quot;</span><span class="nt">&gt;</span>
+
+  <span class="c">&lt;!-- Required: Database connection --&gt;</span>
+  <span class="nt">&lt;JDBCConnId&gt;</span>connid<span class="nt">&lt;/JDBCConnId&gt;</span>
+
+  <span class="c">&lt;!-- Required: Query statement --&gt;</span>
+  <span class="nt">&lt;SQLStatement&gt;</span>
+    SELECT name, title, asbinary(the_geom) FROM some_table
+    WHERE the_geom <span class="ni">&amp;amp;&amp;amp;</span> st_geomfromtext(?, -1)
+  <span class="nt">&lt;/SQLStatement&gt;</span>
+
+  <span class="c">&lt;!-- Required: Bounding box statement --&gt;</span>
+  <span class="nt">&lt;BBoxStatement&gt;</span>SELECT astext(ST_Estimated_Extent(&#39;some_table&#39;, &#39;the_geom&#39;)) as bbox<span class="nt">&lt;/BBoxStatement&gt;</span>
+
+<span class="nt">&lt;/SimpleSQLFeatureStore&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>6.4.2. More complex configuration example<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="topic">
+<p class="topic-title first">Simple SQL feature store config (more complex configuration example)</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;SimpleSQLFeatureStore</span> <span class="na">configVersion=</span><span class="s">&quot;3.0.1&quot;</span>
+  <span class="na">xmlns=</span><span class="s">&quot;http://www.deegree.org/datasource/feature/simplesql&quot;</span>
+  <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+  <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.deegree.org/datasource/feature/simplesql</span>
+<span class="s">  http://schemas.deegree.org/datasource/feature/simplesql/3.0.1/simplesql.xsd&quot;</span><span class="nt">&gt;</span>
+
+  <span class="c">&lt;!-- Required: Database connection --&gt;</span>
+  <span class="nt">&lt;JDBCConnId&gt;</span>connid<span class="nt">&lt;/JDBCConnId&gt;</span>
+
+  <span class="c">&lt;!-- Required: Query statement --&gt;</span>
+  <span class="nt">&lt;SQLStatement&gt;</span>
+    SELECT name, title, asbinary(the_geom) FROM some_table
+    WHERE the_geom <span class="ni">&amp;amp;&amp;amp;</span> st_geomfromtext(?, -1)
+  <span class="nt">&lt;/SQLStatement&gt;</span>
+
+  <span class="c">&lt;!-- Required: Bounding box statement --&gt;</span>
+  <span class="nt">&lt;BBoxStatement&gt;</span>SELECT astext(ST_Estimated_Extent(&#39;some_table&#39;, &#39;the_geom&#39;)) as bbox<span class="nt">&lt;/BBoxStatement&gt;</span>
+
+<span class="nt">&lt;/SimpleSQLFeatureStore&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id6">
+<h3>6.4.3. Configuration options<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>The configuration format is defined by schema file <a class="reference external" href="http://schemas.deegree.org/datasource/feature/simplesql/3.0.1/simplesql.xsd">http://schemas.deegree.org/datasource/feature/simplesql/3.0.1/simplesql.xsd</a>. The following table lists all available configuration options (the complex ones contain nested options themselves). When specifiying them, their order must be respected.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="10%" />
+<col width="7%" />
+<col width="60%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Cardinality</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>StorageCRS</td>
+<td>0..1</td>
+<td>String</td>
+<td>CRS of stored geometries</td>
+</tr>
+<tr class="row-odd"><td>FeatureTypeName</td>
+<td>0..n</td>
+<td>String</td>
+<td>Local name of the feature type (defaults to table name)</td>
+</tr>
+<tr class="row-even"><td>FeatureTypeNamespace</td>
+<td>0..1</td>
+<td>String</td>
+<td>Namespace of the feature type (defaults to &#8220;<a class="reference external" href="http://www.deegree.org/app">http://www.deegree.org/app</a>&#8221;)</td>
+</tr>
+<tr class="row-odd"><td>FeatureTypePrefix</td>
+<td>0..1</td>
+<td>String</td>
+<td>Prefix of the feature type (defaults to &#8220;app&#8221;)</td>
+</tr>
+<tr class="row-even"><td>JDBCConnId</td>
+<td>1..1</td>
+<td>String</td>
+<td>Identifier of the database connection</td>
+</tr>
+<tr class="row-odd"><td>SQLStatement</td>
+<td>1..1</td>
+<td>String</td>
+<td>SELECT statement that defines the feature type</td>
+</tr>
+<tr class="row-even"><td>BBoxStatement</td>
+<td>1..1</td>
+<td>String</td>
+<td>SELECT statement for the bounding box of the feature type</td>
+</tr>
+<tr class="row-odd"><td>LODStatement</td>
+<td>0..n</td>
+<td>Complex</td>
+<td>Statements for specific WMS scale ranges</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="sql-feature-store">
+<span id="anchor-configuration-sqlfeaturestore"></span><h2>6.5. SQL feature store<a class="headerlink" href="#sql-feature-store" title="Permalink to this headline">¶</a></h2>
+<p>The SQL feature store allows to configure highly flexible mappings between feature types and database tables. It can be used for simple mapping tasks (mapping a single database table to a feature type) as well as sophisticated ones (mapping a complete INSPIRE Data Theme to dozens or hundreds of database tables). As an alternative to relational mapping, it additionally offers so-called BLOB mapping which stores any kind of rich feature using a fixed and very simple database schema. In contrast to the simple SQL feature store, the SQL feature store is transaction capable (even for complex mappings) and ideally suited for mapping rich GML application schemas. It currently supports the following databases:</p>
+<ul class="simple">
+<li>PostgreSQL (8.3, 8.4, 9.0, 9.1, 9.2) with PostGIS extension (1.4, 1.5, 2.0, 2.1)</li>
+<li>Oracle Spatial (10g, 11g)</li>
+<li>Microsoft SQL Server (2008, 2012)</li>
+</ul>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">If you want to use the SQL feature store with Oracle Spatial or Microsoft SQL Server, you will need to add additional modules first. This is described in <a class="reference internal" href="javamodules.html#anchor-db-libraries"><em>Adding database modules</em></a>.</p>
+</div>
+<div class="section" id="id7">
+<h3>6.5.1. Minimal configuration example<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>A very minimal valid configuration example looks like this:</p>
+<div class="topic">
+<p class="topic-title first">SQL feature store: Minimal configuration</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;SQLFeatureStore</span> <span class="na">configVersion=</span><span class="s">&quot;3.4.0&quot;</span>
+  <span class="na">xmlns=</span><span class="s">&quot;http://www.deegree.org/datasource/feature/sql&quot;</span>
+  <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+  <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.deegree.org/datasource/feature/sql</span>
+<span class="s">  http://schemas.deegree.org/datasource/feature/sql/3.4.0/sql.xsd&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;JDBCConnId&gt;</span>postgis<span class="nt">&lt;/JDBCConnId&gt;</span>
+  <span class="nt">&lt;FeatureTypeMapping</span> <span class="na">table=</span><span class="s">&quot;country&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/SQLFeatureStore&gt;</span>
+</pre></div>
+</div>
+</div>
+<p>This configuration defines a SQL feature store resource with the following properties:</p>
+<ul class="simple">
+<li>JDBC connection resource with identifier <tt class="docutils literal"><span class="pre">postgis</span></tt> is used to connect to the database</li>
+<li>A single table (<tt class="docutils literal"><span class="pre">country</span></tt>) is mapped</li>
+<li>Feature type is named <tt class="docutils literal"><span class="pre">app:country</span></tt> (app=http://www.deegree.org/app)</li>
+<li>Properties of the feature type are automatically derived from table columns</li>
+<li>Every primitive column (number, string, date) is used as a primitive property</li>
+<li>Every geometry column is used as a geometry property (storage CRS is determined automatically, inserted geometries are transformed by deegree, if necessary)</li>
+<li>Feature id (<tt class="docutils literal"><span class="pre">gml:id</span></tt>) is based on primary key column, prefixed by <tt class="docutils literal"><span class="pre">COUNTRY_</span></tt></li>
+<li>For insert transactions, it is expected that the database generates new primary keys value automatically (primary key column must have a trigger or a suitable type such as SERIAL in PostgreSQL)</li>
+</ul>
+</div>
+<div class="section" id="id8">
+<h3>6.5.2. More complex configuration example<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>A more complex example:</p>
+<div class="topic">
+<p class="topic-title first">SQL feature store: More complex configuration</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;SQLFeatureStore</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.deegree.org/datasource/feature/sql&quot;</span> <span class="na">xmlns:xlink=</span><span class="s">&quot;http://www.w3.org/1999/xlink&quot;</span>
+  <span class="na">xmlns:base=</span><span class="s">&quot;urn:x-inspire:specification:gmlas:BaseTypes:3.2&quot;</span> <span class="na">xmlns:ad=</span><span class="s">&quot;urn:x-inspire:specification:gmlas:Addresses:3.0&quot;</span>
+  <span class="na">xmlns:gml=</span><span class="s">&quot;http://www.opengis.net/gml/3.2&quot;</span> <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span> <span class="na">configVersion=</span><span class="s">&quot;3.4.0&quot;</span>
+  <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.deegree.org/datasource/feature/sql http://schemas.deegree.org/datasource/feature/sql/3.4.0/sql.xsd&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;JDBCConnId&gt;</span>inspire<span class="nt">&lt;/JDBCConnId&gt;</span>
+  <span class="nt">&lt;StorageCRS</span> <span class="na">srid=</span><span class="s">&quot;-1&quot;</span> <span class="na">dim=</span><span class="s">&quot;2D&quot;</span><span class="nt">&gt;</span>EPSG:4258<span class="nt">&lt;/StorageCRS&gt;</span>
+  <span class="nt">&lt;GMLSchema&gt;</span>../../appschemas/inspire/annex1/Addresses.xsd<span class="nt">&lt;/GMLSchema&gt;</span>
+  <span class="nt">&lt;GMLSchema&gt;</span>../../appschemas/inspire/annex1/AdministrativeUnits.xsd<span class="nt">&lt;/GMLSchema&gt;</span>
+  <span class="nt">&lt;GMLSchema&gt;</span>../../appschemas/inspire/annex1/CadastralParcels.xsd<span class="nt">&lt;/GMLSchema&gt;</span>
+
+  <span class="nt">&lt;FeatureTypeMapping</span> <span class="na">name=</span><span class="s">&quot;ad:Address&quot;</span> <span class="na">table=</span><span class="s">&quot;ad_address&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;FIDMapping</span> <span class="na">prefix=</span><span class="s">&quot;AD_ADDRESS_&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;Column</span> <span class="na">name=</span><span class="s">&quot;attr_gml_id&quot;</span> <span class="na">type=</span><span class="s">&quot;string&quot;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;UUIDGenerator</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/FIDMapping&gt;</span>
+    <span class="nt">&lt;Complex</span> <span class="na">path=</span><span class="s">&quot;ad:inspireId&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;Complex</span> <span class="na">path=</span><span class="s">&quot;base:Identifier&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;base:localId&quot;</span> <span class="na">mapping=</span><span class="s">&quot;localid&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;base:namespace&quot;</span> <span class="na">mapping=</span><span class="s">&quot;&#39;NL.KAD.BAG&#39;&quot;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;/Complex&gt;</span>
+    <span class="nt">&lt;/Complex&gt;</span>
+    <span class="nt">&lt;Complex</span> <span class="na">path=</span><span class="s">&quot;ad:position&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;Join</span> <span class="na">table=</span><span class="s">&quot;ad_address_ad_position&quot;</span> <span class="na">fromColumns=</span><span class="s">&quot;fid&quot;</span> <span class="na">toColumns=</span><span class="s">&quot;fk&quot;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;Complex</span> <span class="na">path=</span><span class="s">&quot;ad:GeographicPosition&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;Complex</span> <span class="na">path=</span><span class="s">&quot;ad:geometry&quot;</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;Geometry</span> <span class="na">path=</span><span class="s">&quot;.&quot;</span> <span class="na">mapping=</span><span class="s">&quot;value&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/Complex&gt;</span>
+        <span class="nt">&lt;Complex</span> <span class="na">path=</span><span class="s">&quot;ad:specification&quot;</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;text()&quot;</span> <span class="na">mapping=</span><span class="s">&quot;&#39;entrance&#39;&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/Complex&gt;</span>
+        <span class="nt">&lt;Complex</span> <span class="na">path=</span><span class="s">&quot;ad:method&quot;</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;text()&quot;</span> <span class="na">mapping=</span><span class="s">&quot;&#39;byOtherParty&#39;&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/Complex&gt;</span>
+        <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;ad:default&quot;</span> <span class="na">mapping=</span><span class="s">&quot;&#39;true&#39;&quot;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;/Complex&gt;</span>
+    <span class="nt">&lt;/Complex&gt;</span>
+    <span class="nt">&lt;Complex</span> <span class="na">path=</span><span class="s">&quot;ad:locator&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;Join</span> <span class="na">table=</span><span class="s">&quot;ad_address_ad_locator&quot;</span> <span class="na">fromColumns=</span><span class="s">&quot;attr_gml_id&quot;</span> <span class="na">toColumns=</span><span class="s">&quot;parentfk&quot;</span> <span class="na">orderColumns=</span><span class="s">&quot;num&quot;</span>
+        <span class="na">numbered=</span><span class="s">&quot;true&quot;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;Complex</span> <span class="na">path=</span><span class="s">&quot;ad:AddressLocator&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;Complex</span> <span class="na">path=</span><span class="s">&quot;ad:designator&quot;</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;Join</span> <span class="na">table=</span><span class="s">&quot;ad_address_ad_locator_ad_addresslocator_ad_designator&quot;</span> <span class="na">fromColumns=</span><span class="s">&quot;id&quot;</span> <span class="na">toColumns=</span><span class="s">&quot;parentfk&quot;</span>
+            <span class="na">orderColumns=</span><span class="s">&quot;num&quot;</span> <span class="na">numbered=</span><span class="s">&quot;true&quot;</span> <span class="nt">/&gt;</span>
+          <span class="nt">&lt;Complex</span> <span class="na">path=</span><span class="s">&quot;ad:LocatorDesignator&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;ad:designator&quot;</span> <span class="na">mapping=</span><span class="s">&quot;ad_addresslocator_ad_locatordesignator_ad_designator&quot;</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;Complex</span> <span class="na">path=</span><span class="s">&quot;ad:type&quot;</span><span class="nt">&gt;</span>
+              <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;text()&quot;</span> <span class="na">mapping=</span><span class="s">&quot;ad_addresslocator_ad_locatordesignator_ad_type&quot;</span> <span class="nt">/&gt;</span>
+              <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;@codeSpace&quot;</span> <span class="na">mapping=</span><span class="s">&quot;ad_addresslocator_ad_locatordesignator_ad_type_attr_codespace&quot;</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;/Complex&gt;</span>
+          <span class="nt">&lt;/Complex&gt;</span>
+        <span class="nt">&lt;/Complex&gt;</span>
+        <span class="nt">&lt;Complex</span> <span class="na">path=</span><span class="s">&quot;ad:level&quot;</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;text()&quot;</span> <span class="na">mapping=</span><span class="s">&quot;ad_addresslocator_ad_level&quot;</span> <span class="nt">/&gt;</span>
+          <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;@codeSpace&quot;</span> <span class="na">mapping=</span><span class="s">&quot;ad_addresslocator_ad_level_attr_codespace&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/Complex&gt;</span>
+      <span class="nt">&lt;/Complex&gt;</span>
+    <span class="nt">&lt;/Complex&gt;</span>
+    <span class="nt">&lt;Complex</span> <span class="na">path=</span><span class="s">&quot;ad:validFrom&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;text()&quot;</span> <span class="na">mapping=</span><span class="s">&quot;ad_validfrom&quot;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;@nilReason&quot;</span> <span class="na">mapping=</span><span class="s">&quot;ad_validfrom_attr_nilreason&quot;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;@xsi:nil&quot;</span> <span class="na">mapping=</span><span class="s">&quot;ad_validfrom_attr_xsi_nil&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/Complex&gt;</span>
+    <span class="nt">&lt;Complex</span> <span class="na">path=</span><span class="s">&quot;ad:validTo&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;text()&quot;</span> <span class="na">mapping=</span><span class="s">&quot;ad_validto&quot;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;@nilReason&quot;</span> <span class="na">mapping=</span><span class="s">&quot;ad_validto_attr_nilreason&quot;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;@xsi:nil&quot;</span> <span class="na">mapping=</span><span class="s">&quot;ad_validto_attr_xsi_nil&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/Complex&gt;</span>
+    <span class="nt">&lt;Complex</span> <span class="na">path=</span><span class="s">&quot;ad:beginLifespanVersion&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;text()&quot;</span> <span class="na">mapping=</span><span class="s">&quot;ad_beginlifespanversion&quot;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;@nilReason&quot;</span> <span class="na">mapping=</span><span class="s">&quot;ad_beginlifespanversion_attr_nilreason&quot;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;@xsi:nil&quot;</span> <span class="na">mapping=</span><span class="s">&quot;ad_beginlifespanversion_attr_xsi_nil&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/Complex&gt;</span>
+    <span class="nt">&lt;Complex</span> <span class="na">path=</span><span class="s">&quot;ad:endLifespanVersion&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;text()&quot;</span> <span class="na">mapping=</span><span class="s">&quot;ad_endlifespanversion&quot;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;@nilReason&quot;</span> <span class="na">mapping=</span><span class="s">&quot;ad_endlifespanversion_attr_nilreason&quot;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;@xsi:nil&quot;</span> <span class="na">mapping=</span><span class="s">&quot;ad_endlifespanversion_attr_xsi_nil&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/Complex&gt;</span>
+    <span class="nt">&lt;Complex</span> <span class="na">path=</span><span class="s">&quot;ad:component&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;Join</span> <span class="na">table=</span><span class="s">&quot;ad_address_ad_component&quot;</span> <span class="na">fromColumns=</span><span class="s">&quot;attr_gml_id&quot;</span> <span class="na">toColumns=</span><span class="s">&quot;parentfk&quot;</span> <span class="na">orderColumns=</span><span class="s">&quot;num&quot;</span>
+        <span class="na">numbered=</span><span class="s">&quot;true&quot;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;Feature</span> <span class="na">path=</span><span class="s">&quot;.&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;Href</span> <span class="na">mapping=</span><span class="s">&quot;href&quot;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;/Feature&gt;</span>
+    <span class="nt">&lt;/Complex&gt;</span>
+  <span class="nt">&lt;/FeatureTypeMapping&gt;</span>
+  
+<span class="nt">&lt;/SQLFeatureStore&gt;</span>
+</pre></div>
+</div>
+</div>
+<p>This configuration snippet defines a SQL feature store resource with the following properties:</p>
+<ul class="simple">
+<li>JDBC connection resource with identifier <tt class="docutils literal"><span class="pre">inspire</span></tt> is used to connect to the database</li>
+<li>Storage CRS is <tt class="docutils literal"><span class="pre">EPSG:4258</span></tt>, database srid is <tt class="docutils literal"><span class="pre">-1</span></tt> (inserted geometries are transformed by deegree to the storage CRS, if necessary)</li>
+<li>Feature types are read from three GML schema files</li>
+<li>A single feature type <tt class="docutils literal"><span class="pre">ad:Address</span></tt> (ad=urn:x-inspire:specification:gmlas:Addresses:3.0) is mapped</li>
+<li>The root table of the mapping is <tt class="docutils literal"><span class="pre">ad_address</span></tt></li>
+<li>Feature type is mapped to several tables</li>
+<li>Feature id (<tt class="docutils literal"><span class="pre">gml:id</span></tt>) is based on column <tt class="docutils literal"><span class="pre">attr_gml_id</span></tt>, prefixed by <tt class="docutils literal"><span class="pre">AD_ADDRESS__</span></tt></li>
+<li>For insert transactions, new values for column <tt class="docutils literal"><span class="pre">attr_gml_id</span></tt> in the root table are created using the UUID generator. For the joined tables, the database has to create new primary keys value automatically (primary key columns must have a trigger or a suitable type such as SERIAL in PostgreSQL)</li>
+</ul>
+</div>
+<div class="section" id="overview-of-configuration-options">
+<h3>6.5.3. Overview of configuration options<a class="headerlink" href="#overview-of-configuration-options" title="Permalink to this headline">¶</a></h3>
+<p>The SQL feature store configuration format is defined by schema file <a class="reference external" href="http://schemas.deegree.org/datasource/feature/sql/3.4.0/sql.xsd">http://schemas.deegree.org/datasource/feature/sql/3.4.0/sql.xsd</a>. The following table lists all available configuration options (the complex ones contain nested options themselves). When specifying them, their order must be respected:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="10%" />
+<col width="7%" />
+<col width="58%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Cardinality</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&lt;JDBCConnId&gt;</span></tt></td>
+<td>1</td>
+<td>String</td>
+<td>Identifier of the database connection</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&lt;DisablePostFiltering&gt;</span></tt></td>
+<td>0..1</td>
+<td>Empty</td>
+<td>If present, queries that require in-memory filtering are rejected</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&lt;StorageCRS&gt;</span></tt></td>
+<td>0..1</td>
+<td>Complex</td>
+<td>CRS of stored geometries</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&lt;GMLSchema&gt;</span></tt></td>
+<td>0..n</td>
+<td>String</td>
+<td>Path/URL to GML application schema files/dirs to read feature types from</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&lt;NullEscalation&gt;</span></tt></td>
+<td>0..1</td>
+<td>Boolean</td>
+<td>Controls the handling of NULL values on reconstruction from the DB</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&lt;BLOBMapping&gt;</span></tt></td>
+<td>0..1</td>
+<td>Complex</td>
+<td>Activates a special mapping mode that uses BLOBs for storing features</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&lt;FeatureTypeMapping&gt;</span></tt></td>
+<td>0..n</td>
+<td>Complex</td>
+<td>Mapping between a feature type and a database table</td>
+</tr>
+</tbody>
+</table>
+<p>The usage of these options and their sub-options is explained in the remaining sections.</p>
+</div>
+<div class="section" id="mapping-tables-to-simple-feature-types">
+<span id="anchor-configuration-tabledriven"></span><h3>6.5.4. Mapping tables to simple feature types<a class="headerlink" href="#mapping-tables-to-simple-feature-types" title="Permalink to this headline">¶</a></h3>
+<p>This section describes how to define the mapping of database tables to simple feature types. Each <tt class="docutils literal"><span class="pre">&lt;FeatureTypeMapping&gt;</span></tt> defines the mapping between one table and one feature type:</p>
+<div class="topic">
+<p class="topic-title first">SQL feature store: Mapping a single table</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;SQLFeatureStore</span> <span class="na">configVersion=</span><span class="s">&quot;3.4.0&quot;</span>
+  <span class="na">xmlns=</span><span class="s">&quot;http://www.deegree.org/datasource/feature/sql&quot;</span>
+  <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+  <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.deegree.org/datasource/feature/sql</span>
+<span class="s">  http://schemas.deegree.org/datasource/feature/sql/3.4.0/sql.xsd&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;JDBCConnId&gt;</span>postgis<span class="nt">&lt;/JDBCConnId&gt;</span>
+  <span class="nt">&lt;FeatureTypeMapping</span> <span class="na">table=</span><span class="s">&quot;country&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/SQLFeatureStore&gt;</span>
+</pre></div>
+</div>
+</div>
+<p>This example assumes that the database contains a table named <tt class="docutils literal"><span class="pre">country</span></tt> within the default database schema (for PostgreSQL <tt class="docutils literal"><span class="pre">public</span></tt>). Alternatively, you can qualify the table name with the database schema, such as <tt class="docutils literal"><span class="pre">public.country</span></tt>. The feature store will try to automatically determine the columns of the table and derive a suitable feature type:</p>
+<ul class="simple">
+<li>Feature type name: <tt class="docutils literal"><span class="pre">app:country</span></tt> (app=http://www.deegree.org/app)</li>
+<li>Feature id (<tt class="docutils literal"><span class="pre">gml:id</span></tt>) based on primary key column of table <tt class="docutils literal"><span class="pre">country</span></tt></li>
+<li>Every primitive column (number, string, date) is used as a primitive property</li>
+<li>Every geometry column is used as a geometry property</li>
+</ul>
+<p>A single configuration file may map more than one table. The following example defines two feature types, based on tables <tt class="docutils literal"><span class="pre">country</span></tt> and <tt class="docutils literal"><span class="pre">cities</span></tt>.</p>
+<div class="topic">
+<p class="topic-title first">SQL feature store: Mapping two tables</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;SQLFeatureStore</span> <span class="na">configVersion=</span><span class="s">&quot;3.4.0&quot;</span>
+  <span class="na">xmlns=</span><span class="s">&quot;http://www.deegree.org/datasource/feature/sql&quot;</span>
+  <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+  <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.deegree.org/datasource/feature/sql</span>
+<span class="s">  http://schemas.deegree.org/datasource/feature/sql/3.4.0/sql.xsd&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;JDBCConnId&gt;</span>postgis<span class="nt">&lt;/JDBCConnId&gt;</span>
+  <span class="nt">&lt;FeatureTypeMapping</span> <span class="na">table=</span><span class="s">&quot;country&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;FeatureTypeMapping</span> <span class="na">table=</span><span class="s">&quot;city&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/SQLFeatureStore&gt;</span>
+</pre></div>
+</div>
+</div>
+<p>There are several options for <tt class="docutils literal"><span class="pre">&lt;FeatureTypeMapping&gt;</span></tt> that give you more control over the derived feature type definition. The following table lists all available options (the complex ones contain nested options themselves):</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="11%" />
+<col width="8%" />
+<col width="66%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Cardinality</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">table</span></tt></td>
+<td>1</td>
+<td>String</td>
+<td>Name of the table to be mapped (can be qualified with database schema)</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">name</span></tt></td>
+<td>0..1</td>
+<td>QName</td>
+<td>Name of the feature type</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&lt;FIDMapping&gt;</span></tt></td>
+<td>0..1</td>
+<td>Complex</td>
+<td>Defines the mapping of the feature id</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&lt;Primitive&gt;</span></tt></td>
+<td>0..n</td>
+<td>Complex</td>
+<td>Defines the mapping of a primitive-valued column</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&lt;Geometry&gt;</span></tt></td>
+<td>0..n</td>
+<td>Complex</td>
+<td>Defines the mapping of a geometry-valued column</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">The order of child elements <tt class="docutils literal"><span class="pre">&lt;Primitive&gt;</span></tt> and <tt class="docutils literal"><span class="pre">&lt;Geometry&gt;</span></tt> is not restricted. They may appear in any order.</p>
+</div>
+<p>These options and their sub-options are explained in the following subsections.</p>
+<div class="section" id="customizing-the-feature-type-name">
+<h4>6.5.4.1. Customizing the feature type name<a class="headerlink" href="#customizing-the-feature-type-name" title="Permalink to this headline">¶</a></h4>
+<p>By default, the name of a mapped feature type will be derived from the table name. If the table is named <tt class="docutils literal"><span class="pre">country</span></tt>, the feature type name will be <tt class="docutils literal"><span class="pre">app:country</span></tt> (app=http://www.deegree.org/app). The <tt class="docutils literal"><span class="pre">name</span></tt> attribute allows to set the feature type name explicity. In the following example, it will be <tt class="docutils literal"><span class="pre">app:Land</span></tt> (Land is German for country).</p>
+<div class="topic">
+<p class="topic-title first">SQL feature store: Customizing the feature type name</p>
+<div class="highlight-xml"><div class="highlight"><pre>...
+  <span class="nt">&lt;FeatureTypeMapping</span> <span class="na">table=</span><span class="s">&quot;country&quot;</span> <span class="na">name=</span><span class="s">&quot;Land&quot;</span><span class="nt">/&gt;</span>
+...
+</pre></div>
+</div>
+</div>
+<p>The name of a feature type is always a qualified XML name. You can use standard XML namespace binding mechanisms to control the namespace and prefix of the feature type name:</p>
+<div class="topic">
+<p class="topic-title first">SQL feature store: Customizing the feature type namespace and prefix</p>
+<div class="highlight-xml"><div class="highlight"><pre>...
+  <span class="nt">&lt;FeatureTypeMapping</span> <span class="na">xmlns:myns=</span><span class="s">&quot;http://mydomain.org/myns&quot;</span> <span class="na">table=</span><span class="s">&quot;country&quot;</span> <span class="na">name=</span><span class="s">&quot;myns:Land&quot;</span><span class="nt">/&gt;</span>
+...
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="customizing-the-feature-id">
+<h4>6.5.4.2. Customizing the feature id<a class="headerlink" href="#customizing-the-feature-id" title="Permalink to this headline">¶</a></h4>
+<p>By default, values for the feature id (<tt class="docutils literal"><span class="pre">gml:id</span></tt> attribute in GML) will be based on the primary key column of the mapped table. Values from this column will be prepended with a prefix that is derived from the feature type name. For example, if the feature type name is <tt class="docutils literal"><span class="pre">app:Country</span></tt>, the prefix is <tt class="docutils literal"><span class="pre">APP_COUNTRY</span></tt>. The feature instance that is built from the table row with primary key <tt class="docutils literal"><span class="pre">42</span></tt> will have  feature id <tt class="docutils literal"><span class="pre">APP_COUNTRY42</span></tt>.</p>
+<p>If this is not what you want, or automatic detection of the primary key column fails, customize the feature id mapping using the <tt class="docutils literal"><span class="pre">&lt;FIDMapping&gt;</span></tt> option:</p>
+<div class="topic">
+<p class="topic-title first">SQL feature store: Customizing the feature id mapping</p>
+<div class="highlight-xml"><div class="highlight"><pre>...
+<span class="nt">&lt;FeatureTypeMapping</span> <span class="na">table=</span><span class="s">&quot;country&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;FIDMapping</span> <span class="na">prefix=</span><span class="s">&quot;C_&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;Column</span> <span class="na">name=</span><span class="s">&quot;fid&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/FIDMapping&gt;</span>
+<span class="nt">&lt;/FeatureTypeMapping&gt;</span>
+...
+</pre></div>
+</div>
+</div>
+<p>Here are the options for <tt class="docutils literal"><span class="pre">&lt;FIDMapping&gt;</span></tt>:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="11%" />
+<col width="8%" />
+<col width="66%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Cardinality</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">prefix</span></tt></td>
+<td>0..1</td>
+<td>String</td>
+<td>Feature id prefix, default: derived from feature type name</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&lt;Column&gt;</span></tt></td>
+<td>1..n</td>
+<td>Complex</td>
+<td>Column that stores (a part of) the feature id</td>
+</tr>
+</tbody>
+</table>
+<p>As <tt class="docutils literal"><span class="pre">&lt;Column&gt;</span></tt> may occur more than once, you can define that the feature id is constructed from multiple columns:</p>
+<div class="topic">
+<p class="topic-title first">SQL feature store: Customizing the feature id mapping</p>
+<div class="highlight-xml"><div class="highlight"><pre>...
+<span class="nt">&lt;FeatureTypeMapping</span> <span class="na">table=</span><span class="s">&quot;country&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;FIDMapping</span> <span class="na">prefix=</span><span class="s">&quot;C_&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;Column</span> <span class="na">name=</span><span class="s">&quot;key1&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;Column</span> <span class="na">name=</span><span class="s">&quot;key2&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/FIDMapping&gt;</span>
+<span class="nt">&lt;/FeatureTypeMapping&gt;</span>
+...
+</pre></div>
+</div>
+</div>
+<p>Here are the options for <tt class="docutils literal"><span class="pre">&lt;Column&gt;</span></tt>:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="11%" />
+<col width="8%" />
+<col width="66%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Cardinality</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">name</span></tt></td>
+<td>1</td>
+<td>String</td>
+<td>Name of the database column</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">type</span></tt></td>
+<td>0..1</td>
+<td>String</td>
+<td>Column type (string, boolean, decimal, double or integer), default: auto</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">Technically, the feature id prefix is important to determine the feature type when performing queries by feature id. Every <tt class="docutils literal"><span class="pre">&lt;FeatureTypeMapping&gt;</span></tt> must have a unique feature id prefix.</p>
+</div>
+</div>
+<div class="section" id="customizing-the-mapping-between-columns-and-properties">
+<h4>6.5.4.3. Customizing the mapping between columns and properties<a class="headerlink" href="#customizing-the-mapping-between-columns-and-properties" title="Permalink to this headline">¶</a></h4>
+<p>By default, the SQL feature store will try to automatically determine the columns of the table and derive a suitable feature type:</p>
+<ul class="simple">
+<li>Every primitive column (number, string, date) is used as a primitive property</li>
+<li>Every geometry column is used as a geometry property</li>
+</ul>
+<p>If this is not what you want, or automatic detection of the column types fails, use <tt class="docutils literal"><span class="pre">&lt;Primitive&gt;</span></tt> and <tt class="docutils literal"><span class="pre">&lt;Geometry&gt;</span></tt> to control the property definitions of the feature type and the column-to-property mapping:</p>
+<div class="topic">
+<p class="topic-title first">SQL feature store: Customizing property definitions and the column-to-property mapping</p>
+<div class="highlight-xml"><div class="highlight"><pre>...
+  <span class="nt">&lt;FeatureTypeMapping</span> <span class="na">table=</span><span class="s">&quot;country&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;property1&quot;</span> <span class="na">mapping=</span><span class="s">&quot;prop1&quot;</span> <span class="na">type=</span><span class="s">&quot;string&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;Geometry</span> <span class="na">path=</span><span class="s">&quot;property2&quot;</span> <span class="na">mapping=</span><span class="s">&quot;the_geom&quot;</span> <span class="na">type=</span><span class="s">&quot;Point&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;StorageCRS</span> <span class="na">srid=</span><span class="s">&quot;-1&quot;</span><span class="nt">&gt;</span>EPSG:4326<span class="nt">&lt;/StorageCRS&gt;</span>
+    <span class="nt">&lt;/Geometry&gt;</span>
+    <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;property3&quot;</span> <span class="na">mapping=</span><span class="s">&quot;prop2&quot;</span> <span class="na">type=</span><span class="s">&quot;integer&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/FeatureTypeMapping&gt;</span>
+...
+</pre></div>
+</div>
+</div>
+<p>This example defines a feature type with three properties:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">property1</span></tt>, type: primitive (string), mapped to column <tt class="docutils literal"><span class="pre">prop1</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">property2</span></tt>, type: geometry (point), mapped to column <tt class="docutils literal"><span class="pre">the_geom</span></tt>, storage CRS is <tt class="docutils literal"><span class="pre">EPSG:4326</span></tt>, database srid is <tt class="docutils literal"><span class="pre">-1</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">property3</span></tt>, type: primitive (integer), mapped to column <tt class="docutils literal"><span class="pre">prop2</span></tt></li>
+</ul>
+<p>The following table lists all available configuration options for <tt class="docutils literal"><span class="pre">&lt;Primitive&gt;</span></tt> and <tt class="docutils literal"><span class="pre">&lt;Geometry&gt;</span></tt>:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="11%" />
+<col width="7%" />
+<col width="63%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Cardinality</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">path</span></tt></td>
+<td>1</td>
+<td>QName</td>
+<td>Name of the property</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">mapping</span></tt></td>
+<td>1</td>
+<td>String</td>
+<td>Name of the database column</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">type</span></tt></td>
+<td>1</td>
+<td>String</td>
+<td>Property/column type</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&lt;Join&gt;</span></tt></td>
+<td>0..1</td>
+<td>Complex</td>
+<td>Defines a change in the table context</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&lt;CustomConverter&gt;</span></tt></td>
+<td>0..1</td>
+<td>Complex</td>
+<td>Plugs-in a specialized DB-to-ObjectModel converter implementation</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&lt;StorageCRS&gt;</span></tt></td>
+<td>0..1</td>
+<td>Complex</td>
+<td>CRS of stored geometries and database srid (only for <tt class="docutils literal"><span class="pre">&lt;Geometry&gt;</span></tt>)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="mapping-gml-application-schemas">
+<h3>6.5.5. Mapping GML application schemas<a class="headerlink" href="#mapping-gml-application-schemas" title="Permalink to this headline">¶</a></h3>
+<p>The former section assumed a mapping configuration that didn&#8217;t use a given GML application schema. If a GML application schema is available and specified using <tt class="docutils literal"><span class="pre">&lt;GMLSchema&gt;</span></tt>, the mapping possibilities and available options are extended. We refer to these two modes as <strong>table-driven mode</strong> (without GML schema) and <strong>schema-driven mode</strong> (with GML schema).</p>
+<p>Here&#8217;s a comparison of table-driven and schema-driven mode:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="32%" />
+<col width="32%" />
+<col width="35%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">&nbsp;</th>
+<th class="head">Table-driven mode</th>
+<th class="head">Schema-driven mode</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>GML application schema</td>
+<td>Derived from tables</td>
+<td>Must be provided</td>
+</tr>
+<tr class="row-odd"><td>Data model (feature types)</td>
+<td>Derived from tables</td>
+<td>Derived from GML app schema</td>
+</tr>
+<tr class="row-even"><td>GML version</td>
+<td>Any (GML 2, 3.0, 3.1, 3.2)</td>
+<td>Fixed to version of app schema</td>
+</tr>
+<tr class="row-odd"><td>Mapping principle</td>
+<td>Property to table column</td>
+<td>XPath-based or BLOB-based</td>
+</tr>
+<tr class="row-even"><td>Supported mapping complexity</td>
+<td>Low</td>
+<td>Very high</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">If you want to create a relational mapping for an existing GML application schema (e.g. INSPIRE Data Themes, GeoSciML, CityGML, XPlanung, AAA), always copy the schema files into the <tt class="docutils literal"><span class="pre">appschemas/</span></tt> directory of your workspace and reference the schema in your configuration.</p>
+</div>
+<p>In schema-driven mode, the SQL feature store extracts detailed feature type definitions and property declarations from GML application schema files. A basic configuration for schema-driven mode defines the JDBC connection id, the general CRS of the stored geometries and one or more GML application schema files:</p>
+<div class="topic">
+<p class="topic-title first">SQL FeatureStore (schema-driven mode): Skeleton config</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;SQLFeatureStore</span> <span class="na">configVersion=</span><span class="s">&quot;3.2.0&quot;</span>
+  <span class="na">xmlns=</span><span class="s">&quot;http://www.deegree.org/datasource/feature/sql&quot;</span>
+  <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+  <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.deegree.org/datasource/feature/sql</span>
+<span class="s">  http://schemas.deegree.org/datasource/feature/sql/3.2.0/sql.xsd&quot;</span><span class="nt">&gt;</span>
+
+  <span class="nt">&lt;JDBCConnId&gt;</span>postgis<span class="nt">&lt;/JDBCConnId&gt;</span>
+  <span class="nt">&lt;StorageCRS</span> <span class="na">dim=</span><span class="s">&quot;2D&quot;</span> <span class="na">srid=</span><span class="s">&quot;-1&quot;</span><span class="nt">&gt;</span>EPSG:4258<span class="nt">&lt;/StorageCRS&gt;</span>
+  <span class="nt">&lt;GMLSchema&gt;</span>../../appschemas/inspire/annex1/ad_address.xsd<span class="nt">&lt;/GMLSchema&gt;</span>
+
+<span class="nt">&lt;/SQLFeatureStore&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="recommended-workflow">
+<h4>6.5.5.1. Recommended workflow<a class="headerlink" href="#recommended-workflow" title="Permalink to this headline">¶</a></h4>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">This section assumes that you already have an existing database that you want to map to a GML application schema. If you want to derive a database model from a GML application schema, see <a class="reference internal" href="#anchor-mapping-wizard"><em>Auto-generating a mapping configuration and tables</em></a>.</p>
+</div>
+<p>Manually creating a mapping for a rich GML application schema may appear to be a dauting task at first sight. Especially when you are still trying to figure out how the configuration concepts work, you will be using a lot of trial-and-error. Here are some general practices to make this as painless as possible.</p>
+<ul class="simple">
+<li>Map one property of a feature type at a time.</li>
+<li>Use the <strong>Reload</strong> link in the services console to activate changes.</li>
+<li>After changing the configuration file, make sure that the status of the feature store stays green (in the console). If an exclamation mark occurs, you have an error in your configuration. Check the error message and fix it.</li>
+<li>Check the results of your change (see below)</li>
+<li>Once you&#8217;re satisfied, move on to the next property (or feature type)</li>
+</ul>
+<p>Set up a WFS configuration, so you can use WFS GetFeature-requests to check whether your feature mapping works as expected. You can use your web browser for that. After each configuration change, perform a GetFeature-request to see the effect. Suitable WFS requests depend on the WFS version, the GML version and the name of the feature type. Here are some examples:</p>
+<ul class="simple">
+<li>WFS 1.0.0 (GML 2): <a class="reference external" href="http://localhost:8080/services?service=WFS&amp;version=1.0.0&amp;request=GetFeature&amp;typeName=ad:Address&amp;maxFeatures=1">http://localhost:8080/services?service=WFS&amp;version=1.0.0&amp;request=GetFeature&amp;typeName=ad:Address&amp;maxFeatures=1</a></li>
+<li>WFS 1.1.0 (GML 3.1): <a class="reference external" href="http://localhost:8080/services?service=WFS&amp;version=1.1.0&amp;request=GetFeature&amp;typeName=ad:Address&amp;maxFeatures=1">http://localhost:8080/services?service=WFS&amp;version=1.1.0&amp;request=GetFeature&amp;typeName=ad:Address&amp;maxFeatures=1</a></li>
+<li>WFS 2.0.0 (GML 3.2): <a class="reference external" href="http://localhost:8080/services?service=WFS&amp;version=2.0.0&amp;request=GetFeature&amp;typeName=ad:Address&amp;count=1">http://localhost:8080/services?service=WFS&amp;version=2.0.0&amp;request=GetFeature&amp;typeName=ad:Address&amp;count=1</a></li>
+</ul>
+<p>In order to successfully create a mapping for a feature type from a GML application schema, you have to know the structure and the data types of the feature type. For example, if you want to map feature type <tt class="docutils literal"><span class="pre">ad:Address</span></tt> from INSPIRE Annex I, you have to know that it has a required property called <tt class="docutils literal"><span class="pre">ad:inspireId</span></tt> that has a child element with name <tt class="docutils literal"><span class="pre">base:Identifier</span></tt>. Here&#8217;s a list of possible options to learn the data model of an application schema:</p>
+<ul class="simple">
+<li>Manually (or with the help of a generic XML tool such as XMLSpy) analyze the GML application schema to determine the feature types and understand their data model</li>
+<li>Use the services console to auto-generate a mapping configuration (see <a class="reference internal" href="#anchor-mapping-wizard"><em>Auto-generating a mapping configuration and tables</em></a>). It should reflect the structure and datatypes correctly. Auto-generate the mapping, create a copy of the file and start with a minimal version (<tt class="docutils literal"><span class="pre">FeatureTypeMapping</span></tt> by <tt class="docutils literal"><span class="pre">FeatureTypeMapping</span></tt>, property by property). Adapt it to your own database tables and columns and remove optional elements and attributes that you don&#8217;t want to map.</li>
+<li>Use the deegree support options (mailing lists, commercial support) to get help.</li>
+</ul>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">The deegree project aims for a user-interface to help with all steps of creating mapping configurations. If you are interested in working on this (or funding it), don&#8217;t hesitate to contact the project bodies.</p>
+</div>
+</div>
+<div class="section" id="mapping-rich-feature-types">
+<h4>6.5.5.2. Mapping rich feature types<a class="headerlink" href="#mapping-rich-feature-types" title="Permalink to this headline">¶</a></h4>
+<p>In schema-driven mode, the <tt class="docutils literal"><span class="pre">&lt;FeatureTypeMapping&gt;</span></tt> element basically works as in table-driven mode (see <a class="reference internal" href="#anchor-configuration-tabledriven"><em>Mapping tables to simple feature types</em></a>). It defines a mapping between a table in the database and a feature type. However, there are additional possibilities and it&#8217;s usually more suitable to focus on feature types and XML nodes instead of tables and table columns. Here&#8217;s an overview of the <tt class="docutils literal"><span class="pre">&lt;FeatureTypeMapping&gt;</span></tt> options and their meaning in schema-driven mode:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="11%" />
+<col width="8%" />
+<col width="66%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Cardinality</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">table</span></tt></td>
+<td>1</td>
+<td>String</td>
+<td>Name of the table to be mapped (can be qualified with database schema)</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">name</span></tt></td>
+<td>0..1</td>
+<td>QName</td>
+<td>Name of the feature type</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&lt;FIDMapping&gt;</span></tt></td>
+<td>1</td>
+<td>Complex</td>
+<td>Defines the mapping of the feature id</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&lt;Primitive&gt;</span></tt></td>
+<td>0..n</td>
+<td>Complex</td>
+<td>Defines the mapping of a primitive-valued node</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&lt;Geometry&gt;</span></tt></td>
+<td>0..n</td>
+<td>Complex</td>
+<td>Defines the mapping of a geometry-valued node</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&lt;Complex&gt;</span></tt></td>
+<td>0..n</td>
+<td>Complex</td>
+<td>Defines the mapping of a complex-valued node</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&lt;Feature&gt;</span></tt></td>
+<td>0..n</td>
+<td>Complex</td>
+<td>Defines the mapping of a feature-valued node</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">The order of child elements <tt class="docutils literal"><span class="pre">&lt;Primitive&gt;</span></tt>, <tt class="docutils literal"><span class="pre">&lt;Geometry&gt;</span></tt>, <tt class="docutils literal"><span class="pre">&lt;Complex&gt;</span></tt> and <tt class="docutils literal"><span class="pre">&lt;Feature&gt;</span></tt> is not restricted. They may appear in any order.</p>
+</div>
+<p>We&#8217;re going to explore the additional options by describing the necessary steps for mapping  feature type <tt class="docutils literal"><span class="pre">ad:Address</span></tt> (from INSPIRE Annex I) to an example database. Start with a single <tt class="docutils literal"><span class="pre">&lt;FeatureTypeMapping&gt;</span></tt>. Provide the table name and the mapping for the feature identifier. The example uses a table named <tt class="docutils literal"><span class="pre">ad_address</span></tt> and a key column named <tt class="docutils literal"><span class="pre">fid</span></tt>:</p>
+<div class="topic">
+<p class="topic-title first">SQL feature store (schema-driven mode): Start configuration</p>
+<div class="highlight-xml"><div class="highlight"><pre>...
+<span class="nt">&lt;FeatureTypeMapping</span> <span class="na">name=</span><span class="s">&quot;ad:Address&quot;</span> <span class="na">table=</span><span class="s">&quot;ad_address&quot;</span> <span class="na">xmlns:ad=</span><span class="s">&quot;urn:x-inspire:specification:gmlas:Addresses:3.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;FIDMapping&gt;</span>
+    <span class="nt">&lt;Column</span> <span class="na">name=</span><span class="s">&quot;fid&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/FIDMapping&gt;</span>
+<span class="nt">&lt;/FeatureTypeMapping&gt;</span>
+...
+</pre></div>
+</div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">In schema-driven mode, there is no automatic detection of columns, column types or primary keys. You always have to specify <tt class="docutils literal"><span class="pre">&lt;FIDMapping&gt;</span></tt>.</p>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">If this configuration matches your database and you have a working WFS resource, you should be able to query the feature type (although no properties will be returned): <a class="reference external" href="http://localhost:8080/services?service=WFS&amp;version=2.0.0&amp;request=GetFeature&amp;typeName=ad:Address&amp;count=1">http://localhost:8080/services?service=WFS&amp;version=2.0.0&amp;request=GetFeature&amp;typeName=ad:Address&amp;count=1</a></p>
+</div>
+<p>Mapping rich feature types works by associating XML nodes of a feature instance with rows and columns in the database. The table context (the current row) is changed when necessary. In the beginning of a <tt class="docutils literal"><span class="pre">&lt;FeatureTypeMapping&gt;</span></tt>, the current context node is an <tt class="docutils literal"><span class="pre">ad:Address</span></tt> element and the current table context is a row of table <tt class="docutils literal"><span class="pre">ad_address</span></tt>. The first (required) property that we&#8217;re going to map is <tt class="docutils literal"><span class="pre">ad:inspireId</span></tt>. The schema defines that <tt class="docutils literal"><span class="pre">ad:inspireId</span></tt> has as child element named <tt class="docutils literal"><span class="pre">base:Identifier</span></tt> which in turn has two child elements named <tt class="docutils literal"><span class="pre">base:localId</span></tt> and <tt class="docutils literal"><span class="pre">base:namespace</span></tt>. Lets&#8217;s assume that we have a column <tt class="docutils literal"><span class="pre">localid</span></tt> in our table, that we want to map to <tt class="docutils literal"><span class="pre">base:localId</span></tt>, but for <tt class="docutils literal"><span class="pre">base:namespace</span></tt>, we don&#8217;t have a corresponding column. We want this element to have the fixed value <tt class="docutils literal"><span class="pre">NL.KAD.BAG</span></tt> for all instances of <tt class="docutils literal"><span class="pre">ad:Address</span></tt>. Here&#8217;s how to do it:</p>
+<div class="topic">
+<p class="topic-title first">SQL feature store (schema-driven mode): Complex elements and constant mappings</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;FeatureTypeMapping</span> <span class="na">name=</span><span class="s">&quot;ad:Address&quot;</span> <span class="na">table=</span><span class="s">&quot;ad_address&quot;</span> <span class="na">xmlns:base=</span><span class="s">&quot;urn:x-inspire:specification:gmlas:BaseTypes:3.2&quot;</span> <span class="na">xmlns:ad=</span><span class="s">&quot;urn:x-inspire:specification:gmlas:Addresses:3.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;FIDMapping&gt;</span>
+    <span class="nt">&lt;Column</span> <span class="na">name=</span><span class="s">&quot;fid&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/FIDMapping&gt;</span>
+
+  <span class="nt">&lt;Complex</span> <span class="na">path=</span><span class="s">&quot;ad:inspireId&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;Complex</span> <span class="na">path=</span><span class="s">&quot;base:Identifier&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;base:localId&quot;</span> <span class="na">mapping=</span><span class="s">&quot;localid&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;base:namespace&quot;</span> <span class="na">mapping=</span><span class="s">&quot;&#39;NL.KAD.BAG&#39;&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/Complex&gt;</span>
+  <span class="nt">&lt;/Complex&gt;</span>
+
+<span class="nt">&lt;/FeatureTypeMapping&gt;</span>
+</pre></div>
+</div>
+</div>
+<p>There are several things to observe here. The <tt class="docutils literal"><span class="pre">Complex</span></tt> element occurs twice. In the <tt class="docutils literal"><span class="pre">path</span></tt> attribute of the first occurrence, we specified the qualified name of the (complex) property we want to map (<tt class="docutils literal"><span class="pre">ad:inspireId</span></tt>). The nested <tt class="docutils literal"><span class="pre">Complex</span></tt> targets child element <tt class="docutils literal"><span class="pre">base:Identifier</span></tt> of <tt class="docutils literal"><span class="pre">ad:inspireId</span></tt>. And finally, the <tt class="docutils literal"><span class="pre">Primitive</span></tt> elements specify that child element <tt class="docutils literal"><span class="pre">base:localId</span></tt> is mapped to column <tt class="docutils literal"><span class="pre">localid</span></tt> and element <tt class="docutils literal"><span class="pre">base:namespace</span></tt> is mapped to constant <tt class="docutils literal"><span class="pre">NL.KAD.BAG</span></tt> (note the single quotes around <tt class="docutils literal"><span class="pre">NL.KAD.BAG</span></tt>).</p>
+<p>To summarize:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">Complex</span></tt> is used to select a (complex) child element to be mapped. It is a container for child mapping elements (<tt class="docutils literal"><span class="pre">Primitive</span></tt>, <tt class="docutils literal"><span class="pre">Geometry</span></tt>, <tt class="docutils literal"><span class="pre">Complex</span></tt> or <tt class="docutils literal"><span class="pre">Feature</span></tt>)</li>
+<li>In the <tt class="docutils literal"><span class="pre">mapping</span></tt> attribute of <tt class="docutils literal"><span class="pre">Primitive</span></tt>, you can also use constants, not only column names</li>
+</ul>
+<p>The next property we want to map is <tt class="docutils literal"><span class="pre">ad:position</span></tt>. It contains the geometry of the address, but the actual GML geometry is nested on a deeper level and the property can occur multiple times. In our database, we have a table named <tt class="docutils literal"><span class="pre">ad_address_ad_position</span></tt> with columns <tt class="docutils literal"><span class="pre">fk</span></tt> (foreign key to ad_address) and <tt class="docutils literal"><span class="pre">value</span></tt> (geometry). Here&#8217;s the extended mapping:</p>
+<div class="topic">
+<p class="topic-title first">SQL feature store (schema-driven mode): Join elements and XPath expressions</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;FeatureTypeMapping</span> <span class="na">name=</span><span class="s">&quot;ad:Address&quot;</span> <span class="na">table=</span><span class="s">&quot;ad_address&quot;</span> <span class="na">xmlns:base=</span><span class="s">&quot;urn:x-inspire:specification:gmlas:BaseTypes:3.2&quot;</span> <span class="na">xmlns:ad=</span><span class="s">&quot;urn:x-inspire:specification:gmlas:Addresses:3.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;FIDMapping&gt;</span>
+    <span class="nt">&lt;Column</span> <span class="na">name=</span><span class="s">&quot;fid&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/FIDMapping&gt;</span>
+
+  <span class="nt">&lt;Complex</span> <span class="na">path=</span><span class="s">&quot;ad:inspireId&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;Complex</span> <span class="na">path=</span><span class="s">&quot;base:Identifier&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;base:localId&quot;</span> <span class="na">mapping=</span><span class="s">&quot;localid&quot;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;base:namespace&quot;</span> <span class="na">mapping=</span><span class="s">&quot;&#39;NL.KAD.BAG&#39;&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/Complex&gt;</span>
+  <span class="nt">&lt;/Complex&gt;</span>
+
+  <span class="nt">&lt;Complex</span> <span class="na">path=</span><span class="s">&quot;ad:position&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;Join</span> <span class="na">table=</span><span class="s">&quot;ad_address_ad_position&quot;</span> <span class="na">fromColumns=</span><span class="s">&quot;fid&quot;</span> <span class="na">toColumns=</span><span class="s">&quot;fk&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;Complex</span> <span class="na">path=</span><span class="s">&quot;ad:GeographicPosition&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;Complex</span> <span class="na">path=</span><span class="s">&quot;ad:geometry&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;Geometry</span> <span class="na">path=</span><span class="s">&quot;.&quot;</span> <span class="na">mapping=</span><span class="s">&quot;value&quot;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;/Complex&gt;</span>
+      <span class="nt">&lt;Complex</span> <span class="na">path=</span><span class="s">&quot;ad:specification&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;text()&quot;</span> <span class="na">mapping=</span><span class="s">&quot;&#39;entrance&#39;&quot;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;/Complex&gt;</span>
+      <span class="nt">&lt;Complex</span> <span class="na">path=</span><span class="s">&quot;ad:method&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;text()&quot;</span> <span class="na">mapping=</span><span class="s">&quot;&#39;byOtherParty&#39;&quot;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;/Complex&gt;</span>
+      <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;ad:default&quot;</span> <span class="na">mapping=</span><span class="s">&quot;&#39;true&#39;&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/Complex&gt;</span>
+  <span class="nt">&lt;/Complex&gt;</span>
+
+<span class="nt">&lt;/FeatureTypeMapping&gt;</span>
+</pre></div>
+</div>
+</div>
+<p>Again, the <tt class="docutils literal"><span class="pre">Complex</span></tt> element is used to drill into the XML structure of the property and several elements are mapped to constant values. But there are also new things to observe:</p>
+<ul class="simple">
+<li>The first child element of a <tt class="docutils literal"><span class="pre">&lt;Complex&gt;</span></tt> (or <tt class="docutils literal"><span class="pre">&lt;Primitive&gt;</span></tt>, <tt class="docutils literal"><span class="pre">&lt;Geometry&gt;</span></tt> or <tt class="docutils literal"><span class="pre">&lt;Feature&gt;</span></tt>) can be <tt class="docutils literal"><span class="pre">&lt;Join&gt;</span></tt>. <tt class="docutils literal"><span class="pre">&lt;Join&gt;</span></tt> performs a table change: table rows corresponding to <tt class="docutils literal"><span class="pre">ad:position</span></tt> are not stored in the root feature type table (<tt class="docutils literal"><span class="pre">ad_address</span></tt>), but in a joined table. All siblings of <tt class="docutils literal"><span class="pre">&lt;Join&gt;</span></tt> (or their children) refer to this joined table (<tt class="docutils literal"><span class="pre">ad_address_ad_position</span></tt>). The join condition that determines the related rows in the joined table is <tt class="docutils literal"><span class="pre">ad_address.fid=ad_address_ad_position.fk</span></tt>. <tt class="docutils literal"><span class="pre">&lt;Join&gt;</span></tt> is described in detail in the next section.</li>
+<li>Valid expressions for <tt class="docutils literal"><span class="pre">path</span></tt> can also be <tt class="docutils literal"><span class="pre">.</span></tt> (current node) and <tt class="docutils literal"><span class="pre">text()</span></tt> (primitive value of the current node).</li>
+</ul>
+<p>Let&#8217;s move on to the mapping of property <tt class="docutils literal"><span class="pre">ad:component</span></tt>. This property can occur multiple times and contains (a reference to) another feature.</p>
+<div class="topic">
+<p class="topic-title first">SQL feature store (schema-driven mode): Feature elements</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;FeatureTypeMapping</span> <span class="na">name=</span><span class="s">&quot;ad:Address&quot;</span> <span class="na">table=</span><span class="s">&quot;ad_address&quot;</span> <span class="na">xmlns:base=</span><span class="s">&quot;urn:x-inspire:specification:gmlas:BaseTypes:3.2&quot;</span> <span class="na">xmlns:ad=</span><span class="s">&quot;urn:x-inspire:specification:gmlas:Addresses:3.0&quot;</span><span class="nt">&gt;</span>    
+    [...]
+    <span class="nt">&lt;Complex</span> <span class="na">path=</span><span class="s">&quot;ad:component&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;Join</span> <span class="na">table=</span><span class="s">&quot;ad_address_ad_component&quot;</span> <span class="na">fromColumns=</span><span class="s">&quot;fid&quot;</span> <span class="na">toColumns=</span><span class="s">&quot;fk&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;Feature</span> <span class="na">path=</span><span class="s">&quot;.&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;Href</span> <span class="na">mapping=</span><span class="s">&quot;href&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;/Feature&gt;</span>
+    <span class="nt">&lt;/Complex&gt;</span>
+<span class="nt">&lt;/FeatureTypeMapping&gt;</span>
+</pre></div>
+</div>
+</div>
+<p>As in the mapping of <tt class="docutils literal"><span class="pre">ad:position</span></tt>, a <tt class="docutils literal"><span class="pre">&lt;Join&gt;</span></tt> is used to change the table context. The table that stores the information for <tt class="docutils literal"><span class="pre">ad:component</span></tt> properties is <tt class="docutils literal"><span class="pre">ad_address_ad_component</span></tt>. The <tt class="docutils literal"><span class="pre">&lt;Feature&gt;</span></tt> declares that we want to map a feature-valued node and it&#8217;s <tt class="docutils literal"><span class="pre">&lt;Href&gt;</span></tt> sub-element defines that column <tt class="docutils literal"><span class="pre">href</span></tt> stores the value of the <tt class="docutils literal"><span class="pre">xlink:href</span></tt> attribute.</p>
+<p>Here is an overview of all options for <tt class="docutils literal"><span class="pre">&lt;Complex&gt;</span></tt> elements:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="11%" />
+<col width="7%" />
+<col width="63%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Cardinality</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">path</span></tt></td>
+<td>1</td>
+<td>QName</td>
+<td>Name/XPath-expression that determines the element to be mapped</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&lt;Join&gt;</span></tt></td>
+<td>0..1</td>
+<td>Complex</td>
+<td>Defines a change in the table context</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&lt;CustomConverter&gt;</span></tt></td>
+<td>0..1</td>
+<td>Complex</td>
+<td>Plugs-in a specialized DB-to-ObjectModel converter implementation</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&lt;Primitive&gt;</span></tt></td>
+<td>0..n</td>
+<td>Complex</td>
+<td>Defines the mapping of a primitive-valued node</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&lt;Geometry&gt;</span></tt></td>
+<td>0..n</td>
+<td>Complex</td>
+<td>Defines the mapping of a geometry-valued node</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&lt;Complex&gt;</span></tt></td>
+<td>0..n</td>
+<td>Complex</td>
+<td>Defines the mapping of a complex-valued node</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&lt;Feature&gt;</span></tt></td>
+<td>0..n</td>
+<td>Complex</td>
+<td>Defines the mapping of a feature-valued node</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">The order of child elements <tt class="docutils literal"><span class="pre">&lt;Primitive&gt;</span></tt>, <tt class="docutils literal"><span class="pre">&lt;Geometry&gt;</span></tt>, <tt class="docutils literal"><span class="pre">&lt;Complex&gt;</span></tt> and <tt class="docutils literal"><span class="pre">&lt;Feature&gt;</span></tt> is not restricted. They may appear in any order.</p>
+</div>
+<p>Here is an overview on all options for <tt class="docutils literal"><span class="pre">&lt;Feature&gt;</span></tt> elements:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="11%" />
+<col width="7%" />
+<col width="63%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Cardinality</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">path</span></tt></td>
+<td>1</td>
+<td>QName</td>
+<td>Name/XPath-expression that determines the element to be mapped</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&lt;CustomConverter&gt;</span></tt></td>
+<td>0..1</td>
+<td>Complex</td>
+<td>Plugs-in a specialized DB-to-ObjectModel converter implementation</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&lt;Href&gt;</span></tt></td>
+<td>0..1</td>
+<td>Complex</td>
+<td>Defines the column that stores the value for <tt class="docutils literal"><span class="pre">xlink:href</span></tt></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="changing-the-table-context">
+<h4>6.5.5.3. Changing the table context<a class="headerlink" href="#changing-the-table-context" title="Permalink to this headline">¶</a></h4>
+<p>At the beginning of a <tt class="docutils literal"><span class="pre">&lt;FeatureTypeMapping&gt;</span></tt>, the current table context is the one specified by the <tt class="docutils literal"><span class="pre">table</span></tt> attribute. In the following example snippet, this would be table <tt class="docutils literal"><span class="pre">ad_address</span></tt>.</p>
+<div class="topic">
+<p class="topic-title first">SQL feature store: Initial table context</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;FeatureTypeMapping</span> <span class="na">name=</span><span class="s">&quot;ad:Address&quot;</span> <span class="na">table=</span><span class="s">&quot;ad_address&quot;</span><span class="nt">&gt;</span>
+ [...]
+  <span class="nt">&lt;Complex</span> <span class="na">path=</span><span class="s">&quot;gml:identifier&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;text()&quot;</span> <span class="na">mapping=</span><span class="s">&quot;gml_identifier&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;@codeSpace&quot;</span> <span class="na">mapping=</span><span class="s">&quot;gml_identifier_attr_codespace&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/Complex&gt;</span>
+ [...]
+<span class="nt">&lt;/FeatureTypeMapping&gt;</span>
+</pre></div>
+</div>
+</div>
+<p>Note that all mapped columns stem from table <tt class="docutils literal"><span class="pre">ad_address</span></tt>. This is fine, as each feature can only have a single <tt class="docutils literal"><span class="pre">gml:identifier</span></tt> property. However, when mapping a property that may occur any number of times, we will have to access the values for this property in a separate table.</p>
+<div class="topic">
+<p class="topic-title first">SQL feature store: Changing the table context</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;FeatureTypeMapping</span> <span class="na">name=</span><span class="s">&quot;ad:Address&quot;</span> <span class="na">table=</span><span class="s">&quot;ad_address&quot;</span><span class="nt">&gt;</span>
+ [...]
+  <span class="nt">&lt;Complex</span> <span class="na">path=</span><span class="s">&quot;gml:identifier&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;text()&quot;</span> <span class="na">mapping=</span><span class="s">&quot;gml_identifier&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;@codeSpace&quot;</span> <span class="na">mapping=</span><span class="s">&quot;gml_identifier_attr_codespace&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/Complex&gt;</span>
+ [...]
+  <span class="nt">&lt;Complex</span> <span class="na">path=</span><span class="s">&quot;ad:position&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;Join</span> <span class="na">table=</span><span class="s">&quot;ad_address_ad_position&quot;</span> <span class="na">fromColumns=</span><span class="s">&quot;attr_gml_id&quot;</span> <span class="na">toColumns=</span><span class="s">&quot;parentfk&quot;</span> <span class="na">orderColumns=</span><span class="s">&quot;num&quot;</span> <span class="na">numbered=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;Complex</span> <span class="na">path=</span><span class="s">&quot;ad:GeographicPosition&quot;</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;Complex</span> <span class="na">path=</span><span class="s">&quot;ad:geometry&quot;</span><span class="nt">&gt;</span>
+       <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;@nilReason&quot;</span> <span class="na">mapping=</span><span class="s">&quot;ad_geographicposition_ad_geometry_attr_nilreason&quot;</span><span class="nt">/&gt;</span>
+       <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;@gml:remoteSchema&quot;</span> <span class="na">mapping=</span><span class="s">&quot;ad_geographicposition_ad_geometry_attr_gml_remoteschema&quot;</span><span class="nt">/&gt;</span>
+       <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;@owns&quot;</span> <span class="na">mapping=</span><span class="s">&quot;ad_geographicposition_ad_geometry_attr_owns&quot;</span><span class="nt">/&gt;</span>
+       <span class="nt">&lt;Geometry</span> <span class="na">path=</span><span class="s">&quot;.&quot;</span> <span class="na">mapping=</span><span class="s">&quot;ad_geographicposition_ad_geometry_value&quot;</span><span class="nt">/&gt;</span>
+     <span class="nt">&lt;/Complex&gt;</span>
+     [...]
+     <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;ad:default&quot;</span> <span class="na">mapping=</span><span class="s">&quot;ad_geographicposition_ad_default&quot;</span><span class="nt">/&gt;</span>
+   <span class="nt">&lt;/Complex&gt;</span>
+ <span class="nt">&lt;/Complex&gt;</span>
+ [...]
+<span class="nt">&lt;/FeatureTypeMapping&gt;</span>
+</pre></div>
+</div>
+</div>
+<p>In this example, property <tt class="docutils literal"><span class="pre">gml:identifier</span></tt> is mapped as before (the data values stem from table <tt class="docutils literal"><span class="pre">ad_address</span></tt>). In contrast to that, property <tt class="docutils literal"><span class="pre">ad:position</span></tt> can occur any number of times for a single <tt class="docutils literal"><span class="pre">ad_address</span></tt> feature instance. In order to reflect that in the relational model, the values for this property have to be taken from/stored in a separate table. The feature type table (<tt class="docutils literal"><span class="pre">ad_address</span></tt>) must have a 1:n relation to this table.</p>
+<p>The <tt class="docutils literal"><span class="pre">&lt;Join&gt;</span></tt> element is used to define such a change in the table context (in other words: a relation/join between two tables). A <tt class="docutils literal"><span class="pre">&lt;Join&gt;</span></tt> element may only occur as first child element of any of the mapping elements (<tt class="docutils literal"><span class="pre">&lt;Primitive&gt;</span></tt>, <tt class="docutils literal"><span class="pre">&lt;Geometry&gt;</span></tt>, <tt class="docutils literal"><span class="pre">&lt;Feature&gt;</span></tt> or <tt class="docutils literal"><span class="pre">&lt;Complex&gt;</span></tt>). It changes from the current table context to another one. In the example, the table context in the mapping of property <tt class="docutils literal"><span class="pre">ad:position</span></tt> is changed from <tt class="docutils literal"><span class="pre">ad_address</span></tt> to <tt class="docutils literal"><span class="pre">ad_address_ad_position</span></tt>. All mapping instructions that follow the <tt class="docutils literal"><span class="pre">&lt;Join&gt;</span></tt> element refer to the new table context. For example, the geometry value is taken from <tt class="docutils literal"><span class="pre">ad_address_ad_position.ad_geographicposition_ad_geometry_value</span></tt>.</p>
+<p>The following table lists all available options for <tt class="docutils literal"><span class="pre">&lt;Join&gt;</span></tt> elements:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="9%" />
+<col width="6%" />
+<col width="70%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Cardinality</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">table</span></tt></td>
+<td>1..1</td>
+<td>String</td>
+<td>Name of the target table to change to.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">fromColumns</span></tt></td>
+<td>1..1</td>
+<td>String</td>
+<td>One or more columns that define the join key in the source table.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">toColumns</span></tt></td>
+<td>1..1</td>
+<td>String</td>
+<td>One or more columns that define the join key in the target table.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">orderColumns</span></tt></td>
+<td>0..1</td>
+<td>String</td>
+<td>One or more columns hat define the order of the joined rows.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">numbered</span></tt></td>
+<td>0..1</td>
+<td>Boolean</td>
+<td>Set to true, if orderColumns refers to a single column that contains natural numbers [1,2,3,...].</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&lt;AutoKeyColumn&gt;</span></tt></td>
+<td>0..n</td>
+<td>Complex</td>
+<td>Columns in the target table that store autogenerated keys (only required for transactions).</td>
+</tr>
+</tbody>
+</table>
+<p>Attributes <tt class="docutils literal"><span class="pre">fromColumns</span></tt>, <tt class="docutils literal"><span class="pre">toColumns</span></tt> and <tt class="docutils literal"><span class="pre">orderColumns</span></tt> may each contain one or more columns. When specifying multiple columns, they must be given as a whitespace-separated list. <tt class="docutils literal"><span class="pre">orderColumns</span></tt> is used to force a specific ordering on the joined table rows. If this attribute is omitted, the order of joined rows is not defined and reconstructed feature instances may vary each time they are fetched from the database. In the above example, this would mean that the multiple <tt class="docutils literal"><span class="pre">ad:position</span></tt> properties of an <tt class="docutils literal"><span class="pre">ad:Address</span></tt> feature may change their order.</p>
+<p>In case that the order column stores the child index of the XML element, the <tt class="docutils literal"><span class="pre">numbered</span></tt> attribute should be set to <tt class="docutils literal"><span class="pre">true</span></tt>. In this special case, filtering on property names with child indexes will be correctly mapped to SQL WHERE clauses as in the following WFS example request.</p>
+<div class="topic">
+<p class="topic-title first">SQL feature store: WFS query with child index</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;GetFeature</span> <span class="na">version=</span><span class="s">&quot;2.0.0&quot;</span> <span class="na">service=</span><span class="s">&quot;WFS&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;Query</span> <span class="na">typeNames=</span><span class="s">&quot;ad:Address&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;fes:Filter&gt;</span>
+      <span class="nt">&lt;fes:BBOX&gt;</span>
+        <span class="nt">&lt;fes:ValueReference&gt;</span>ad:position[3]/ad:GeographicPosition/ad:geometry<span class="nt">&lt;/fes:ValueReference&gt;</span>
+        <span class="nt">&lt;gml:Envelope</span> <span class="na">srsName=</span><span class="s">&quot;urn:ogc:def:crs:EPSG::4258&quot;</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;gml:lowerCorner&gt;</span>52.691 5.244<span class="nt">&lt;/gml:lowerCorner&gt;</span>
+          <span class="nt">&lt;gml:upperCorner&gt;</span>52.711 5.245<span class="nt">&lt;/gml:upperCorner&gt;</span>
+        <span class="nt">&lt;/gml:Envelope&gt;</span>
+      <span class="nt">&lt;/fes:BBOX&gt;</span>
+    <span class="nt">&lt;/fes:Filter&gt;</span>
+  <span class="nt">&lt;/Query&gt;</span>
+<span class="nt">&lt;/GetFeature&gt;</span>
+</pre></div>
+</div>
+</div>
+<p>In the above example, only those <tt class="docutils literal"><span class="pre">ad:Address</span></tt> features will be returned where the geometry in the third <tt class="docutils literal"><span class="pre">ad:position</span></tt> property has an intersection with the specified bounding box. If only other <tt class="docutils literal"><span class="pre">ad:position</span></tt> properties (e.g. the first one) matches this constraint, they will not be included in the output.</p>
+<p>The <tt class="docutils literal"><span class="pre">&lt;AutoKeyColumn&gt;</span></tt> configuration option is only required when you want to use transactions on your feature store and your relational model is non-canonical. Ideally, the mapping will only change the table context in case the feature type model allows for multiple child elements at that point. In other words: if the XML schema has <tt class="docutils literal"><span class="pre">maxOccurs</span></tt> set to <tt class="docutils literal"><span class="pre">unbounded</span></tt> for an element, the relational model should have a corresponding 1:n relation. For a 1:n relation, the target table of the context change should have a foreign key column that points to the primary key column of the source table of the context change. This is important, as the SQL feature store has to propagate keys from the source table to the target table and store them there as well.</p>
+<p>If the joined table is the origin of other joins, than it is important that the SQL feature store can generate primary keys for the join table. If not configured otherwise, it is assumed that column <tt class="docutils literal"><span class="pre">id</span></tt> stores the primary key and that the database will auto-generate values on insert using database mechanisms such as sequences or triggers.</p>
+<p>If this is not the case, use the <tt class="docutils literal"><span class="pre">AutoKeyColumn</span></tt> options to define the columns that make up the primary key in the join table and how the values for these columns should be generated on insert. Here&#8217;s an example:</p>
+<div class="topic">
+<p class="topic-title first">SQL feature store: Key propagation for transactions</p>
+<div class="highlight-xml"><div class="highlight"><pre>[...]
+<span class="nt">&lt;Join</span> <span class="na">table=</span><span class="s">&quot;B&quot;</span> <span class="na">fromColumns=</span><span class="s">&quot;id&quot;</span> <span class="na">toColumns=</span><span class="s">&quot;parentfk&quot;</span> <span class="na">orderColumns=</span><span class="s">&quot;num&quot;</span> <span class="na">numbered=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;AutoKeyColumn</span> <span class="na">name=</span><span class="s">&quot;pk1&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;UUIDGenerator</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/AutoKeyColumn&gt;</span>
+  [...]
+  <span class="nt">&lt;Join</span> <span class="na">table=</span><span class="s">&quot;C&quot;</span> <span class="na">fromColumns=</span><span class="s">&quot;pk1&quot;</span> <span class="na">toColumns=</span><span class="s">&quot;parentfk&quot;</span> <span class="nt">/&gt;</span>
+  [...]  
+<span class="nt">&lt;/Join&gt;</span>
+[...]
+</pre></div>
+</div>
+</div>
+<p>In this example snippet, the primary key for table <tt class="docutils literal"><span class="pre">B</span></tt> is stored in column <tt class="docutils literal"><span class="pre">pk1</span></tt> and values for this column are generated using the UUID generator. There&#8217;s another change in the table context from B to C. Rows in table C have a key stored in column <tt class="docutils literal"><span class="pre">parentfk</span></tt> that corresponds to the <tt class="docutils literal"><span class="pre">B.pk1</span></tt>. On insert, values generated for <tt class="docutils literal"><span class="pre">B.pk1</span></tt> will be propagated and stored for new rows in this table as well. The following table lists the options for <tt class="docutils literal"><span class="pre">&lt;AutoKeyColumn&gt;</span></tt> elements.</p>
+<p>Inside a <tt class="docutils literal"><span class="pre">&lt;AutoKeyColumn&gt;</span></tt>, you may use the same key generators that are available for feature id generation (see above).</p>
+</div>
+<div class="section" id="handling-of-null-values">
+<span id="anchor-null-handling"></span><h4>6.5.5.4. Handling of NULL values<a class="headerlink" href="#handling-of-null-values" title="Permalink to this headline">¶</a></h4>
+<p>By default, a <tt class="docutils literal"><span class="pre">NULL</span></tt> value in a mapped database column means that just the mapped particle is omitted from the reconstructed feature. However, if the corresponding element/attribute or text node is required according to the GML application schema, this will lead to invalid feature instances. In order to deal with this, the global option <tt class="docutils literal"><span class="pre">&lt;NullEscalation&gt;</span></tt> should be set to <tt class="docutils literal"><span class="pre">true</span></tt> after the mapping configuration has been finished.</p>
+<div class="topic">
+<p class="topic-title first">SQL feature store: Activating NULL value escalation</p>
+<div class="highlight-xml"><div class="highlight"><pre>[...]
+<span class="nt">&lt;NullEscalation&gt;</span>true<span class="nt">&lt;/NullEscalation&gt;</span>
+[...]
+</pre></div>
+</div>
+</div>
+<p>If this option is turned on and a <tt class="docutils literal"><span class="pre">NULL</span></tt> value is found in a mapped column, the following strategy is applied:</p>
+<ul class="simple">
+<li>If the corresponding particle is not required according to the GML application schema, just this particle is omitted.</li>
+<li>If the container element of the particle is nillable according to the GML application schema, the <tt class="docutils literal"><span class="pre">xsi:nil</span></tt> attribute of the element is set to <tt class="docutils literal"><span class="pre">true</span></tt>.</li>
+<li>In all other cases, the <tt class="docutils literal"><span class="pre">NULL</span></tt> is escalated to the container element using the same strategy (until the feature level has been reached).</li>
+</ul>
+<p>This works well most of the times, but sometimes, it can be handy to override this behaviour. For that, each <tt class="docutils literal"><span class="pre">&lt;Primitive&gt;</span></tt>, <tt class="docutils literal"><span class="pre">&lt;Complex&gt;</span></tt>, <tt class="docutils literal"><span class="pre">&lt;Geometry&gt;</span></tt> or <tt class="docutils literal"><span class="pre">&lt;Feature&gt;</span></tt> configuration element supports the optional attribute <tt class="docutils literal"><span class="pre">nullEscalation</span></tt>. The following config snippet demonstrates a custom <tt class="docutils literal"><span class="pre">NULL</span></tt> escalation for element <tt class="docutils literal"><span class="pre">gml:endPosition</span></tt>. By default, the content of this element is required, but by setting it to <tt class="docutils literal"><span class="pre">false</span></tt>, <tt class="docutils literal"><span class="pre">NULL</span></tt> escalation can be manually switched off for this very particle.</p>
+<div class="topic">
+<p class="topic-title first">SQL feature store: Customizing NULL value escalation</p>
+<div class="highlight-xml"><div class="highlight"><pre>[...]
+<span class="nt">&lt;Complex</span> <span class="na">path=</span><span class="s">&quot;gml:TimePeriod&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;Complex</span> <span class="na">path=</span><span class="s">&quot;gml:beginPosition&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;text()&quot;</span> <span class="na">mapping=</span><span class="s">&quot;begin_position&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/Complex&gt;</span>
+  <span class="nt">&lt;Complex</span> <span class="na">path=</span><span class="s">&quot;gml:endPosition&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;@indeterminatePosition&quot;</span> <span class="na">mapping=</span><span class="s">&quot;end_position_indeterminate_position&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;Primitive</span> <span class="na">path=</span><span class="s">&quot;text()&quot;</span> <span class="na">mapping=</span><span class="s">&quot;end_position&quot;</span> <span class="na">nullEscalation=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/Complex&gt;</span>
+<span class="nt">&lt;/Complex&gt;</span>
+[...]
+</pre></div>
+</div>
+</div>
+<p>The following values are supported for attribute <tt class="docutils literal"><span class="pre">nullEscalation</span></tt> on <tt class="docutils literal"><span class="pre">&lt;Primitive&gt;</span></tt>, <tt class="docutils literal"><span class="pre">&lt;Complex&gt;</span></tt>, <tt class="docutils literal"><span class="pre">&lt;Geometry&gt;</span></tt> or <tt class="docutils literal"><span class="pre">&lt;Feature&gt;</span></tt> elements:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">auto</span></tt>: Handling of NULL values is derived from the GML application schema. Same as omitting the <tt class="docutils literal"><span class="pre">nullEscalation</span></tt> attribute.</li>
+<li><tt class="docutils literal"><span class="pre">true</span></tt>: <tt class="docutils literal"><span class="pre">NULL</span></tt> values are escalated to the container element.</li>
+<li><tt class="docutils literal"><span class="pre">false</span></tt>: <tt class="docutils literal"><span class="pre">NULL</span></tt> values are not escalated to the container element.</li>
+</ul>
+</div>
+<div class="section" id="blob-mapping">
+<span id="anchor-blob-mode"></span><h4>6.5.5.5. BLOB mapping<a class="headerlink" href="#blob-mapping" title="Permalink to this headline">¶</a></h4>
+<p>An alternative approach to mapping each feature type from an application schema using <tt class="docutils literal"><span class="pre">&lt;FeatureTypeMapping&gt;</span></tt> is to specify a single <tt class="docutils literal"><span class="pre">&lt;BLOBMapping&gt;</span></tt> element. This activates a different storage strategy based on a fixed database schema. Central to this schema is a table that stores every feature instance (and all of it&#8217;s properties) as a BLOB (binary large object).</p>
+<p>Here is an overview on all options for <tt class="docutils literal"><span class="pre">&lt;BLOBMapping&gt;</span></tt> elements:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="10%" />
+<col width="7%" />
+<col width="63%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Cardinality</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&lt;BlobTable&gt;</span></tt></td>
+<td>0..1</td>
+<td>String</td>
+<td>Database table that stores features, default: <tt class="docutils literal"><span class="pre">gml_objects</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&lt;FeatureTypeTable&gt;</span></tt></td>
+<td>0..1</td>
+<td>String</td>
+<td>Database table that stores feature types, default: <tt class="docutils literal"><span class="pre">feature_types</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>The central table (controlled by <tt class="docutils literal"><span class="pre">&lt;BlobTable&gt;</span></tt>) uses the following columns:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="15%" />
+<col width="67%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Column</th>
+<th class="head">PostGIS type</th>
+<th class="head">Used for</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">id</span></tt></td>
+<td>serial</td>
+<td>Primary key</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">gml_id</span></tt></td>
+<td>text</td>
+<td>Feature identifier (used for id queries and resolving xlink references)</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">gml_bounded_by</span></tt></td>
+<td>geometry</td>
+<td>Bounding box (used for spatial queries)</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ft_type</span></tt></td>
+<td>smallint</td>
+<td>Feature type identifier (used to narrow the result set)</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">binary_object</span></tt></td>
+<td>bytea</td>
+<td>Encoded feature instance</td>
+</tr>
+</tbody>
+</table>
+<p>The other table (controlled by <tt class="docutils literal"><span class="pre">&lt;FeatureTypeTable&gt;</span></tt>) stores a mapping of feature type names to feature type identifiers:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="16%" />
+<col width="73%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Column</th>
+<th class="head">PostGIS type</th>
+<th class="head">Used for</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">id</span></tt></td>
+<td>smallint</td>
+<td>Primary key</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">qname</span></tt></td>
+<td>text</td>
+<td>Name of the feature type</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">bbox</span></tt></td>
+<td>geometry</td>
+<td>Aggregated bounding box for all features of this type</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">In order for <tt class="docutils literal"><span class="pre">&lt;BLOBMapping&gt;</span></tt> to work, you need to have the correct tables in your database and initialize the feature type table with the names of all feature types you want to use. We recommend not to do this manually, see <a class="reference internal" href="#anchor-mapping-wizard"><em>Auto-generating a mapping configuration and tables</em></a>. The wizard will also create suitable indexes to speed up queries.</p>
+</div>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">You may wonder how to get data into the database in BLOB mode. As for standard mapping, you can do this by executing WFS-T requests or by using the feature store loader. Its usage is described in the last steps of <a class="reference internal" href="#anchor-mapping-wizard"><em>Auto-generating a mapping configuration and tables</em></a>.</p>
+</div>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">In BLOB mode, only spatial and feature id queries can be mapped to SQL WHERE-constraints. All other kinds of filter conditions are performed in memory. See <a class="reference internal" href="#anchor-filtering"><em>Evaluation of query filters</em></a> for more information.</p>
+</div>
+</div>
+</div>
+<div class="section" id="transactions-and-feature-id-generation">
+<h3>6.5.6. Transactions and feature id generation<a class="headerlink" href="#transactions-and-feature-id-generation" title="Permalink to this headline">¶</a></h3>
+<p>The mapping defined by a <tt class="docutils literal"><span class="pre">&lt;FeatureTypeMapping&gt;</span></tt> element generally works in both directions:</p>
+<ul class="simple">
+<li><strong>Table-to-feature-type (query)</strong>: Feature instances are created from table rows</li>
+<li><strong>Feature-type-to-table (insert)</strong>: New table rows are created for inserted feature instances</li>
+</ul>
+<p>However, there&#8217;s a caveat for inserts: The SQL feature store has to know how to obtain new and unique feature ids.</p>
+<p>When features are inserted into a SQL feature store (for example via a WFS transaction), the client can choose between different id generation modes. These modes control whether feature ids (the values in the gml:id attribute) have to be re-generated. There are three id generation modes available, which directly relate to the WFS 1.1.0 specification:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">UseExisting</span></tt>: The feature store will use the original gml:id values that have been provided in the input. This may lead to errors if the provided ids are already in use or if the format of the id does not match the configuration.</li>
+<li><tt class="docutils literal"><span class="pre">GenerateNew</span></tt>: The feature store will discard the original gml:id values and use the configured generator to produce new and unique identifiers. References in the input (xlink:href) that point to a feature with an reassigned id are fixed as well, so reference consistency is ensured.</li>
+<li><tt class="docutils literal"><span class="pre">ReplaceDuplicate</span></tt>: The feature store will try to use the original gml:id values that have been provided in the input. If a certain identifier already exists in the database, the configured generator is used to produce a new and unique identifier. NOTE: Support for this mode is not implemented yet.</li>
+</ul>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">In a WFS 1.1.0 insert request, the id generation mode is controlled by attribute <tt class="docutils literal"><span class="pre">idGenMode</span></tt>. WFS 1.0.0 and WFS 2.0.0 don&#8217;t support to specify it on a request basis. However, in the deegree WFS configuration you can control it in the option <tt class="docutils literal"><span class="pre">EnableTransactions</span></tt>.</p>
+</div>
+<p>In order to generate the required ids for <tt class="docutils literal"><span class="pre">GenerateNew</span></tt>, you can choose between different generators. These are configured in the <tt class="docutils literal"><span class="pre">&lt;FIDMapping&gt;</span></tt> child element of <tt class="docutils literal"><span class="pre">&lt;FeatureTypeMapping&gt;</span></tt>:</p>
+<div class="section" id="auto-id-generator">
+<h4>6.5.6.1. Auto id generator<a class="headerlink" href="#auto-id-generator" title="Permalink to this headline">¶</a></h4>
+<p>The auto id generator depends on the database to provide new values for the feature id column(s) on insert. This requires that the used feature id columns are configured appropriately in the database (e.g. that they have a trigger or a suitable column type such as <tt class="docutils literal"><span class="pre">SERIAL</span></tt> in PostgreSQL).</p>
+<div class="topic">
+<p class="topic-title first">SQL feature store: Auto id generator example</p>
+<div class="highlight-xml"><div class="highlight"><pre>[...]
+<span class="nt">&lt;FIDMapping</span> <span class="na">prefix=</span><span class="s">&quot;AD_ADDRESS_&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;Column</span> <span class="na">name=</span><span class="s">&quot;attr_gml_id&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;AutoIDGenerator</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/FIDMapping&gt;</span>
+[...]
+</pre></div>
+</div>
+</div>
+<p>This snippet defines the feature id mapping and the id generation behaviour for a feature type called <tt class="docutils literal"><span class="pre">ad:Address</span></tt></p>
+<ul class="simple">
+<li>When querying, the prefix <tt class="docutils literal"><span class="pre">AD_ADDRESS_</span></tt> is prepended to column <tt class="docutils literal"><span class="pre">attr_gml_id</span></tt> to create the exported feature id. If <tt class="docutils literal"><span class="pre">attr_gml_id</span></tt> contains the value <tt class="docutils literal"><span class="pre">42</span></tt> in the database, the feature instance that is created from this row will have the value <tt class="docutils literal"><span class="pre">AD_ADDRESS_42</span></tt>.</li>
+<li>On insert (mode=UseExisting), provided gml:id values must have the format <tt class="docutils literal"><span class="pre">AD_ADDRESS_$</span></tt>. The prefix <tt class="docutils literal"><span class="pre">AD_ADDRESS_</span></tt> is removed and the remaining part of the identifier is stored in column <tt class="docutils literal"><span class="pre">attr_gml_id</span></tt>.</li>
+<li>On insert (mode=GenerateNew), the database must automatically create a new value for column <tt class="docutils literal"><span class="pre">attr_gml_id</span></tt> which will be the postfix of the newly assigned feature id.</li>
+</ul>
+</div>
+<div class="section" id="uuid-generator">
+<h4>6.5.6.2. UUID generator<a class="headerlink" href="#uuid-generator" title="Permalink to this headline">¶</a></h4>
+<p>The UUID generator generator uses Java&#8217;s UUID implementation to generate new and unique identifiers. This requires that the database column for the id is a character column that can store strings with a length of 36 characters and that the database does not perform any kind of insertion value generation for this column (e.g triggers).</p>
+<div class="topic">
+<p class="topic-title first">SQL feature store: UUID generator example</p>
+<div class="highlight-xml"><div class="highlight"><pre>[...]
+<span class="nt">&lt;FIDMapping</span> <span class="na">prefix=</span><span class="s">&quot;AD_ADDRESS_&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;Column</span> <span class="na">name=</span><span class="s">&quot;attr_gml_id&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;UUIDGenerator</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/FIDMapping&gt;</span>
+[...]
+</pre></div>
+</div>
+</div>
+<p>This snippet defines the feature id mapping and the id generation behaviour for a feature type called <tt class="docutils literal"><span class="pre">ad:Address</span></tt></p>
+<ul class="simple">
+<li>When querying, the prefix <tt class="docutils literal"><span class="pre">AD_ADDRESS_</span></tt> is prepended to column <tt class="docutils literal"><span class="pre">attr_gml_id</span></tt> to create the exported feature id. If <tt class="docutils literal"><span class="pre">attr_gml_id</span></tt> contains the value <tt class="docutils literal"><span class="pre">550e8400-e29b-11d4-a716-446655440000</span></tt> in the database, the feature instance that is created from this row will have the value <tt class="docutils literal"><span class="pre">AD_ADDRESS_550e8400-e29b-11d4-a716-446655440000</span></tt>.</li>
+<li>On insert (mode=UseExisting), provided gml:id values must have the format <tt class="docutils literal"><span class="pre">AD_ADDRESS_$</span></tt>. The prefix <tt class="docutils literal"><span class="pre">AD_ADDRESS_</span></tt> is removed and the remaining part of the identifier is stored in column <tt class="docutils literal"><span class="pre">attr_gml_id</span></tt>.</li>
+<li>On insert (mode=GenerateNew), a new UUID is generated and stored in column <tt class="docutils literal"><span class="pre">attr_gml_id</span></tt>.</li>
+</ul>
+</div>
+<div class="section" id="sequence-id-generator">
+<h4>6.5.6.3. Sequence id generator<a class="headerlink" href="#sequence-id-generator" title="Permalink to this headline">¶</a></h4>
+<p>The sequence id generator queries a database sequence to generate new and unique identifiers. This requires that the database column for the id is compatible with the values generated by the sequence and that the database does not perform any kind of automatical value insertion for this column (e.g triggers).</p>
+<div class="topic">
+<p class="topic-title first">SQL feature store: Database sequence generator example</p>
+<div class="highlight-xml"><div class="highlight"><pre>[...]
+<span class="nt">&lt;FIDMapping</span> <span class="na">prefix=</span><span class="s">&quot;AD_ADDRESS_&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;Column</span> <span class="na">name=</span><span class="s">&quot;attr_gml_id&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;SequenceIDGenerator</span> <span class="na">sequence=</span><span class="s">&quot;SEQ_FID&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/FIDMapping&gt;</span>
+[...]
+</pre></div>
+</div>
+</div>
+<p>This snippet defines the feature id mapping and the id generation behaviour for a feature type called <tt class="docutils literal"><span class="pre">ad:Address</span></tt></p>
+<ul class="simple">
+<li>When querying, the prefix <tt class="docutils literal"><span class="pre">AD_ADDRESS_</span></tt> is prepended to column <tt class="docutils literal"><span class="pre">attr_gml_id</span></tt> to create the exported feature id. If <tt class="docutils literal"><span class="pre">attr_gml_id</span></tt> contains the value <tt class="docutils literal"><span class="pre">42</span></tt> in the database, the feature instance that is created from this row will have the value <tt class="docutils literal"><span class="pre">AD_ADDRESS_42</span></tt>.</li>
+<li>On insert (mode=UseExisting), provided gml:id values must have the format <tt class="docutils literal"><span class="pre">AD_ADDRESS_$</span></tt>. The prefix <tt class="docutils literal"><span class="pre">AD_ADDRESS_</span></tt> is removed and the remaining part of the identifier is stored in column <tt class="docutils literal"><span class="pre">attr_gml_id</span></tt>.</li>
+<li>On insert (mode=GenerateNew), the database sequence <tt class="docutils literal"><span class="pre">SEQ_FID</span></tt> is queried for new values to be stored in column <tt class="docutils literal"><span class="pre">attr_gml_id</span></tt>.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="evaluation-of-query-filters">
+<span id="anchor-filtering"></span><h3>6.5.7. Evaluation of query filters<a class="headerlink" href="#evaluation-of-query-filters" title="Permalink to this headline">¶</a></h3>
+<p>The SQL feature store always tries to map filter conditions (e.g. from WFS <tt class="docutils literal"><span class="pre">GetFeature</span></tt> requests or when accessed by the WMS) to SQL-WHERE conditions. However, this is not possible in all cases. Sometimes a filter uses an expression that does not have an equivalent SQL-WHERE clause. For example when using <a class="reference internal" href="#anchor-blob-mode"><em>BLOB mapping</em></a> and the filter is not based on a feature id or a spatial constraint.</p>
+<p>In such cases, the SQL feature store falls back to in-memory filtering. It will reconstruct feature by feature from the database and evaluate the filter in memory. If the filter matches, it will be included in the result feature stream. If not, it is skipped.</p>
+<p>The downside of this strategy is that it can put a serious load on your server. If you want to turn off in-memory filtering completely, use <tt class="docutils literal"><span class="pre">&lt;DisablePostFiltering&gt;</span></tt>. If this option is specified and a filter requires in-memory filtering, the query will be rejected.</p>
+</div>
+<div class="section" id="auto-generating-a-mapping-configuration-and-tables">
+<span id="anchor-mapping-wizard"></span><h3>6.5.8. Auto-generating a mapping configuration and tables<a class="headerlink" href="#auto-generating-a-mapping-configuration-and-tables" title="Permalink to this headline">¶</a></h3>
+<p>Although this functionality is still in beta stage, the services console can be used to automatically derive an SQL feature store configuration and set up tables from an existing GML application schema. If you don&#8217;t have an existing database structure that you want to use, you can use this option to create a working database set up very quickly. And even if you have an existing database you need to map manually, this functionality can be prove very helpful to generate a valid mapping configuration to start with.</p>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">As every (optional) attribute and element will be considered in the mapping, you may easily end up with hundreds of tables or columns.</p>
+</div>
+<p>This walkthrough is based on the INSPIRE Annex I schemas, but you should be able to use these instructions with other GML application schemas as well. Make sure that the INSPIRE workspace has been downloaded and activated as described in <a class="reference internal" href="lightly.html#anchor-workspace-inspire"><em>Example workspace 1: INSPIRE Network Services</em></a>. As another prerequisite, you will have to create an empty, spatially-enabled PostGIS database that you can connect to from your deegree installation.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Instead of PostGIS, you can also use an Oracle Spatial or an Microsoft SQL Server database. In order to enable support for these databases, see <a class="reference internal" href="javamodules.html#anchor-db-libraries"><em>Adding database modules</em></a>.</p>
+</div>
+<p>As a first step, create a JDBC connection to your database. Click <strong>server connections -&gt; jdbc</strong> and enter <strong>inspire</strong> (or an other identifier) as connection id:</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/console_featurestore_mapping1.jpg"><img alt="_images/console_featurestore_mapping1.jpg" src="_images/console_featurestore_mapping1.jpg" style="width: 50%;" /></a>
+<p class="caption">Creating a JDBC connection</p>
+</div>
+<p>Afterwards, click <strong>Create new</strong> and enter the connection details to your database:</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/console_featurestore_mapping2.jpg"><img alt="_images/console_featurestore_mapping2.jpg" src="_images/console_featurestore_mapping2.jpg" style="width: 50%;" /></a>
+<p class="caption">Creating a JDBC connection</p>
+</div>
+<p>By clicking <strong>Test connection</strong>, you can ensure that deegree can connect to your database:</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/console_featurestore_mapping3.jpg"><img alt="_images/console_featurestore_mapping3.jpg" src="_images/console_featurestore_mapping3.jpg" style="width: 50%;" /></a>
+<p class="caption">Testing the JDBC connection</p>
+</div>
+<p>If everything works, click <strong>Create</strong> to finish the creation of your JDBC resource:</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/console_featurestore_mapping4.jpg"><img alt="_images/console_featurestore_mapping4.jpg" src="_images/console_featurestore_mapping4.jpg" style="width: 50%;" /></a>
+<p class="caption">Testing the JDBC connection</p>
+</div>
+<p>Now, change to <strong>data stores -&gt; feature</strong>. We will have to delete the existing (memory-based) feature store first. Click <strong>Delete</strong>:</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/console_featurestore_mapping5.jpg"><img alt="_images/console_featurestore_mapping5.jpg" src="_images/console_featurestore_mapping5.jpg" style="width: 50%;" /></a>
+<p class="caption">Deleting the memory-based feature store</p>
+</div>
+<p>Enter &#8220;inspire&#8221; as name for the new feature store, select &#8220;SQL&#8221; from the drop-down box and click <strong>Create new</strong>:</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/console_featurestore_mapping6.jpg"><img alt="_images/console_featurestore_mapping6.jpg" src="_images/console_featurestore_mapping6.jpg" style="width: 50%;" /></a>
+<p class="caption">Creating a new SQL feature store resource</p>
+</div>
+<p>Select &#8220;Create tables from GML application schema&#8221; and click <strong>Next</strong>:</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/console_featurestore_mapping7.jpg"><img alt="_images/console_featurestore_mapping7.jpg" src="_images/console_featurestore_mapping7.jpg" style="width: 50%;" /></a>
+<p class="caption">Mapping a new SQL feature store configuration</p>
+</div>
+<p>You can now select the GML application schema files to be used. For this walkthrough, tick  <tt class="docutils literal"><span class="pre">Addresses.xsd</span></tt>, <tt class="docutils literal"><span class="pre">AdministrativeUnits.xsd</span></tt> and <tt class="docutils literal"><span class="pre">CadastralParcels.xsd</span></tt>  (if you select all schema files, hundreds of feature types from INPIRE Annex I will be mapped):</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/console_featurestore_mapping8.jpg"><img alt="_images/console_featurestore_mapping8.jpg" src="_images/console_featurestore_mapping8.jpg" style="width: 50%;" /></a>
+<p class="caption">Selecting the GML schema files to be considered</p>
+</div>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">This view presents any .xsd files that are located below the <strong>appschemas/</strong> directory of your deegree workspace. If you want to map any other GML application schema (such as GeoSciML or CityGML), place a copy of the application schema files into the <strong>appschemas/</strong> directory (using your favorite method, e.g. a file browser) and click <strong>Rescan</strong>. You should now have the option to select the files of this application schema in the services console view.</p>
+</div>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/console_featurestore_mapping9.jpg"><img alt="_images/console_featurestore_mapping9.jpg" src="_images/console_featurestore_mapping9.jpg" style="width: 50%;" /></a>
+<p class="caption">Selecting the GML schema files to be considered</p>
+</div>
+<p>Scroll down and click <strong>Next</strong>.</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/console_featurestore_mapping10.jpg"><img alt="_images/console_featurestore_mapping10.jpg" src="_images/console_featurestore_mapping10.jpg" style="width: 50%;" /></a>
+<p class="caption">Selecting mapping type and storage CRS</p>
+</div>
+<p>You will be presented with a rough analysis of the feature types contained in the selected GML application schema files. Select &#8220;Relational&#8221; (you may also select BLOB if your prefer this kind of storage) and enter &#8220;EPSG:4258&#8221; as storage CRS (this is the code for ETRS89, the recommmended CRS for harmonized INSPIRE datasets). After clicking <strong>Next</strong>, an SQL feature store configuration will be automatically derived from the application schema:</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/console_featurestore_mapping11.jpg"><img alt="_images/console_featurestore_mapping11.jpg" src="_images/console_featurestore_mapping11.jpg" style="width: 50%;" /></a>
+<p class="caption">The auto-generated SQL feature store configuration</p>
+</div>
+<p>Click <strong>Save</strong> to store this configuration:</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/console_featurestore_mapping12.jpg"><img alt="_images/console_featurestore_mapping12.jpg" src="_images/console_featurestore_mapping12.jpg" style="width: 50%;" /></a>
+<p class="caption">Auto-generated SQL statements for creating tables</p>
+</div>
+<p>Now, click <strong>Create DB tables</strong>. You will be presented with an auto-generated SQL script for creating the required tables in the database:</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/console_featurestore_mapping13.jpg"><img alt="_images/console_featurestore_mapping13.jpg" src="_images/console_featurestore_mapping13.jpg" style="width: 50%;" /></a>
+<p class="caption">Auto-generated SQL statements for creating tables</p>
+</div>
+<p>Click <strong>Execute</strong>. The SQL statements will now be executed against your database and the tables will be created:</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/console_featurestore_mapping15.jpg"><img alt="_images/console_featurestore_mapping15.jpg" src="_images/console_featurestore_mapping15.jpg" style="width: 50%;" /></a>
+<p class="caption">Mapping finished</p>
+</div>
+<p>Click <strong>Start feature store</strong>:</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/console_featurestore_mapping17.jpg"><img alt="_images/console_featurestore_mapping17.jpg" src="_images/console_featurestore_mapping17.jpg" style="width: 50%;" /></a>
+<p class="caption">Finished</p>
+</div>
+<p>Click <strong>Reload</strong> to force a reinitialization of the other workspace resources. We&#8217;re finished. Features access of the WFS and WMS uses your database now. However, as your database is empty, the WMS will not render anything and the WFS will not return any features when queried. In order to insert some harmonized INSPIRE features, click <strong>send requests</strong> and select one of the insert requests:</p>
+<p>Use the third drop-down menu to select an example request. Entries &#8220;Insert_200.xml&#8221; or &#8220;Insert_110.xml&#8221; can be used to insert a small number of INSPIRE Address features using WFS-T insert requests:</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/console_workspace_inspire3.png"><img alt="_images/console_workspace_inspire3.png" src="_images/console_workspace_inspire3.png" style="width: 50%;" /></a>
+<p class="caption">WFS-T example requests</p>
+</div>
+<p>Click <strong>Send</strong> to execute the request. After successful insertion, the database contains a few addresses, and you may want to move back to the layer overview (<strong>see layers</strong>). If you activate the AD.Address layer, the newly inserted features will be rendered by the deegree WMS (look for them in the area of Enkhuizen):</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/console_workspace_inspire4.png"><img alt="_images/console_workspace_inspire4.png" src="_images/console_workspace_inspire4.png" style="width: 50%;" /></a>
+<p class="caption">Ad.Address layer after insertion of example Address features</p>
+</div>
+<p>Of course, you can also perform WFS queries against the database backend, such as requesting of INSPIRE Addresses by street name:</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/console_workspace_inspire5.png"><img alt="_images/console_workspace_inspire5.png" src="_images/console_workspace_inspire5.png" style="width: 50%;" /></a>
+<p class="caption">More WFS examples</p>
+</div>
+<p>Besides WFS-T requests, there&#8217;s another handy option for inserting GML-encoded features. Click <strong>data stores -&gt; feature</strong> to access the feature store view again:</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/console_featurestore_mapping18.jpg"><img alt="_images/console_featurestore_mapping18.jpg" src="_images/console_featurestore_mapping18.jpg" style="width: 50%;" /></a>
+<p class="caption">Accessing the feature store loader</p>
+</div>
+<p>After clicking <strong>Loader</strong>, you will be presented with a simple view where you can insert a URL of a valid GML dataset:</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/console_featurestore_mapping19.jpg"><img alt="_images/console_featurestore_mapping19.jpg" src="_images/console_featurestore_mapping19.jpg" style="width: 50%;" /></a>
+<p class="caption">The feature store loader</p>
+</div>
+<p>Basically, you can use this view to insert any valid, GML-encoded dataset, as long as it conforms to the application schema. The INSPIRE workspace contains some suitable example datasets, so you may use a file-URL like:</p>
+<ul class="simple">
+<li><a class="reference external" href="file:/home/kelvin/.deegree/deegree-workspace-inspire/data/au-provincies.gml">file:/home/kelvin/.deegree/deegree-workspace-inspire/data/au-provincies.gml</a></li>
+<li><a class="reference external" href="file:/home/kelvin/.deegree/deegree-workspace-inspire/data/au-gemeenten.gml">file:/home/kelvin/.deegree/deegree-workspace-inspire/data/au-gemeenten.gml</a></li>
+<li><a class="reference external" href="file:/home/kelvin/.deegree/deegree-workspace-inspire/data/au-land.gml">file:/home/kelvin/.deegree/deegree-workspace-inspire/data/au-land.gml</a></li>
+<li><a class="reference external" href="file:/home/kelvin/.deegree/deegree-workspace-inspire/data/cadastralparcels-limburg.xml">file:/home/kelvin/.deegree/deegree-workspace-inspire/data/cadastralparcels-limburg.xml</a></li>
+<li><a class="reference external" href="file:/home/kelvin/.deegree/deegree-workspace-inspire/data/cadastralparcels-northholland.xml">file:/home/kelvin/.deegree/deegree-workspace-inspire/data/cadastralparcels-northholland.xml</a></li>
+</ul>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">The above URLs are for a UNIX system with a user named &#8220;kelvin&#8221;. You will need to adapt the URLs to match the location of your workspace directory.</p>
+</div>
+<p>After entering the URL, click <strong>Import</strong>:</p>
+<div class="figure" style="width: 60%">
+<a class="reference external image-reference" href="_images/console_featurestore_mapping20.jpg"><img alt="_images/console_featurestore_mapping20.jpg" src="_images/console_featurestore_mapping20.jpg" style="width: 50%;" /></a>
+<p class="caption">Imported INSPIRE datasets via the Loader</p>
+</div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013, The deegree project.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

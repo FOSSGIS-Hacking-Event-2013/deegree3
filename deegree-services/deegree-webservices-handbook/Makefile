@@ -187,5 +187,5 @@ gh-pages:
 	make html
 	mv -fv build/html/* .
 	rm -rf $(GH_PAGES_SOURCES) build
-	git add -A :/
+	git add -A .
 	git commit -m "generated gh-pages for feature/fossgis-hacking-handbook" && git push origin gh-pages ; git checkout feature/fossgis-hacking-handbook

@@ -182,13 +182,9 @@ gh-pages:
 	git checkout master
 	git checkout gh-pages
 	rm -rf build _sources _static _images
-	#	rm -rf build/*
 	git checkout feature/fossgis-hacking-handbook $(GH_PAGES_SOURCES)
 	git reset HEAD
 	make html
-	#pwd
-	#cd ../../
-	#pwd
 	mv -fv build/html/* .
 	rm -rf $(GH_PAGES_SOURCES) build
 	git add -A

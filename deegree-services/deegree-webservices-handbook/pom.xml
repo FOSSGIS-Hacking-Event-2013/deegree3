@@ -61,7 +61,7 @@
       <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
         <executions>
-          <execution>
+          <!--<execution>
             <id>build-html</id>
             <phase>compile</phase>
             <goals>
@@ -91,7 +91,7 @@
                 </exec>
               </tasks>
             </configuration>
-          </execution>
+          </execution>-->
 	  <execution>
           <id>make-gh-pages</id>
           <phase>generate-sources</phase>

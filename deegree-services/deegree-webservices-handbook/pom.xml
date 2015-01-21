@@ -27,37 +27,6 @@
   <build>
     <plugins>
       <plugin>
-        <artifactId>maven-resources-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>copy-resources</id>
-            <phase>generate-sources</phase>
-            <goals>
-              <goal>copy-resources</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>${basedir}/target/generated-sources</outputDirectory>
-              <resources>
-                <resource>
-                  <directory>src/main/sphinx</directory>
-                  <excludes>
-                    <exclude>images/*.*</exclude>
-                  </excludes>
-                  <filtering>true</filtering>
-                </resource>
-                <resource>
-                  <directory>src/main/sphinx</directory>
-                  <includes>
-                    <include>images/*.*</include>
-                  </includes>
-                  <filtering>false</filtering>
-                </resource>
-              </resources>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin> 
-      <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
         <executions>
           <execution>

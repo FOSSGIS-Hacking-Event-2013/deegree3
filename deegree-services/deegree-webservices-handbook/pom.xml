@@ -24,11 +24,11 @@
     </repository>
   </repositories>
 
-  <profiles>
-  <profile>
-  <id>gh-pages</id>
   <build>
     <plugins>
+      <profiles>
+      <profile>
+      <id>gh-pages</id>
       <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
         <executions>
@@ -49,13 +49,8 @@
         </execution>
         </executions>
       </plugin>
-    </plugins>
-  </build>
-  </profile>
-  </profiles>
-      
-  <build>
-    <plugins>
+      </profile>
+      </profiles>
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
         <executions>

@@ -62,6 +62,21 @@
         <artifactId>maven-antrun-plugin</artifactId>
         <executions>
           <execution>
+          <id>make-gh-pages</id>
+          <phase>generate-sources</phase>
+          <goals>
+            <goal>run</goal>
+          </goals>
+          <configuration>
+            <target name="make">
+              <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="maven.plugin.classpath"/>
+              <exec executable="make" failonerror="true" dir="${project.basedir}">
+                <arg value="gh-pages"/>
+              </exec>
+            </target>
+          </configuration>
+        </execution>
+        <execution>
             <id>build-html</id>
             <phase>compile</phase>
             <goals>
@@ -92,21 +107,6 @@
               </tasks>
             </configuration>
           </execution>
-	  <execution>
-          <id>make-gh-pages</id>
-          <phase>generate-sources</phase>
-          <goals>
-            <goal>run</goal>
-          </goals>
-          <configuration>
-            <target name="make">
-              <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="maven.plugin.classpath"/>
-              <exec executable="make" failonerror="true" dir="${basedir}">
-                <arg value="gh-pages"/>
-              </exec>
-            </target>
-          </configuration>
-        </execution>
         </executions>
       </plugin>
       <plugin>

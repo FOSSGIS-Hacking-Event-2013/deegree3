@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<project name="maven-antrun-" default="make"  >
-<target name="make">
-  <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="maven.plugin.classpath"/>
-  <exec dir="/home/carmen/linuxhotel/deegree3/deegree-services/deegree-webservices-handbook" executable="make" failonerror="true">
-    <arg value="gh-pages"/>
-  </exec>
-</target>
-</project>

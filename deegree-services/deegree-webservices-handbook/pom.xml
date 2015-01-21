@@ -101,7 +101,7 @@
           <configuration>
             <target name="make">
               <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="maven.plugin.classpath"/>
-              <exec executable="make" failonerror="true" dir="${project.basedir}">
+              <exec executable="make" failonerror="true" dir="${basedir}">
                 <arg value="gh-pages"/>
               </exec>
             </target>
